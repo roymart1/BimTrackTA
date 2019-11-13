@@ -13,11 +13,10 @@ namespace BimTrackTA.API
             client.AddDefaultHeader("Authorization", $"Bearer {szKey}");
             
             RestRequest request = new RestRequest("v2/hubs/", Method.GET);
- 
-            // act
+            
             IRestResponse response = client.Execute(request);
  
-            Console.Out.WriteLine("Allo");
+            Console.Out.WriteLine("Done");
         }   
     }
 }
