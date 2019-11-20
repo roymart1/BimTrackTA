@@ -10,6 +10,7 @@ using SeleniumTest.PageObjects.Hub;
 using SeleniumTest.PageObjects.Project;
 using SeleniumTest.PageObjects.ScreenDecorator;
 
+
 namespace Tests
 {
     public class UserTests
@@ -31,6 +32,21 @@ namespace Tests
             }
             Console.Out.WriteLine("END ---> " + DateTime.Now.ToString("MMdd_hhmmss"));
 
+        }        
+        
+        [Test]
+        public void AddMultipleUsersB()
+        {
+            CTX.SetKeyChainId("QA");
+            Console.Out.WriteLine("START ---> " + DateTime.Now.ToString("MMdd_hhmmss"));
+            for (int i = 0; i < 39; i++)
+            {
+                //create a new user                
+                AddNewUserTestB test1 = new AddNewUserTestB();
+                test1.createUser();
+            }
+            Console.Out.WriteLine("END ---> " + DateTime.Now.ToString("MMdd_hhmmss"));
+
         }
         
         [Test]
@@ -38,6 +54,21 @@ namespace Tests
         {
             var removeAll = new RemoveAllUsersTest();
             removeAll.RemoveAllUsers();
+        } 
+        
+        
+        [Test]
+        public void DeleteAllUsersB()
+        {
+            var removeAll = new RemoveAllUsersTest();
+            removeAll.RemoveAllUsersB();
+        } 
+        
+        [Test]
+        public void WriteToConsoleTest()
+        {
+            Console.WriteLine("---->>>> Console.WriteLine");
+            Console.Out.WriteLine("---->>>> Console.Out.WriteLine");
         } 
         
         

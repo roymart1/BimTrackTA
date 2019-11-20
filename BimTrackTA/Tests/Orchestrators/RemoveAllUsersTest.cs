@@ -35,5 +35,30 @@ namespace SeleniumTest
        
             CTX.driver.Close();   
         }
+        
+        
+        public void RemoveAllUsersB()
+        {
+//            CTX.driver.Url = "http://bimtrackapp.co";
+            CTX.driver.Url = "https://qa.bimtrack.co/";
+
+            BTLogin login = new BTLogin();
+            login.LogIn("zenteliatest@gmail.com", "Z3nt3l1499!");
+            
+            BTHubsTracks btHubsTracks = new BTHubsTracks();
+            ProjectList prjList = btHubsTracks.OpenHubByName("ZenyTest");
+            
+            prjList.SelectProject("ZENPROJECT001");
+            
+            MainProject mainProject = new MainProject();
+
+            SideBarMenu sideBarMenu = mainProject.GetSidebarMenu();
+            sideBarMenu.ClickMenuItem("Hub Settings");
+            HubSettings hubSettings = new HubSettings();
+
+            UserManagementForm userForm = new UserManagementForm(hubSettings.GetRoot());
+       
+            CTX.driver.Close();   
+        }
     }
 }

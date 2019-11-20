@@ -23,8 +23,6 @@ namespace SeleniumTest.Common
         public static string EMAILS_DOMAIN = "@gmail.com";
 
         private string hostname = "imap.gmail.com";
-        private string username = "bimoneauto";
-        private string password = "B1m0n3 Rules 99!";
 
         // This string is used to locate the activation link within the activation email sent by BimTrack
         private const string emailLinkPrefix = "Activate my account ";
@@ -32,8 +30,10 @@ namespace SeleniumTest.Common
 
         public void GetAllUnread()
         {
+            
             // The default port for IMAP over SSL is 993.
-            using (ImapClient client = new ImapClient(hostname, 993, username, password, AuthMethod.Login, true))
+            using (ImapClient client = new ImapClient(hostname, 993, CTX.keyChain.email_username, 
+                CTX.keyChain.email_password, AuthMethod.Login, true))
             {
                 Console.WriteLine("We are connected!");
                 IEnumerable<uint> uids = client.Search( SearchCondition.Unseen() );
@@ -54,7 +54,8 @@ namespace SeleniumTest.Common
             var bTest = false;
             
             // The default port for IMAP over SSL is 993.
-            using (ImapClient client = new ImapClient(hostname, 993, username, password, AuthMethod.Login, true))
+            using (ImapClient client = new ImapClient(hostname, 993, CTX.keyChain.email_username, 
+                CTX.keyChain.email_password, AuthMethod.Login, true))
             {
                 Console.WriteLine("We are connected!");
                 IEnumerable<uint> uids = null;

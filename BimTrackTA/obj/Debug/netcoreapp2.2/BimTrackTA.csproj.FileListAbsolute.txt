@@ -1,0 +1,15 @@
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/BimTrackTA.deps.json
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/BimTrackTA.runtimeconfig.json
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/BimTrackTA.runtimeconfig.dev.json
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/BimTrackTA.dll
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/BimTrackTA.pdb
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/obj/Debug/netcoreapp2.2/BimTrackTA.csprojAssemblyReference.cache
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/obj/Debug/netcoreapp2.2/BimTrackTA.csproj.CoreCompileInputs.cache
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/obj/Debug/netcoreapp2.2/BimTrackTA.AssemblyInfoInputs.cache
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/obj/Debug/netcoreapp2.2/BimTrackTA.AssemblyInfo.cs
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/obj/Debug/netcoreapp2.2/BimTrackTA.dll
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/obj/Debug/netcoreapp2.2/BimTrackTA.pdb
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/NUnit3.TestAdapter.dll
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/NUnit3.TestAdapter.pdb
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/nunit.engine.dll
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/nunit.engine.api.dll
