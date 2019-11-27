@@ -13,3 +13,4 @@
 /Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/NUnit3.TestAdapter.pdb
 /Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/nunit.engine.dll
 /Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/nunit.engine.api.dll
+/Users/martin-pierreroy/RiderProjects/BimTrackTA/BimTrackTA/bin/Debug/netcoreapp2.2/NLog.config

@@ -9,11 +9,11 @@ using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-    public class CallTestHub : GeneralTestBase
+    public class HubAPITests : GeneralTestBase
     {
         
         [Test]
-        public void CallTest()
+        public void Test_GetHubList()
         {
             HubAPI hubApiApi = new HubAPI();
             List<Hub> listHub = hubApiApi.GetHubList();
@@ -28,5 +28,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             Console.Out.WriteLine("------------------------------------------");
         }    
+        
+        
     }
 }

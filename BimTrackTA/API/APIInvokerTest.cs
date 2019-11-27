@@ -1,5 +1,7 @@
 using System;
+using Newtonsoft.Json.Linq;
 using RestSharp;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -18,6 +20,7 @@ namespace BimTrackTA.API
             IRestResponse response = client.Execute(request);
  
             Console.Out.WriteLine("Done");
-        }   
+        }
+
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Events;
 using SeleniumTest.Common.WebDriver;
@@ -6,6 +7,40 @@ namespace SeleniumTest.Common
 {
     public class CTX
     {
+//        /////////////////////////////////////////////////////////??/
+//        // START NAMED BASED SINGLETON PATTERN
+//        private static Dictionary<string, CTX> listKeyChains = new Dictionary<string, CTX>();
+//        
+//        public static CTX GetInst()
+//        {
+//            CTX ctx;
+//            
+//            
+//            
+//            if (listKeyChains.TryGetValue(keychainId, out instKeyChain))
+//            {
+//                return instKeyChain;
+//            }
+//            else
+//            {
+//                instKeyChain = new KeyChain(keychainId);
+//                listKeyChains.Add(keychainId, instKeyChain);
+//            }
+//
+//            return instKeyChain;
+//        }
+//        
+//        /// <summary>
+//        /// Private constructor to be instantiated only be the GetInstance singleton constructor 
+//        /// </summary>
+//        private CTX()
+//        {
+//         
+//        }
+//        // END SINGLETON PATTERN
+//        ////////////////////////////////////////////////////////////
+        
+        
         // used to contextualize the view component to the appropriate user options
         public enum enumUserType {administrator, guest};
         

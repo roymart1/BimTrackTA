@@ -35,7 +35,7 @@ namespace SeleniumTest.Common
             // TODO: Add pull test data from database
         }
         // END SINGLETON PATTERN
-        /////////////////////////////////////////////////////////??/
+        ////////////////////////////////////////////////////////////
 
         // Main portal url and credentials
         public string UrlBimTrack;
