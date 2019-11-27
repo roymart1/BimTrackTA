@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using BimTrackTA.Common.WebDriver;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using SeleniumTest;
@@ -18,6 +19,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
+            
         }
 
         [Test]
@@ -33,21 +35,19 @@ namespace Tests
             Console.Out.WriteLine("END ---> " + DateTime.Now.ToString("MMdd_hhmmss"));
 
         }        
-        
+
         [Test]
-        public void AddMultipleUsersB()
+        public void AddSingleUsers()
         {
-            CTX.SetKeyChainId("QA");
             Console.Out.WriteLine("START ---> " + DateTime.Now.ToString("MMdd_hhmmss"));
-            for (int i = 0; i < 39; i++)
-            {
-                //create a new user                
-                AddNewUserTestB test1 = new AddNewUserTestB();
-                test1.createUser();
-            }
+
+            AddNewUserTest test1 = new AddNewUserTest();
+            test1.createUser();
+            
             Console.Out.WriteLine("END ---> " + DateTime.Now.ToString("MMdd_hhmmss"));
 
-        }
+        }        
+
         
         [Test]
         public void DeleteAllUsers()
@@ -56,13 +56,6 @@ namespace Tests
             removeAll.RemoveAllUsers();
         } 
         
-        
-        [Test]
-        public void DeleteAllUsersB()
-        {
-            var removeAll = new RemoveAllUsersTest();
-            removeAll.RemoveAllUsersB();
-        } 
         
         [Test]
         public void WriteToConsoleTest()

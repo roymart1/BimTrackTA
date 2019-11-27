@@ -10,13 +10,14 @@ namespace SeleniumTest
 
         public void CreateNewProject(string name)
         {
-            CTX.driver.Url = "https://qa.bimtrack.co/";
+            KeyChain kc = CTX.keyChain;
+            CTX.driver.Url = kc.UrlBimTrack;
 
             BTLogin login = new BTLogin();
-            login.LogIn("zenteliatest@gmail.com", "Z3nt3l1499!");
+            login.LogIn(kc.LoginUsername, kc.LoginPassword);
             
             BTHubsTracks btHubsTracks = new BTHubsTracks();
-            ProjectList prjList = btHubsTracks.OpenHubByName("ZenyTest");
+            ProjectList prjList = btHubsTracks.OpenHubByName(kc.HubName);
 
             prjList.ClickMenuItem("Projects");
             ProjectList.AddProjectDialog addProjectDialog = prjList.ClickAddNewProject();

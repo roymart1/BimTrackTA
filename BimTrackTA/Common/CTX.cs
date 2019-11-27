@@ -12,15 +12,16 @@ namespace SeleniumTest.Common
         public static IWebDriver driver;
         public static EventFiringWebDriver ef_driver;
 
+        
         private static string keyChainID;
         public static KeyChain keyChain;
         
         public static enumUserType userType = enumUserType.administrator;
 
         public static BTEventListener event_listener = new BTEventListener();
+        
 
-
-        public static KeyChain SetKeyChainId(string id)
+        public static KeyChain SetKeyChainId(string id = "QA")
         {
             CTX.keyChainID = id;
             CTX.keyChain = KeyChain.GetInstance(CTX.keyChainID);

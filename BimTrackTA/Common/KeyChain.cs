@@ -37,14 +37,20 @@ namespace SeleniumTest.Common
         // END SINGLETON PATTERN
         /////////////////////////////////////////////////////////??/
 
+        // Main portal url and credentials
+        public string UrlBimTrack;
         public string LoginUsername;
         public string LoginPassword;
+        // API related
         public string ApiKey;
-        public string UrlBimtrack;
+        public string ApiUrl;
+            
         public string HubName;
         public string DefaultProject;
-        public string email_username = "bimoneauto";
-        public string email_password = "B1m0n3 Rules 99!";
+
+        // Email processing credentials
+        public string EmailUsername;
+        public string EmailPassword;
         
         
         /// <summary>
@@ -55,25 +61,33 @@ namespace SeleniumTest.Common
         {
             if (keyId == "QA")
             {
+                // BimTrack portal
+                UrlBimTrack = "https://qa.bimtrack.co/";
                 LoginUsername = "zenteliatest@gmail.com";
                 LoginPassword = "Z3nt3l1499!";
-                ApiKey = "df92c0de76709a639c9b047b163279535ccf670d89b3f81e642ef69e6511abd8";
-                UrlBimtrack = "https://qa.bimtrack.co/";
                 HubName = "ZenyTest";
                 DefaultProject = "ZenProjectQA";
-                email_username = "bimoneauto";
-                email_password = "B1m0n3 Rules 99!";
+                // API
+                ApiKey = "df92c0de76709a639c9b047b163279535ccf670d89b3f81e642ef69e6511abd8";
+                ApiUrl = "https://apiqa.bimtrack.co";
+                // Email processing
+                EmailUsername = "bimoneauto";
+                EmailPassword = "B1m0n3 Rules 99!";
             }
             else // Assume demo for now
             {
+                // BimTrack portal
+                UrlBimTrack = "https://qa.bimtrack.co/";
                 LoginUsername = "zenteliatest@gmail.com";
                 LoginPassword = "Z3nt3l1499!";
-                ApiKey = "3d77a3ae21baa8f69021904db31b25d8103c98beac5df608a8fb96e2f10f6f62";
-                UrlBimtrack = "https://qa.bimtrack.co/";
                 HubName = "ZenyTestB";
                 DefaultProject = "ZENPROJECT001";
-                email_username = "bimoneauto";
-                email_password = "B1m0n3 Rules 99!";
+                // API
+                ApiKey = "3d77a3ae21baa8f69021904db31b25d8103c98beac5df608a8fb96e2f10f6f62";
+                ApiUrl = "https://api.bimtrackapp.co";
+                // Email processing
+                EmailUsername = "bimoneauto";
+                EmailPassword = "B1m0n3 Rules 99!";
             }
         }
 

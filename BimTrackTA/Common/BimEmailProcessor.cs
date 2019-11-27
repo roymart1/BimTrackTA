@@ -32,8 +32,8 @@ namespace SeleniumTest.Common
         {
             
             // The default port for IMAP over SSL is 993.
-            using (ImapClient client = new ImapClient(hostname, 993, CTX.keyChain.email_username, 
-                CTX.keyChain.email_password, AuthMethod.Login, true))
+            using (ImapClient client = new ImapClient(hostname, 993, CTX.keyChain.EmailUsername, 
+                CTX.keyChain.EmailPassword, AuthMethod.Login, true))
             {
                 Console.WriteLine("We are connected!");
                 IEnumerable<uint> uids = client.Search( SearchCondition.Unseen() );
@@ -54,8 +54,8 @@ namespace SeleniumTest.Common
             var bTest = false;
             
             // The default port for IMAP over SSL is 993.
-            using (ImapClient client = new ImapClient(hostname, 993, CTX.keyChain.email_username, 
-                CTX.keyChain.email_password, AuthMethod.Login, true))
+            using (ImapClient client = new ImapClient(hostname, 993, CTX.keyChain.EmailUsername, 
+                CTX.keyChain.EmailPassword, AuthMethod.Login, true))
             {
                 Console.WriteLine("We are connected!");
                 IEnumerable<uint> uids = null;

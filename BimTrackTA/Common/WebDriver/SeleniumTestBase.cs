@@ -1,12 +1,13 @@
 using System;
 using System.Diagnostics;
+using BimTrackTA.Common.WebDriver;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.Events;
 
 namespace SeleniumTest.Common
 {
-    public class SeleniumTestBase
+    public class SeleniumTestBase : GeneralTestBase
     {
         public SeleniumTestBase()
         {
@@ -30,7 +31,7 @@ namespace SeleniumTest.Common
                 new EventHandler<FindElementEventArgs>(firingDriver_FindElementCompleted);
 
             CTX.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-//            CTX.driver = CTX.ef_driver;
+            CTX.driver = CTX.ef_driver;
         }
         
         private static void firingDriver_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)

@@ -30,8 +30,6 @@ namespace SeleniumTest
             form.FillNewUserForm("Johnny", "Gallo", "Acme Construction", 
                                 "Architect", "Manufacturing", "Canada", 
                                 "Quebec2019!", "Quebec2019!");
-            
-                
         }
 
 
