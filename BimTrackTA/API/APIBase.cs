@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using SeleniumTest.BusinessObjects;
 using SeleniumTest.Common;
 using SeleniumTest.Common.Exceptions;
 
@@ -37,8 +40,14 @@ namespace BimTrackTA.API
             IRestResponse response = client.Execute(request);
             return response;
         }
-        
-        
+
+        protected List<T> Perform_Get<T>(string connectionStr)
+        {
+            RestRequest request = new RestRequest(connectionStr, Method.GET);
+            IRestResponse response = client.Execute(request);
+            List<T> listTemplates = JsonConvert.DeserializeObject<List<T>>(response.Content);
+            return listTemplates;
+        }
         
 
     }

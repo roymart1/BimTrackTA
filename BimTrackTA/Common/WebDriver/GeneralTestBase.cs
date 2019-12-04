@@ -12,7 +12,7 @@ namespace BimTrackTA.Common.WebDriver
             CTX.SetKeyChainId();
         }
         
-       protected int __GetHubRandom(string hubName = null)
+        protected int __GetHubRandom(string hubName = null)
         {
             HubAPI hubApiApi = new HubAPI();
             List<Hub> listHub = hubApiApi.GetHubList();
@@ -30,7 +30,7 @@ namespace BimTrackTA.Common.WebDriver
             return listHub[0].Id;
         }
 
-       protected int __GetProjectRandom(int hubId, string projectName = null)
+        protected int __GetProjectRandom(int hubId, string projectName = null)
         {
             // Go on with the retrieval of the project list 
             ProjectAPI projectApi = new ProjectAPI();
@@ -49,7 +49,7 @@ namespace BimTrackTA.Common.WebDriver
             return listProject[0].Id;
         }
 
-       protected int __GetTeamRandom(int hubId, int projectId, string teamName=null)
+        protected int __GetTeamRandom(int hubId, int projectId, string teamName=null)
         {
             ProjectTeamAPI projectApi = new ProjectTeamAPI();
             List<Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
@@ -67,7 +67,7 @@ namespace BimTrackTA.Common.WebDriver
             return listTeam[0].Id;
         }
         
-       protected int __GetUserRandom(int hubId, int projectId, string userEmail=null)
+        protected int __GetUserRandom(int hubId, int projectId, string userEmail=null)
         {
             ProjectUserAPI projectApi = new ProjectUserAPI();
             List<ProjectUser> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
@@ -83,6 +83,24 @@ namespace BimTrackTA.Common.WebDriver
             }            
             
             return listUsers[0].User.Id;
-        }        
+        }   
+       
+        protected int __GetHubUserRandom(int hubId, string userEmail=null)
+        {
+            HubUserAPI hubUserApi = new HubUserAPI();
+            List<HubUser> listUsers = hubUserApi.GetHubUsers(hubId);
+            if (userEmail != null)
+            {
+                foreach (var user in listUsers)
+                {
+                    if (user.User.Email.ToLower() == userEmail.ToLower())
+                    {
+                        return user.User.Id;
+                    }
+                }
+            }
+            return listUsers[0].User.Id;
+        }   
+       
     }
 }

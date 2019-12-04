@@ -12,10 +12,13 @@ namespace BimTrackTA.API
     {
         public List<Hub> GetHubList()
         {
-            RestRequest request = new RestRequest("v2/hubs/", Method.GET);
-            IRestResponse response = client.Execute(request);
-            List<Hub> resPack = JsonConvert.DeserializeObject<List<Hub>>(response.Content);
-            return resPack;
+//            RestRequest request = new RestRequest("v2/hubs/", Method.GET);
+//            IRestResponse response = client.Execute(request);
+//            List<Hub> resPack = JsonConvert.DeserializeObject<List<Hub>>(response.Content);
+//            return resPack;
+            
+            string connStr = "v2/hubs/";
+            return Perform_Get<Hub>(connStr);
         }
         
         public Hub GetHub(int hubId)
@@ -35,14 +38,16 @@ namespace BimTrackTA.API
         }
 
         
-        
-        public List<HubUser> GetHubUsers(int hubId)
+        public List<ProjectTemplate> GetHubProjectTemplates2(int hubId)
         {
-            RestRequest request = new RestRequest("v2/hubs/" + hubId + "/users", Method.GET);
-            IRestResponse response = client.Execute(request);
-            List<HubUser> listUsers = JsonConvert.DeserializeObject<List<HubUser>>(response.Content);
-            return listUsers;
+            string connStr = "v2/hubs/" + hubId + "/projecttemplates";
+            return Perform_Get<ProjectTemplate>(connStr);
         }
+        
+        
+        
+        
+
 
     }
 

@@ -60,7 +60,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int teamId = __GetTeamRandom(hubId, projectId);
             
             // Go on with the retrieval of the project list 
-            ProjectAPI projectApi = new ProjectUserAPI();
+            ProjectTeamAPI projectApi = new ProjectTeamAPI();
             List<User> listUser = projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
             
         }
