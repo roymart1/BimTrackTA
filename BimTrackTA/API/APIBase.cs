@@ -30,5 +30,16 @@ namespace BimTrackTA.API
                 throw new BTException("Exception - Error Message: " + message.ToString());
             }
         }
+
+        protected IRestResponse Perform_Delete(string connectionStr)
+        {
+            var request = new RestRequest(connectionStr, Method.DELETE);
+            IRestResponse response = client.Execute(request);
+            return response;
+        }
+        
+        
+        
+
     }
 }

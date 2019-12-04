@@ -34,6 +34,15 @@ namespace BimTrackTA.API
             return listTemplates;
         }
 
+        
+        
+        public List<HubUser> GetHubUsers(int hubId)
+        {
+            RestRequest request = new RestRequest("v2/hubs/" + hubId + "/users", Method.GET);
+            IRestResponse response = client.Execute(request);
+            List<HubUser> listUsers = JsonConvert.DeserializeObject<List<HubUser>>(response.Content);
+            return listUsers;
+        }
 
     }
 

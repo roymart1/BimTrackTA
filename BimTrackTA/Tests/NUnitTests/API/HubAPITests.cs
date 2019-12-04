@@ -15,6 +15,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
         [Test]
         public void Test_GetHubList()
         {
+            
+            Console.Out.WriteLine("------------------- TEST START -----------------------");
+            
             HubAPI hubApiApi = new HubAPI();
             List<Hub> listHub = hubApiApi.GetHubList();
             if (listHub.Count == 0) 
@@ -26,7 +29,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             List<ProjectTemplate> listTmpl = hubApiApi.GetHubProjectTemplates(listHub[0].Id);
             
             
-            Console.Out.WriteLine("------------------------------------------");
+            Console.Out.WriteLine("------------------- TEST END -----------------------");
         }    
         
         

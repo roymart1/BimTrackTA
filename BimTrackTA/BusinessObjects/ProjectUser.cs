@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 
 namespace SeleniumTest.BusinessObjects
@@ -10,6 +11,5 @@ namespace SeleniumTest.BusinessObjects
         public List<Team> Teams { get; set; }
 //        public int DefaultFilterTemplateId { get; set; }      
         // DefaultFilterTemplateId: was removed from the DTO since it raises a casting exception 
-
     }
 }
