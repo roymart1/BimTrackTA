@@ -29,13 +29,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             Console.Out.WriteLine("------------------- TEST END -----------------------");
         }    
         
-        [Test]
-        public void Test_GetHubTemplates()
-        {
-            int hubId = __GetHubRandom();
-            HubAPI hubApiApi = new HubAPI();
-            List<ProjectTemplate> listTmpl = hubApiApi.GetHubProjectTemplates(hubId);
-        }    
         
         [Test]
         public void Test_GetHubInfo()

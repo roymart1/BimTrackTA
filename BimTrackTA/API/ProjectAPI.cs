@@ -15,7 +15,7 @@ namespace BimTrackTA.API
            return Perform_Get<List<Project>>(connStr);
        }
 
-       public bool CreateNewProject(int hubId, int templateId, string prjName)
+       public bool CreateHubProject(int hubId, int templateId, string prjName)
        {
            // string jsonToSend = "{'ProjectTemplateId':" + templateId + ",'Name': '" + prjName + "'}";
            //

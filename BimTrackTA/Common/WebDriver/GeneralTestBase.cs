@@ -51,7 +51,7 @@ namespace BimTrackTA.Common.WebDriver
 
         protected int __GetTeamRandom(int hubId, int projectId, string teamName=null)
         {
-            ProjectTeamAPI projectApi = new ProjectTeamAPI();
+            ProjectTeamApi projectApi = new ProjectTeamApi();
             List<Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
             if (teamName != null)
             {
@@ -101,6 +101,26 @@ namespace BimTrackTA.Common.WebDriver
             }
             return listUsers[0].User.Id;
         }   
-       
+
+               
+        protected int __GetHubProjectTemplateRandom(int hubId, int projectId, string tmplName=null)
+        {
+            ProjectTemplateAPI projectTemplateApi = new ProjectTemplateAPI();
+            List<ProjectTemplate> listPrjTemplates = projectTemplateApi.GetHubProjectTemplates(hubId);
+            
+            
+            if (listPrjTemplates != null)
+            {
+                foreach (var tmpl in listPrjTemplates)
+                {
+                    if (tmpl.Name == tmplName.ToLower())
+                    {
+                        return tmpl.Id;
+                    }
+                }
+            }
+            return listPrjTemplates[0].Id;
+        }   
+        
     }
 }

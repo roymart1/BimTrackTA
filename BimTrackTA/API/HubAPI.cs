@@ -21,12 +21,7 @@ namespace BimTrackTA.API
             string connStr = "v2/hubs/" + hubId;
             return Perform_Get<Hub>(connStr);
         }
-        
-        public List<ProjectTemplate> GetHubProjectTemplates(int hubId)
-        {
-            string connStr = "v2/hubs/" + hubId + "/projecttemplates";
-            return Perform_Get<List<ProjectTemplate>>(connStr);
-        }
+
         
         
         

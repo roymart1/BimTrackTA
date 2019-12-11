@@ -42,7 +42,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         
             // Go on with the retrieval of the project list 
             HubUserAPI hubUserApi = new HubUserAPI();
-            IRestResponse resRet = hubUserApi.DeleteHubUser(hubId, hubUserId);
+            bool bRet = hubUserApi.DeleteHubUser(hubId, hubUserId);
         }
         
         
