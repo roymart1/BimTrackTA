@@ -18,7 +18,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             Console.Out.WriteLine("------------------- TEST START -----------------------");
             
-            HubAPI hubApiApi = new HubAPI();
+            HubApi hubApiApi = new HubApi();
             List<Hub> listHub = hubApiApi.GetHubList();
             if (listHub.Count == 0) 
             { 
@@ -34,7 +34,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetHubInfo()
         {
             int hubId = __GetHubRandom();
-            HubAPI hubApiApi = new HubAPI();
+            HubApi hubApiApi = new HubApi();
             Hub hub = hubApiApi.GetHub(hubId);
         }           
         

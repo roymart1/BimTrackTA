@@ -18,7 +18,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
         
             // Go on with the retrieval of the project list 
-            HubUserAPI hubUserApi = new HubUserAPI();
+            HubUserApi hubUserApi = new HubUserApi();
             List<HubUser> prjUsers = hubUserApi.GetHubUsers(hubId);
         }
         
@@ -28,10 +28,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
         
             // Go on with the retrieval of the project list 
-            HubUserAPI hubUserApi = new HubUserAPI();
+            HubUserApi hubUserApi = new HubUserApi();
             bool bRet = hubUserApi.CreateHubUser(hubId, 
                 "bimoneauto+zxz" + new Random().Next(99999) + "@gmail.com", 
-                HubUserAPI.UserType.Admin);
+                HubUserApi.UserType.Admin);
         }
         
         [Test]
@@ -41,7 +41,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubUserId = __GetHubUserRandom(hubId, "bimoneauto+zxz89674@gmail.com");         
         
             // Go on with the retrieval of the project list 
-            HubUserAPI hubUserApi = new HubUserAPI();
+            HubUserApi hubUserApi = new HubUserApi();
             bool bRet = hubUserApi.DeleteHubUser(hubId, hubUserId);
         }
         

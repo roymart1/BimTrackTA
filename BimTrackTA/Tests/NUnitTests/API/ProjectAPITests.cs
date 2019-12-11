@@ -19,7 +19,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             
             // Go on with the retrieval of the project list 
-            ProjectAPI projectApi = new ProjectAPI();
+            ProjectApi projectApi = new ProjectApi();
             List<Project> listProject =  projectApi.GetHubProjectList(hubId);
         }    
         
@@ -29,7 +29,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             
             // Go on with the retrieval of the project list / use templateId 0 for success
-            ProjectAPI projectApi = new ProjectAPI();
+            ProjectApi projectApi = new ProjectApi();
             projectApi.CreateHubProject(hubId, 99, "AutoNewPrj");
         }
 

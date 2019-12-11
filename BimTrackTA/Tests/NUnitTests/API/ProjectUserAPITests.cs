@@ -18,7 +18,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             
-            ProjectUserAPI projectApi = new ProjectUserAPI();
+            ProjectUserApi projectApi = new ProjectUserApi();
             // Call the get users from a specific project
             List<ProjectUser> prjUsers = projectApi.GetHubProjectUsers(hubId, projectId);
         }
@@ -31,7 +31,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int teamId = __GetUserRandom(hubId, projectId, "bimoneauto+ki1120_013436@gmail.com");
             
             // Go on with the retrieval of the project list 
-            ProjectUserAPI projectApi = new ProjectUserAPI();
+            ProjectUserApi projectApi = new ProjectUserApi();
             IRestResponse resRet = projectApi.DeleteHubProjectUser(hubId, projectId, teamId);
             if (resRet.StatusCode != System.Net.HttpStatusCode.OK)
             {

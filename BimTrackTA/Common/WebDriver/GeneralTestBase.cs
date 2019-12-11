@@ -14,7 +14,7 @@ namespace BimTrackTA.Common.WebDriver
         
         protected int __GetHubRandom(string hubName = null)
         {
-            HubAPI hubApiApi = new HubAPI();
+            HubApi hubApiApi = new HubApi();
             List<Hub> listHub = hubApiApi.GetHubList();
             if (hubName != null)
             {
@@ -33,7 +33,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectRandom(int hubId, string projectName = null)
         {
             // Go on with the retrieval of the project list 
-            ProjectAPI projectApi = new ProjectAPI();
+            ProjectApi projectApi = new ProjectApi();
             List<Project> listProject =  projectApi.GetHubProjectList(hubId);
             if (projectName != null)
             {
@@ -69,7 +69,7 @@ namespace BimTrackTA.Common.WebDriver
         
         protected int __GetUserRandom(int hubId, int projectId, string userEmail=null)
         {
-            ProjectUserAPI projectApi = new ProjectUserAPI();
+            ProjectUserApi projectApi = new ProjectUserApi();
             List<ProjectUser> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
             if (userEmail != null)
             {
@@ -87,7 +87,7 @@ namespace BimTrackTA.Common.WebDriver
        
         protected int __GetHubUserRandom(int hubId, string userEmail=null)
         {
-            HubUserAPI hubUserApi = new HubUserAPI();
+            HubUserApi hubUserApi = new HubUserApi();
             List<HubUser> listUsers = hubUserApi.GetHubUsers(hubId);
             if (userEmail != null)
             {
@@ -105,7 +105,7 @@ namespace BimTrackTA.Common.WebDriver
                
         protected int __GetHubProjectTemplateRandom(int hubId, int projectId, string tmplName=null)
         {
-            ProjectTemplateAPI projectTemplateApi = new ProjectTemplateAPI();
+            ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
             List<ProjectTemplate> listPrjTemplates = projectTemplateApi.GetHubProjectTemplates(hubId);
             
             
