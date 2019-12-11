@@ -16,7 +16,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             
-            ProjectAttributeAPI projectAttributeApi = new ProjectAttributeAPI();
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
 
             List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectTeams(hubId, projectId);
         }    
