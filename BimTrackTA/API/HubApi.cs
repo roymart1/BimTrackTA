@@ -8,7 +8,7 @@ using SeleniumTest.Common;
 
 namespace BimTrackTA.API
 {
-    public class HubApi : APIBase
+    public class HubApi : ApiBase
     {
         public List<Hub> GetHubList()
         {

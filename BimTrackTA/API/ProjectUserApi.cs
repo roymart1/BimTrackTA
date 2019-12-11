@@ -7,7 +7,7 @@ using SeleniumTest.BusinessObjects;
 namespace BimTrackTA.API
 {
 
-    public class ProjectUserApi : APIBase
+    public class ProjectUserApi : ApiBase
     {
         
         

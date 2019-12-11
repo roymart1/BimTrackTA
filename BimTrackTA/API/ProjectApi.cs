@@ -7,7 +7,7 @@ using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
-    public class ProjectApi : APIBase
+    public class ProjectApi : ApiBase
     {
        public List<Project>  GetHubProjectList(int hubId)
        {

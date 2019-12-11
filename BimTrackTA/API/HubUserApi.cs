@@ -8,7 +8,7 @@ namespace BimTrackTA.API
 {
 
     
-    public class HubUserApi : APIBase
+    public class HubUserApi : ApiBase
     {
         public enum UserType 
         {

@@ -7,7 +7,7 @@ using SeleniumTest.BusinessObjects;
 namespace BimTrackTA.API
 {
 
-    public class ProjectTeamApi : APIBase
+    public class ProjectTeamApi : ApiBase
     {
         
         public List<Team> GetHubProjectTeams(int hubId, int projectId)
