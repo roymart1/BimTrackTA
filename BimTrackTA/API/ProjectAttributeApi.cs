@@ -30,7 +30,13 @@ namespace BimTrackTA.API
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + attributeId;
             return Perform_Get<ProjectAttribute>(connStr);
         }
-        
+
+        public bool DeleteHubProjectAttribute(int hubId, int projectId, int attributeId)
+        {
+            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + attributeId;
+            IRestResponse response = Perform_Delete(connStr);
+            return response.IsSuccessful;
+        }
     }
     
 }

@@ -108,18 +108,56 @@ namespace BimTrackTA.Common.WebDriver
             ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
             List<ProjectTemplate> listPrjTemplates = projectTemplateApi.GetHubProjectTemplates(hubId);
             
-            
-            if (listPrjTemplates != null)
+            if (tmplName != null)
             {
                 foreach (var tmpl in listPrjTemplates)
                 {
-                    if (tmpl.Name == tmplName.ToLower())
+                    if (tmpl.Name.ToLower() == tmplName.ToLower())
                     {
                         return tmpl.Id;
                     }
                 }
             }
             return listPrjTemplates[0].Id;
+        }   
+
+        protected int __GetHubProjectAttributeRandom(int hubId, int projectId, string attrName=null)
+        {
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+
+            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
+            
+            if (attrName != null)
+            {
+                foreach (var tmpl in listPrjAttributes)
+                {
+                    if (tmpl.Name.ToLower() == attrName.ToLower())
+                    {
+                        return tmpl.Id;
+                    }
+                }
+            }
+            return listPrjAttributes[0].Id;
+        }   
+        
+        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId, string attrName)
+        {
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+
+            ProjectAttribute prjAttribute = 
+                projectAttributeApi.GetHubProjectAttributeDetail(hubId, projectId, attrId);
+            
+            if (attrName != null)
+            {
+                foreach (var attrVal in prjAttribute.ProjectCustomAttributeValues)
+                {
+                    if (attrVal.Name.ToLower() == attrName.ToLower())
+                    {
+                        return attrVal.Id;
+                    }
+                }
+            }
+            return prjAttribute.ProjectCustomAttributeValues[0].Id;
         }   
         
     }
