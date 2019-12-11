@@ -18,7 +18,54 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
 
-            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectTeams(hubId, projectId);
+            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
         }    
+
+        [Test]
+        public void Test_GetProjectAttributeDetail()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
+
+            ProjectAttribute PrjAttributes = projectAttributeApi.GetHubProjectAttributeDetail(hubId, 
+                projectId, listPrjAttributes[0].Id);
+        }    
+        
+        [Test]
+        public void Test_CreateProjectAttributePredefined()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            
+            
+            var prjAttr = new ProjectAttribute();
+            prjAttr.Name = "ZenPredef";
+            prjAttr.Type = "Predefined";
+            prjAttr.AddNewCustomAttributeValue("xzenred", "#FF0000");
+            prjAttr.AddNewCustomAttributeValue("xzengreen", "#00FF00");
+            prjAttr.AddNewCustomAttributeValue("xzenblue", "#0000FF");
+            
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            bool bRet = projectAttributeApi.CreateHubProjectAttributeList(hubId, projectId, prjAttr);
+        }
+        
+        
+        [Test]
+        public void Test_CreateProjectAttributeCustom()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            
+            var prjAttr = new ProjectAttribute();
+            prjAttr.Name = "ZenCustom";
+            prjAttr.Type = "Text";
+            
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            bool bRet = projectAttributeApi.CreateHubProjectAttributeList(hubId, projectId, prjAttr);
+        }
+
     }
 }

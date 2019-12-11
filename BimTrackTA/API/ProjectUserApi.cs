@@ -24,7 +24,7 @@ namespace BimTrackTA.API
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/user";
             IRestResponse response =  Perform_Create(connStr, jsonToSend);
             
-            return response.IsSuccessful != true;
+            return response.IsSuccessful;
         }
         
                

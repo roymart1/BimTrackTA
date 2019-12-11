@@ -23,7 +23,7 @@ namespace BimTrackTA.API
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams";
             IRestResponse response =  Perform_Create(connStr, jsonToSend);
             
-            return response.IsSuccessful != true;
+            return response.IsSuccessful;
         }
         
         public IRestResponse DeleteHubProjectTeam(int hubId, int projectId, int teamId)

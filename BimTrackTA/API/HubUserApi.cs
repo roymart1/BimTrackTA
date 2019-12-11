@@ -30,14 +30,14 @@ namespace BimTrackTA.API
             
             IRestResponse response =  Perform_Create(connStr, jsonToSend);
             
-            return response.IsSuccessful != true;        }
+            return response.IsSuccessful;        }
 
         public bool DeleteHubUser(int hubId, int userId)
         {
             string connStr = "v2/hubs/" + hubId + "/users/" + userId;
             IRestResponse response =  Perform_Delete(connStr);
             
-            return response.IsSuccessful != true;
+            return response.IsSuccessful;
         }
     }
 }

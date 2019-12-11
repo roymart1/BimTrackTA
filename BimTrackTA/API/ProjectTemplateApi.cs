@@ -23,14 +23,14 @@ namespace BimTrackTA.API
             string connStr = "/v2/hubs/"+ hubId +"/projecttemplates";
             IRestResponse response =  Perform_Create(connStr, jsonToSend);
             
-            return response.IsSuccessful != true;
+            return response.IsSuccessful;
         }
         
         public bool DeleteHubProjectTemplate(int hubId, int hubProjectTemplateId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projecttemplates/" + hubProjectTemplateId;
             IRestResponse response = Perform_Delete(connStr);
-            return response.IsSuccessful != true;
+            return response.IsSuccessful;
         }
         
     }

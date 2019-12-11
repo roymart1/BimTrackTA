@@ -17,20 +17,11 @@ namespace BimTrackTA.API
 
        public bool CreateHubProject(int hubId, int templateId, string prjName)
        {
-           // string jsonToSend = "{'ProjectTemplateId':" + templateId + ",'Name': '" + prjName + "'}";
-           //
-           // RestRequest request = new RestRequest("v2/hubs/" + hubId + "/projects", Method.POST);
-           // request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
-           // request.RequestFormat = DataFormat.Json;
-           // var response = client.Execute(request);
-           // this.ProcessResponseError(response);
-           
-           
            string jsonToSend = "{'ProjectTemplateId':" + templateId + ",'Name': '" + prjName + "'}";
            string connStr = "v2/hubs/" + hubId + "/projects";
            IRestResponse response =  Perform_Create(connStr, jsonToSend);
             
-           return response.IsSuccessful != true;
+           return response.IsSuccessful;
        }
 
     }
