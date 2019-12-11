@@ -19,10 +19,8 @@ namespace BimTrackTA.API
         
         public List<HubUser> GetHubUsers(int hubId)
         {
-            RestRequest request = new RestRequest("v2/hubs/" + hubId + "/users", Method.GET);
-            IRestResponse response = client.Execute(request);
-            List<HubUser> listUsers = JsonConvert.DeserializeObject<List<HubUser>>(response.Content);
-            return listUsers;
+            string connStr = "v2/hubs/" + hubId + "/users";
+            return Perform_Get<List<HubUser>>(connStr);
         }
         
         public bool CreateHubUser(int hubId, string email, UserType userType=UserType.Admin)
@@ -41,7 +39,6 @@ namespace BimTrackTA.API
         {
             string connStr = "v2/hubs/" + hubId + "/users/" + userId;
             return Perform_Delete(connStr);
-            
         }
     }
 }

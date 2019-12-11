@@ -41,14 +41,24 @@ namespace BimTrackTA.API
             return response;
         }
 
-        protected List<T> Perform_Get<T>(string connectionStr)
+        protected T Perform_Get<T>(string connectionStr)
         {
             RestRequest request = new RestRequest(connectionStr, Method.GET);
             IRestResponse response = client.Execute(request);
-            List<T> listTemplates = JsonConvert.DeserializeObject<List<T>>(response.Content);
+            T listTemplates = JsonConvert.DeserializeObject<T>(response.Content);
             return listTemplates;
         }
-        
+
+
+        protected IRestResponse Perform_Create(string connectionStr, string jsonToSend)
+        {
+            RestRequest request = new RestRequest(connectionStr, Method.POST);
+            request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+            var response = client.Execute(request);
+            this.ProcessResponseError(response);
+            return response;
+        }
 
     }
 }

@@ -26,13 +26,24 @@ namespace BimTrackTA.Tests.NUnitTests.API
             }
 
             Hub hubObj = hubApiApi.GetHub(listHub[0].Id);
-            List<ProjectTemplate> listTmpl = hubApiApi.GetHubProjectTemplates(listHub[0].Id);
-            
-            
             Console.Out.WriteLine("------------------- TEST END -----------------------");
         }    
         
+        [Test]
+        public void Test_GetHubTemplates()
+        {
+            int hubId = __GetHubRandom();
+            HubAPI hubApiApi = new HubAPI();
+            List<ProjectTemplate> listTmpl = hubApiApi.GetHubProjectTemplates(hubId);
+        }    
         
+        [Test]
+        public void Test_GetHubInfo()
+        {
+            int hubId = __GetHubRandom();
+            HubAPI hubApiApi = new HubAPI();
+            Hub hub = hubApiApi.GetHub(hubId);
+        }           
         
         
     }

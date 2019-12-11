@@ -31,7 +31,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             // Go on with the retrieval of the project list 
             ProjectTeamAPI projectApi = new ProjectTeamAPI();
-            projectApi.CreateHubProjectTeam(hubId, projectId, "Ventilation");
+            projectApi.CreateHubProjectTeam(hubId, projectId, "Ventilation2");
         }
         
         [Test]
