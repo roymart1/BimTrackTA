@@ -63,5 +63,17 @@ namespace BimTrackTA.Tests.NUnitTests.API
             List<User> listUser = projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
             
         }
+
+        [Test]
+        void Test_UpdateProjectTeam()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int teamId = __GetTeamRandom(hubId, projectId);
+            string newName = "UpdatedVentilation2";
+            
+            ProjectTeamApi projectApi = new ProjectTeamApi();
+            projectApi.UpdateHubProjectTeam(hubId, projectId, teamId, newName);
+        }
     }
 }

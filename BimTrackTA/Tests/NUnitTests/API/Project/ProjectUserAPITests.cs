@@ -39,5 +39,19 @@ namespace BimTrackTA.Tests.NUnitTests.API
                                       + projectId + " Reason == " + resRet.Content);
             }
         }
+
+        [Test]
+        public void Test_UpdateProjectUser()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int userId = __GetUserRandom(hubId, projectId);
+
+            string key = "FirstName";
+            string value = "UpdatedUserTest";
+            
+            ProjectUserApi projectApi = new ProjectUserApi();
+            projectApi.UpdateHubProjectUser(hubId, projectId, userId, key, value);
+        }
     }
 }

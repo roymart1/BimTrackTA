@@ -21,7 +21,7 @@ namespace BimTrackTA.API
         public bool CreateHubProjectUser(int hubId, int projectId, int userId)
         {
             string jsonToSend = "{'UserId': 0, 'Role': 'Reader', 'ProjectTeams': [0]}";
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/user";
+            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/users";
             IRestResponse response =  Perform_Create(connStr, jsonToSend);
             
             return response.IsSuccessful;
@@ -34,5 +34,13 @@ namespace BimTrackTA.API
             return Perform_Delete(connStr);
         }
 
+        public bool UpdateHubProjectUser(int hubId, int projectId, int userId, string key, object value)
+        {
+            string jsonToSend = "{'" + key + "': '" + value + "'}";
+            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/users/" + userId;
+            IRestResponse response = Perform_Update(connStr, jsonToSend);
+
+            return response.IsSuccessful;
+        }
     }
 }

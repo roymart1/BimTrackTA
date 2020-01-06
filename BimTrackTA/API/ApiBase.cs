@@ -60,5 +60,15 @@ namespace BimTrackTA.API
             return response;
         }
 
+        protected IRestResponse Perform_Update(string connectionStr, string jsonToSend)
+        {
+            RestRequest request = new RestRequest(connectionStr, Method.PUT);
+            request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+            var response = client.Execute(request);
+            this.ProcessResponseError(response);
+            return response;
+        }
+
     }
 }

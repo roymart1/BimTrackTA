@@ -32,6 +32,5 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
         }
-        
     }
 }

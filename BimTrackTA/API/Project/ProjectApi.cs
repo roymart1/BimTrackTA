@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
-using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -24,5 +21,19 @@ namespace BimTrackTA.API
            return response.IsSuccessful;
        }
 
+       public Project GetHubProjectDetails(int hubId, int projectId)
+       {
+           string connStr = "v2/hubs/" + hubId + "/projects/" + projectId;
+           return Perform_Get<Project>(connStr);
+       }
+
+       public bool UpdateHubProject(int hubId, int projectId, string key, object value)
+       {
+           string jsonToSend = "{'" + key + "': '" + value + "'}";
+           string connStr = "v2/hubs/" + hubId + "/projects/" + projectId;
+           IRestResponse response = Perform_Update(connStr, jsonToSend);
+
+           return response.IsSuccessful;
+       }
     }
 }

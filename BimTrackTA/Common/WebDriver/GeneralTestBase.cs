@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BimTrackTA.API;
 using SeleniumTest.BusinessObjects;
@@ -158,7 +159,86 @@ namespace BimTrackTA.Common.WebDriver
                 }
             }
             return prjAttribute.ProjectCustomAttributeValues[0].Id;
-        }   
+        }
+
+        protected int __GetProjectModelRandom(int hubId, int projectId)
+        {
+            ProjectModelApi projectModelApi = new ProjectModelApi();
+            List<Model> listModels = projectModelApi.GetProjectModelList(hubId, projectId);
+            if (listModels.Count > 0)
+            {
+                return listModels[0].Id;
+            }
+            throw new Exception("There is no model in that project.");
+        }
         
+        protected int __GetProjectModelFolderRandom(int hubId, int projectId)
+        {
+            ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
+            List<Folder> listFolders = projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
+            if (listFolders.Count > 0)
+            {
+                return listFolders[0].Id;
+            }
+            throw new Exception("There is no model folder in that project.");
+        }
+        
+        protected int __GetProjectModelRevisionRandom(int hubId, int projectId, int modelId)
+        {
+            ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
+            List<Revision> listRevisions = projectModelRevisionApi
+                .GetProjectModelRevisionList(hubId, projectId, modelId);
+            if (listRevisions.Count > 0)
+            {
+                return listRevisions[0].Id;
+            }
+            throw new Exception("There is no revision for that model.");
+        }
+        
+        protected int __GetProjectSheetRandom(int hubId, int projectId)
+        {
+            ProjectSheetApi projectSheetApi = new ProjectSheetApi();
+            List<Sheet> listSheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
+            if (listSheets.Count > 0)
+            {
+                return listSheets[0].Id;
+            }
+            throw new Exception("There is no sheet in that project.");
+        }
+        
+        protected int __GetProjectSheetFolderRandom(int hubId, int projectId)
+        {
+            ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
+            List<Folder> listFolders = projectSheetFolderApi.GetProjectSheetFolderList(hubId, projectId);
+            if (listFolders.Count > 0)
+            {
+                return listFolders[0].Id;
+            }
+            throw new Exception("There is no sheet folder in that project.");
+        }
+        
+        protected int __GetProjectSheetRevisionRandom(int hubId, int projectId, int sheetId)
+        {
+            ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
+            List<Revision> listRevisions = projectSheetRevisionApi
+                .GetProjectSheetRevisionList(hubId, projectId, sheetId);
+            if (listRevisions.Count > 0)
+            {
+                return listRevisions[0].Id;
+            }
+            throw new Exception("There is no revision for that sheet.");
+        }
+        
+        protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId)
+        {
+            ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
+            List<Instance> listInstance = projectSheetRevisionInstanceApi
+                .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
+            if (listInstance.Count > 0)
+            {
+                return listInstance[0].Id;
+            }
+            throw new Exception("There is no instance for that revision.");
+        }
     }
 }

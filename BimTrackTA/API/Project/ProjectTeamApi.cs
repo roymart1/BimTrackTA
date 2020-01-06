@@ -38,6 +38,14 @@ namespace BimTrackTA.API
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams/users?teamId=" + teamId;
             return Perform_Get<List<User>>(connStr);
         }
-        
+
+        public bool UpdateHubProjectTeam(int hubId, int projectId, int teamId, string newName)
+        {
+            string jsonToSend = "{'Name': '" + newName + "'}";
+            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams/" + teamId;
+            
+            IRestResponse response =  Perform_Update(connStr, jsonToSend);
+            return response.IsSuccessful;
+        }
     }
 }

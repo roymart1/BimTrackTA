@@ -33,6 +33,27 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectApi.CreateHubProject(hubId, 99, "AutoNewPrj");
         }
 
+        [Test]
+        public void Test_GetHubProjectDetails()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            
+            ProjectApi projectApi = new ProjectApi();
+            Project project = projectApi.GetHubProjectDetails(hubId, projectId);
+        }
+
+        [Test]
+        public void Test_UpdateProjectName()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            string key = "Name";
+            string value = "AutoUpdatedNewPrj";
+            
+            ProjectApi projectApi = new ProjectApi();
+            projectApi.UpdateHubProject(hubId, projectId, key, value);
+        }
 
         
 

@@ -15,21 +15,12 @@ namespace BimTrackTA.API
             string connStr = "v2/hubs/";
             return Perform_Get<List<Hub>>(connStr);
         }
-        
+
         public Hub GetHub(int hubId)
         {
             string connStr = "v2/hubs/" + hubId;
             return Perform_Get<Hub>(connStr);
         }
-
-        
-        
-        
-        
-
-
     }
-
-
 }
 
