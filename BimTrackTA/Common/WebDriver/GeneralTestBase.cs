@@ -53,7 +53,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetTeamRandom(int hubId, int projectId, string teamName=null)
         {
             ProjectTeamApi projectApi = new ProjectTeamApi();
-            List<Project.Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
+            List<Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
             if (teamName != null)
             {
                 foreach (var team in listTeam)
@@ -71,19 +71,19 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetUserRandom(int hubId, int projectId, string userEmail=null)
         {
             ProjectUserApi projectApi = new ProjectUserApi();
-            List<Project.ProjectUser> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
+            List<User> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
             if (userEmail != null)
             {
                 foreach (var user in listUsers)
                 {
-                    if (user.User.Email.ToLower() == userEmail.ToLower())
+                    if (user.Email.ToLower() == userEmail.ToLower())
                     {
-                        return user.User.Id;
+                        return user.Id;
                     }
                 }
             }            
             
-            return listUsers[0].User.Id;
+            return listUsers[0].Id;
         }   
        
         protected int __GetHubUserRandom(int hubId, string userEmail=null)
@@ -311,7 +311,7 @@ namespace BimTrackTA.Common.WebDriver
         {
             IssueViewPointApi issueViewPointApi = new IssueViewPointApi();
 
-            List<Issue.ViewPoint> listIssueViewPoints = issueViewPointApi
+            List<ViewPoint> listIssueViewPoints = issueViewPointApi
                 .GetIssueViewPointList(hubId, projectId, issueId);
             
             if (viewName != null)

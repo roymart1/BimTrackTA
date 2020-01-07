@@ -13,13 +13,7 @@ namespace SeleniumTest.BusinessObjects
         public string Comment { get; set; }
         public List<Discipline> Disciplines { get; set; }
         public List<Instance> Instances { get; set; }
-        
-        public class Discipline
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
-        
+
         public class Instance
         {
             public int Id { set; get; }
@@ -33,13 +27,6 @@ namespace SeleniumTest.BusinessObjects
             public string ViewUniqueId { set; get; }
             public string ViewName { set; get; }
             public bool IsDefault { set; get; }
-        
-            public class Xyz
-            {
-                public int X { set; get; }
-                public int Y { set; get; }
-                public int Z { set; get; }
-            }
         }
     }
 }

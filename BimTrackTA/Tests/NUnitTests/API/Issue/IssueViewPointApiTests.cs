@@ -16,7 +16,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId);
             
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
-            List<Issue.ViewPoint> listViewPoint =  issueViewPoint.GetIssueViewPointList(hubId, projectId, issueId);
+            List<ViewPoint> listViewPoint =  issueViewPoint.GetIssueViewPointList(hubId, projectId, issueId);
         }    
         
         [Test]
@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
             
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
-            Issue.ViewPoint viewPoint =  issueViewPoint.GetIssueViewPoint(hubId, projectId, issueId, issueViewPointId);
+            ViewPoint viewPoint =  issueViewPoint.GetIssueViewPoint(hubId, projectId, issueId, issueViewPointId);
         }
 
         [Test]

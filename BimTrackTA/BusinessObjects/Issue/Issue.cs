@@ -10,11 +10,30 @@ namespace SeleniumTest.BusinessObjects
         public string Title { get; set; }
         public string Description { get; set; }
         public string Group { get; set; }
+        public Author IssueAuthor { get; set; }
+        public User AssignedTo { get; set; }
+        public Author LastModificationAuthor { get; set; }
+        public DateTime LastModificationDate { get; set; }
+        public DateTime DueDate { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime ClosingDate { get; set; }
+        public int DefaultViewpointId { get; set; }
+        public List<Discipline> Disciplines { get; set; }
         
+        public ProjectCustomAttributeValue ProjectPhase { get; set; }
+        public ProjectCustomAttributeValue ProjectZone { get; set; }
+        public IssuePriority Priority { get; set; }
+        public IssueStatus Status { get; set; }
+        public ProjectCustomAttributeValue Type { get; set; }
+        public IssueConfidentiality Confidentiality { get; set; }
+        public IssueNotifyList NotifyList { get; set; }
+
         public List<Attachment> Attachments { get; set; }
         public List<Comment> Comments { get; set; }
         public List<ViewPoint> ViewPoints { get; set; }
         public IssueHistory ChangeSets { get; set; }
+        public List<ProjectCustomAttribute> CustomAttributes { get; set; }
+        public string CreationSource { get; set; }
         
         public class Attachment
         {
@@ -35,21 +54,6 @@ namespace SeleniumTest.BusinessObjects
             public string UniqueId { get; set; }
         }
 
-        public class ViewPoint
-        {
-            // TODO: Maybe add everything else (Pinpoint, Orthogonal Camera, Perspective Camera, ViewState, ViewStateSummary)
-            public int Id { get; set; }
-            public int IssueId { get; set; }
-            public string ViewType { get; set; }
-            public Image ViewPointImage { get; set; }
-            public Comment Comments { get; set; }
-            public string Source { get; set; }
-            public string ViewName { get; set; }
-            public string ModelName { get; set; }
-            public string ViewUniqueId { get; set; }
-            public bool WasCreatedFromSheetInstance { get; set; }
-        }
-
         public class IssueHistory
         {
             public List<ChangeSet> ChangeSets { get; set; }
@@ -68,6 +72,33 @@ namespace SeleniumTest.BusinessObjects
                     public string Property { get; set; }
                 }
             }
+        }
+
+        public class IssuePriority
+        {
+            public int Order { get; set; }
+            public string Color { get; set; }
+            public string Name { get; set; }
+            public int Id { get; set; }
+        }
+
+        public class IssueStatus
+        {
+            public List<Team> TeamsAllowedForStatus { get; set; }
+            public string Color { get; set; }
+            public string Name { get; set; }
+            public int Id { get; set; } 
+        }
+
+        public class IssueConfidentiality
+        {
+            public List<Team> Teams { get; set; }
+        }
+
+        public class IssueNotifyList
+        {
+            public List<Team> TeamsToNotify { get; set; }
+            public List<User> UsersToNotify { get; set; }
         }
     }
 }

@@ -6,10 +6,10 @@ namespace BimTrackTA.API
 {
     public class IssueViewPointApi : ApiBase
     {
-        public List<Issue.ViewPoint> GetIssueViewPointList(int hubId, int projectId, int issueId)
+        public List<ViewPoint> GetIssueViewPointList(int hubId, int projectId, int issueId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId + "/viewpoints";
-            return Perform_Get<List<Issue.ViewPoint>>(connStr);
+            return Perform_Get<List<ViewPoint>>(connStr);
         }
 
         public bool CreateIssueViewPoint(int hubId, int projectId, int issueId, string viewName)
@@ -22,11 +22,11 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
 
-        public Issue.ViewPoint GetIssueViewPoint(int hubId, int projectId, int issueId, int viewPointId)
+        public ViewPoint GetIssueViewPoint(int hubId, int projectId, int issueId, int viewPointId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
                              + "/viewpoints/" + viewPointId;
-            return Perform_Get<Issue.ViewPoint>(connStr);
+            return Perform_Get<ViewPoint>(connStr);
         }
         
         public bool DeleteIssueViewPoint(int hubId, int projectId, int issueId, int viewPointId)

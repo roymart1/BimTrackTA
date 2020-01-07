@@ -19,7 +19,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectUserApi projectApi = new ProjectUserApi();
             // Call the get users from a specific project
-            List<Project.ProjectUser> prjUsers = projectApi.GetHubProjectUsers(hubId, projectId);
+            List<User> prjUsers = projectApi.GetHubProjectUsers(hubId, projectId);
         }
         
         [Test]
