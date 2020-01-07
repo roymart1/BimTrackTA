@@ -45,7 +45,7 @@ namespace BimTrackTA.API
         public bool UpdateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId,
             int instanceId, string key, object value)
         {
-            string jsonToSend = "{'" + key + "': '" + value + "'}";
+            string jsonToSend = Create_UpdateJsonString(key, value);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId + "/instances/" + instanceId;
             IRestResponse response =  Perform_Update(connStr, jsonToSend);

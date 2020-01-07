@@ -12,5 +12,11 @@ namespace SeleniumTest.BusinessObjects
         public int IfcScaleFactor { get; set; }
         public string Comment { get; set; }
         public List<Discipline> Disciplines { get; set; }
+        
+        public class Discipline
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
     }
 }

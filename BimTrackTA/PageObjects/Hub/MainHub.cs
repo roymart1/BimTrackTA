@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Transactions;
-using OpenQA.Selenium;
-using SeleniumTest.Common;
 using SeleniumTest.PageObjects.ScreenDecorator;
 
 namespace SeleniumTest.PageObjects.Hub

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using BimTrackTA.API;
@@ -32,6 +31,16 @@ namespace BimTrackTA.Tests.NUnitTests.API
             bool bRet = hubUserApi.CreateHubUser(hubId, 
                 "bimoneauto+zxz" + new Random().Next(99999) + "@gmail.com", 
                 HubUserApi.UserType.Admin);
+        }       
+        
+        [Test]
+        public void Test_UpdateHubUsers()
+        {
+            int hubId = __GetHubRandom();
+            int hubUserId = __GetHubUserRandom(hubId, "bimoneauto+zxz89674@gmail.com");
+            
+            HubUserApi hubUserApi = new HubUserApi();
+            bool bRet = hubUserApi.UpdateUser(hubId, hubUserId, HubUserApi.UserType.Guest, false);
         }
         
         [Test]
@@ -45,14 +54,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             bool bRet = hubUserApi.DeleteHubUser(hubId, hubUserId);
         }
 
-        [Test]
-        public void Test_UpdateHubUsers()
-        {
-            int hubId = __GetHubRandom();
-            int hubUserId = __GetHubUserRandom(hubId, "bimoneauto+zxz89674@gmail.com");
-            
-            HubUserApi hubUserApi = new HubUserApi();
-            bool bRet = hubUserApi.UpdateUser(hubId, hubUserId, HubUserApi.UserType.Guest, false);
-        }
+
     }
 }

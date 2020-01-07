@@ -5,7 +5,7 @@ using SeleniumTest.Common;
 
 namespace SeleniumTest.PageObjects
 {
-    public class BTLogin
+    public class BtLogin
     {
         private string szlabelUsername_id = "Email";
         private string szlabelPassword_id = "Password";
@@ -16,7 +16,7 @@ namespace SeleniumTest.PageObjects
         private IWebElement weButtonLogIn = null;
 
         
-        public BTLogin()
+        public BtLogin()
         {
             weLabelUsername = CTX.driver.FindElement(By.Id(szlabelUsername_id));
             weLabelPassword = CTX.driver.FindElement(By.Id(szlabelPassword_id));

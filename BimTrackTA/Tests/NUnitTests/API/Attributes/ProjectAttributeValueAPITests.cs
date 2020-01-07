@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using BimTrackTA.API;
 using BimTrackTA.Common.WebDriver;

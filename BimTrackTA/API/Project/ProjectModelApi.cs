@@ -37,7 +37,7 @@ namespace BimTrackTA.API
 
         public bool UpdateProjectModel(int hubId, int projectId, int modelId, string key, object value)
         {
-            string jsonToSend = "{'" + key + "': '" + value + "'}";
+            string jsonToSend = Create_UpdateJsonString(key, value);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
             IRestResponse response = Perform_Update(connStr, jsonToSend);
 

@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
 using BimTrackTA.Common.WebDriver;
 using BimTrackTA.API;
-using NLog;
-using NLog.Targets;
 using NUnit.Framework;
-using RestSharp;
 using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-    public class ProjectModelAPITests : GeneralTestBase
+    public class ProjectModelApiTests : GeneralTestBase
     {
         [Test]
         public void Test_GetProjectModels()
@@ -32,18 +28,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectModelApi projectModelApi = new ProjectModelApi();
             projectModelApi.CreateProjectModel(hubId, projectId, name);
         }
-
-        [Test]
-        public void Test_DeleteProjectModel()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int modelId = __GetProjectModelRandom(hubId, projectId);
-            
-            ProjectModelApi projectModelApi = new ProjectModelApi();
-            projectModelApi.DeleteProjectModel(hubId, projectId, modelId);
-        }
-
+        
         [Test]
         public void Test_GetProjectModel()
         {
@@ -66,6 +51,17 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
             projectModelApi.UpdateProjectModel(hubId, projectId, modelId, key, value);
+        }
+
+        [Test]
+        public void Test_DeleteProjectModel()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int modelId = __GetProjectModelRandom(hubId, projectId);
+            
+            ProjectModelApi projectModelApi = new ProjectModelApi();
+            projectModelApi.DeleteProjectModel(hubId, projectId, modelId);
         }
     }
 }

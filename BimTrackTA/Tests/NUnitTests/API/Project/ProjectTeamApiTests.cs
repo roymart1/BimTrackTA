@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using BimTrackTA.API;
@@ -10,7 +9,7 @@ using SeleniumTest.BusinessObjects;
 namespace BimTrackTA.Tests.NUnitTests.API
 {
 
-    public class ProjectTeamAPITests : GeneralTestBase
+    public class ProjectTeamApiTests : GeneralTestBase
     {
         [Test]
         public void Test_GetProjectTeams()
@@ -34,6 +33,32 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectTeamApi projectApi = new ProjectTeamApi();
             projectApi.CreateHubProjectTeam(hubId, projectId, "Ventilation2");
         }
+                
+        [Test]
+        public void Test_GetProjectTeamUsers()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int teamId = __GetTeamRandom(hubId, projectId);
+            
+            // Go on with the retrieval of the project list 
+            ProjectTeamApi projectApi = new ProjectTeamApi();
+            List<User> listUser = projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
+            
+        }
+
+        [Test]
+        public void Test_UpdateProjectTeam()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int teamId = __GetTeamRandom(hubId, projectId);
+            string key = "name";
+            string newName = "UpdatedVentilation2";
+            
+            ProjectTeamApi projectApi = new ProjectTeamApi();
+            projectApi.UpdateHubProjectTeam(hubId, projectId, teamId, key, newName);
+        }
         
         [Test]
         public void Test_DeleteProjectTeam()
@@ -49,31 +74,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             {
                 Console.Out.WriteLine("Failed to delete team " + teamId + " Reason == " + resRet.Content);
             }
-        }
-        
-        [Test]
-        public void Test_GetProjectTeamUsers()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int teamId = __GetTeamRandom(hubId, projectId);
-            
-            // Go on with the retrieval of the project list 
-            ProjectTeamApi projectApi = new ProjectTeamApi();
-            List<User> listUser = projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
-            
-        }
-
-        [Test]
-        void Test_UpdateProjectTeam()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int teamId = __GetTeamRandom(hubId, projectId);
-            string newName = "UpdatedVentilation2";
-            
-            ProjectTeamApi projectApi = new ProjectTeamApi();
-            projectApi.UpdateHubProjectTeam(hubId, projectId, teamId, newName);
         }
     }
 }

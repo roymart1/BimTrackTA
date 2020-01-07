@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
 using BimTrackTA.Common.WebDriver;
 using BimTrackTA.API;
-using NLog;
-using NLog.Targets;
 using NUnit.Framework;
-using RestSharp;
 using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-    public class ProjectModelRevisionAPITests : GeneralTestBase
+    public class ProjectModelRevisionApiTests : GeneralTestBase
     {
         [Test]
         public void Test_GetProjectModelRevisions()
@@ -34,6 +30,18 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             projectModelRevisionApi.CreateProjectModelRevision(hubId, projectId, modelId, name);
+        }   
+        
+        [Test]
+        public void Test_GetProjectModelRevision()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int modelId = __GetProjectModelRandom(hubId, projectId);
+            int revisionId = __GetProjectModelRevisionRandom(hubId, projectId, modelId);
+
+            ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
+            Revision revision = projectModelRevisionApi.GetProjectModelRevision(hubId, projectId, modelId, revisionId);
         }
 
         [Test]
@@ -46,18 +54,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             projectModelRevisionApi.DeleteProjectModelRevision(hubId, projectId, modelId, revisionId);
-        }
-        
-        [Test]
-        public void Test_GetProjectModelRevision()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int modelId = __GetProjectModelRandom(hubId, projectId);
-            int revisionId = __GetProjectModelRevisionRandom(hubId, projectId, modelId);
-
-            ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
-            Revision revision = projectModelRevisionApi.GetProjectModelRevision(hubId, projectId, modelId, revisionId);
         }
     }
 }

@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
 using BimTrackTA.Common.WebDriver;
 using BimTrackTA.API;
-using NLog;
-using NLog.Targets;
 using NUnit.Framework;
-using RestSharp;
 using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-    public class ProjectSheetRevisionInstanceAPITests : GeneralTestBase
+    public class ProjectSheetRevisionInstanceApiTests : GeneralTestBase
     {
         [Test]
         public void Test_GetProjectSheetRevisionInstances()
@@ -38,20 +34,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             projectSheetRevisionInstanceApi
                 .CreateProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, name);
-        }
-
-        [Test]
-        public void Test_DeleteProjectSheetRevisionInstance()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int sheetId = __GetProjectSheetRandom(hubId, projectId);
-            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId);
-            int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
-            
-            ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
-            projectSheetRevisionInstanceApi
-                .DeleteProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instanceId);
         }
         
         [Test]
@@ -84,5 +66,20 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectSheetRevisionInstanceApi.UpdateProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId,
                 instanceId, key, newName);
         }
+        
+        [Test]
+        public void Test_DeleteProjectSheetRevisionInstance()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int sheetId = __GetProjectSheetRandom(hubId, projectId);
+            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId);
+            int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
+            
+            ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
+            projectSheetRevisionInstanceApi
+                .DeleteProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instanceId);
+        }
+
     }
 }

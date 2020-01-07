@@ -13,5 +13,12 @@ namespace SeleniumTest.BusinessObjects
         public string ViewUniqueId { set; get; }
         public string ViewName { set; get; }
         public bool IsDefault { set; get; }
+        
+        public class Xyz
+        {
+            public int X { set; get; }
+            public int Y { set; get; }
+            public int Z { set; get; }
+        }
     }
 }

@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
 using BimTrackTA.Common.WebDriver;
 using BimTrackTA.API;
-using NLog;
-using NLog.Targets;
 using NUnit.Framework;
-using RestSharp;
-using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-    public class ProjectImageAPITests : GeneralTestBase
+    public class ProjectImageApiTests : GeneralTestBase
     {
         
         [Test]

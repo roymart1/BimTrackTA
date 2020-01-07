@@ -1,4 +1,3 @@
-
 using NLog;
 using NUnit.Framework;
 

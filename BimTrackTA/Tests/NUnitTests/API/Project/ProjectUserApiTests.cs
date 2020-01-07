@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using BimTrackTA.API;
@@ -10,7 +9,7 @@ using SeleniumTest.BusinessObjects;
 namespace BimTrackTA.Tests.NUnitTests.API
 {
 
-    public class ProjectUserAPITests : GeneralTestBase
+    public class ProjectUserApiTests : GeneralTestBase
     {
         [Test]
         public void Test_GetProjectUsers()

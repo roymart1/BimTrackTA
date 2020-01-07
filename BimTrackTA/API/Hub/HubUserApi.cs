@@ -1,6 +1,4 @@
-
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
 
@@ -42,8 +40,8 @@ namespace BimTrackTA.API
 
         public bool UpdateUser(int hubId, int userId, UserType userType, bool resendHubInvite)
         {
-            string jsonToSend = "{'Role': '" + userType.ToString() +
-                                "', 'ResendHubInvite': '" + resendHubInvite.ToString() + "'}";
+            string jsonToSend = "{'Role': '" + userType +
+                                "', 'ResendHubInvite': " + resendHubInvite + "}";
             string connStr = "v2/hubs/" + hubId + "/users/" + userId;
             IRestResponse response = Perform_Update(connStr, jsonToSend);
 

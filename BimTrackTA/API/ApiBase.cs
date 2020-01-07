@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using SeleniumTest.BusinessObjects;
 using SeleniumTest.Common;
 using SeleniumTest.Common.Exceptions;
 
@@ -70,5 +68,23 @@ namespace BimTrackTA.API
             return response;
         }
 
+        protected IRestResponse Perform_Patch(string connectionStr, string jsonToSend)
+        {
+            RestRequest request = new RestRequest(connectionStr, Method.PATCH);
+            request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+            var response = client.Execute(request);
+            this.ProcessResponseError(response);
+            return response;
+        }
+
+        protected string Create_UpdateJsonString(string key, object value)
+        {
+            if (value is string || value is char)
+            {
+                return "{'" + key + "': '" + value + "'}";
+            }
+            return "{'" + key + "': " + value + "}";
+        }
     }
 }

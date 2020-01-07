@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
@@ -39,9 +38,9 @@ namespace BimTrackTA.API
             return Perform_Get<List<User>>(connStr);
         }
 
-        public bool UpdateHubProjectTeam(int hubId, int projectId, int teamId, string newName)
+        public bool UpdateHubProjectTeam(int hubId, int projectId, int teamId, string key, object value)
         {
-            string jsonToSend = "{'Name': '" + newName + "'}";
+            string jsonToSend = Create_UpdateJsonString(key, value);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams/" + teamId;
             
             IRestResponse response =  Perform_Update(connStr, jsonToSend);

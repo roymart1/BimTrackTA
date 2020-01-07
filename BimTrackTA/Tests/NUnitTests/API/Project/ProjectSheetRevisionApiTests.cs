@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
 using BimTrackTA.Common.WebDriver;
 using BimTrackTA.API;
-using NLog;
-using NLog.Targets;
 using NUnit.Framework;
-using RestSharp;
 using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-    public class ProjectSheetRevisionAPITests : GeneralTestBase
+    public class ProjectSheetRevisionApiTests : GeneralTestBase
     {
         [Test]
         public void Test_GetProjectSheetRevisions()
@@ -35,18 +31,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             projectSheetRevisionApi.CreateProjectSheetRevision(hubId, projectId, sheetId, name);
         }
-
-        [Test]
-        public void Test_DeleteProjectSheetRevision()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int sheetId = __GetProjectSheetRandom(hubId, projectId);
-            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId);
-            
-            ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
-            projectSheetRevisionApi.DeleteProjectSheetRevision(hubId, projectId, sheetId, revisionId);
-        }
         
         [Test]
         public void Test_GetProjectSheetRevision()
@@ -58,6 +42,18 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             Revision revision = projectSheetRevisionApi.GetProjectSheetRevision(hubId, projectId, sheetId, revisionId);
+        }
+        
+        [Test]
+        public void Test_DeleteProjectSheetRevision()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int sheetId = __GetProjectSheetRandom(hubId, projectId);
+            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId);
+            
+            ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
+            projectSheetRevisionApi.DeleteProjectSheetRevision(hubId, projectId, sheetId, revisionId);
         }
     }
 }

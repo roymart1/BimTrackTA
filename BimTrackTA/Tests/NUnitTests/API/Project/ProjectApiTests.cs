@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Generic;
 using BimTrackTA.Common.WebDriver;
 using BimTrackTA.API;
-using NLog;
-using NLog.Targets;
 using NUnit.Framework;
-using RestSharp;
 using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
@@ -54,13 +50,5 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectApi projectApi = new ProjectApi();
             projectApi.UpdateHubProject(hubId, projectId, key, value);
         }
-
-        
-
-        
-
-        
-        
-        
     }
 }

@@ -31,7 +31,7 @@ namespace BimTrackTA.API
         
         public bool UpdateProjectModelFolder(int hubId, int projectId, int projectModelFolderId, string key, object value)
         {
-            string jsonToSend = "{'" + key + "': '" + value + "'}";
+            string jsonToSend = Create_UpdateJsonString(key, value);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/folders/" + projectModelFolderId;
             IRestResponse response = Perform_Update(connStr, jsonToSend);
 

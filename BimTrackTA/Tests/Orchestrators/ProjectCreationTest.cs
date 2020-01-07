@@ -13,10 +13,10 @@ namespace SeleniumTest
             KeyChain kc = CTX.keyChain;
             CTX.driver.Url = kc.UrlBimTrack;
 
-            BTLogin login = new BTLogin();
+            BtLogin login = new BtLogin();
             login.LogIn(kc.LoginUsername, kc.LoginPassword);
             
-            BTHubsTracks btHubsTracks = new BTHubsTracks();
+            BtHubsTracks btHubsTracks = new BtHubsTracks();
             ProjectList prjList = btHubsTracks.OpenHubByName(kc.HubName);
 
             prjList.ClickMenuItem("Projects");
