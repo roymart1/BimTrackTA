@@ -14,9 +14,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             
-            // Go on with the retrieval of the project list 
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            List<Sheet> sheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
+            List<Project.Sheet> sheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
         }
 
         [Test]
@@ -37,7 +36,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int sheetId = __GetProjectSheetRandom(hubId, projectId);
             
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            Sheet sheet = projectSheetApi.GetProjectSheet(hubId, projectId, sheetId);
+            Project.Sheet sheet = projectSheetApi.GetProjectSheet(hubId, projectId, sheetId);
         }
         
         [Test]

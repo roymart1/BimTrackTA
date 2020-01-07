@@ -17,9 +17,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             
-            // Go on with the retrieval of the project list 
             ProjectTeamApi projectApi = new ProjectTeamApi();
-            List<Team> prjUsers = projectApi.GetHubProjectTeams(hubId, projectId);
+            List<Project.Team> prjUsers = projectApi.GetHubProjectTeams(hubId, projectId);
         }
         
         
@@ -29,7 +28,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             
-            // Go on with the retrieval of the project list 
             ProjectTeamApi projectApi = new ProjectTeamApi();
             projectApi.CreateHubProjectTeam(hubId, projectId, "Ventilation2");
         }
@@ -41,7 +39,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int teamId = __GetTeamRandom(hubId, projectId);
             
-            // Go on with the retrieval of the project list 
             ProjectTeamApi projectApi = new ProjectTeamApi();
             List<User> listUser = projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
             
@@ -67,7 +64,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int teamId = __GetTeamRandom(hubId, projectId, "SammyLeeRock");
             
-            // Go on with the retrieval of the project list 
             ProjectTeamApi projectApi = new ProjectTeamApi();
             IRestResponse resRet = projectApi.DeleteHubProjectTeam(hubId, projectId, teamId);
             if (resRet.StatusCode != System.Net.HttpStatusCode.OK)

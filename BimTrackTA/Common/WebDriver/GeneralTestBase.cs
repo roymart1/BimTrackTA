@@ -53,7 +53,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetTeamRandom(int hubId, int projectId, string teamName=null)
         {
             ProjectTeamApi projectApi = new ProjectTeamApi();
-            List<Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
+            List<Project.Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
             if (teamName != null)
             {
                 foreach (var team in listTeam)
@@ -71,7 +71,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetUserRandom(int hubId, int projectId, string userEmail=null)
         {
             ProjectUserApi projectApi = new ProjectUserApi();
-            List<ProjectUser> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
+            List<Project.ProjectUser> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
             if (userEmail != null)
             {
                 foreach (var user in listUsers)
@@ -164,7 +164,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectModelRandom(int hubId, int projectId)
         {
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            List<Model> listModels = projectModelApi.GetProjectModelList(hubId, projectId);
+            List<Project.Model> listModels = projectModelApi.GetProjectModelList(hubId, projectId);
             if (listModels.Count > 0)
             {
                 return listModels[0].Id;
@@ -198,7 +198,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectSheetRandom(int hubId, int projectId)
         {
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            List<Sheet> listSheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
+            List<Project.Sheet> listSheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
             if (listSheets.Count > 0)
             {
                 return listSheets[0].Id;
@@ -232,7 +232,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId)
         {
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
-            List<Instance> listInstance = projectSheetRevisionInstanceApi
+            List<Revision.Instance> listInstance = projectSheetRevisionInstanceApi
                 .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
             if (listInstance.Count > 0)
             {
@@ -240,5 +240,99 @@ namespace BimTrackTA.Common.WebDriver
             }
             throw new Exception("There is no instance for that revision.");
         }
+        
+        protected int __GetIssueRandom(int hubId, int projectId, string issueTitle=null)
+        {
+            IssueApi issueApi = new IssueApi();
+
+            List<Issue> listIssues = issueApi.GetIssueList(hubId, projectId);
+            
+            if (issueTitle != null)
+            {
+                foreach (var issue in listIssues)
+                {
+                    if (issue.Title.ToLower() == issueTitle.ToLower())
+                    {
+                        return issue.Id;
+                    }
+                }
+            }
+            return listIssues[0].Id;
+        }   
+        
+        protected int __GetArchivedIssueRandom(int hubId, int projectId, string issueTitle=null)
+        {
+            IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
+
+            List<Issue> listArchivedIssues = issueArchivedApi.GetIssueArchivedList(hubId, projectId);
+            
+            if (issueTitle != null)
+            {
+                foreach (var archivedIssue in listArchivedIssues)
+                {
+                    if (archivedIssue.Title.ToLower() == issueTitle.ToLower())
+                    {
+                        return archivedIssue.Id;
+                    }
+                }
+            }
+            return listArchivedIssues[0].Id;
+        }
+        
+        protected int __GetIssueAttachmentRandom(int hubId, int projectId, int issueId, string attachmentName=null)
+        {
+            IssueAttachmentApi issueAttachmentApi = new IssueAttachmentApi();
+
+            List<Issue.Attachment> listIssueAttachments = issueAttachmentApi
+                .GetIssueAttachmentList(hubId, projectId, issueId);
+            
+            if (attachmentName != null)
+            {
+                foreach (var issue in listIssueAttachments)
+                {
+                    if (issue.Name.ToLower() == attachmentName.ToLower())
+                    {
+                        return issue.Id;
+                    }
+                }
+            }
+            return listIssueAttachments[0].Id;
+        }  
+        
+        protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId)
+        {
+            IssueCommentApi issueCommentApi = new IssueCommentApi();
+            List<Issue.Comment> listIssueComments = issueCommentApi
+                .GetIssueCommentList(hubId, projectId, issueId);
+            return listIssueComments[0].Id;
+        } 
+        
+        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId, string viewName=null)
+        {
+            IssueViewPointApi issueViewPointApi = new IssueViewPointApi();
+
+            List<Issue.ViewPoint> listIssueViewPoints = issueViewPointApi
+                .GetIssueViewPointList(hubId, projectId, issueId);
+            
+            if (viewName != null)
+            {
+                foreach (var viewPoint in listIssueViewPoints)
+                {
+                    if (viewPoint.ViewName.ToLower() == viewName.ToLower())
+                    {
+                        return viewPoint.Id;
+                    }
+                }
+            }
+            return listIssueViewPoints[0].Id;
+        } 
+        
+        protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId)
+        {
+            IssueViewPointCommentApi issueViewPointCommentApi = new IssueViewPointCommentApi();
+            List<Issue.Comment> listIssueViewPointComments = issueViewPointCommentApi
+                .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
+            return listIssueViewPointComments[0].Id;
+        } 
     }
 }

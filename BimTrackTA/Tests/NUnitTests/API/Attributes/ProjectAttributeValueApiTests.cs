@@ -7,7 +7,7 @@ using SeleniumTest.BusinessObjects;
 namespace BimTrackTA.Tests.NUnitTests.API
 {
 
-    public class ProjectAttributeValueAPITests : GeneralTestBase
+    public class ProjectAttributeValueApiTests : GeneralTestBase
     {
         [Test]
         public void Test_GetProjectAttributeValueList()

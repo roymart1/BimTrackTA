@@ -9,10 +9,10 @@ namespace BimTrackTA.API
     public class ProjectTeamApi : ApiBase
     {
         
-        public List<Team> GetHubProjectTeams(int hubId, int projectId)
+        public List<Project.Team> GetHubProjectTeams(int hubId, int projectId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams";
-            return Perform_Get<List<Team>>(connStr);
+            return Perform_Get<List<Project.Team>>(connStr);
         }
         
         

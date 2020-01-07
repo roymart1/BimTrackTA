@@ -9,7 +9,7 @@ using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-    public class HubAPITests : GeneralTestBase
+    public class HubApiTests : GeneralTestBase
     {
         
         [Test]

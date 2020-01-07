@@ -15,7 +15,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int modelId = __GetProjectModelRandom(hubId, projectId);
             
-            // Go on with the retrieval of the project list 
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             List<Revision> revisions = projectModelRevisionApi.GetProjectModelRevisionList(hubId, projectId, modelId);
         }

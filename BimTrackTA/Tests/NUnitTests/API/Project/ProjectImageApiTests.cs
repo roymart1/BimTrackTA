@@ -15,7 +15,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             string key = "Name";
             string newName = "AutoImageTest";
             
-            // Go on with the retrieval of the project list 
             ProjectImageApi projectImageApi = new ProjectImageApi();
             projectImageApi.UpdateProjectImage(hubId, projectId, key, newName);
         }

@@ -36,6 +36,12 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
 
+        public Issue.IssueHistory GetIssueHistory(int hubId, int projectId, int issueId)
+        {
+            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId + "/history";
+            return Perform_Get<Issue.IssueHistory>(connStr);
+        }
+
         public bool ArchiveIssue(int hubId, int projectId, int issueId)
         {
             string jsonToSend = "{'ArchiveIssue': true}";

@@ -6,7 +6,7 @@ using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-    public class ProjectAPITests : GeneralTestBase
+    public class ProjectApiTests : GeneralTestBase
     {
         
         [Test]
@@ -14,7 +14,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             
-            // Go on with the retrieval of the project list 
             ProjectApi projectApi = new ProjectApi();
             List<Project> listProject =  projectApi.GetHubProjectList(hubId);
         }    
@@ -24,7 +23,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             
-            // Go on with the retrieval of the project list / use templateId 0 for success
             ProjectApi projectApi = new ProjectApi();
             projectApi.CreateHubProject(hubId, 99, "AutoNewPrj");
         }

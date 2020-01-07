@@ -14,7 +14,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             
-            // Go on with the retrieval of the project list 
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
             List<Folder> folders = projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
         }

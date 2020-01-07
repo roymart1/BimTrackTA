@@ -6,10 +6,10 @@ namespace BimTrackTA.API
 {
     public class ProjectSheetApi : ApiBase
     {
-        public List<Sheet> GetProjectSheetList(int hubId, int projectId)
+        public List<Project.Sheet> GetProjectSheetList(int hubId, int projectId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets";
-            return Perform_Get<List<Sheet>>(connStr);
+            return Perform_Get<List<Project.Sheet>>(connStr);
         }
 
         public bool CreateProjectSheet(int hubId, int projectId, string name)
@@ -29,10 +29,10 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
 
-        public Sheet GetProjectSheet(int hubId, int projectId, int sheetId)
+        public Project.Sheet GetProjectSheet(int hubId, int projectId, int sheetId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId;
-            return Perform_Get<Sheet>(connStr);
+            return Perform_Get<Project.Sheet>(connStr);
         }
     }
 }
