@@ -8,15 +8,15 @@ namespace BimTrackTA.API
 
     public class ProjectAttributeValuesApi : ApiBase
     {
-        public List<ProjectCustomAttributeValue> GetHubProjectAttributeValueList(int hubId, int projectId, int attrVal)
+        public List<PredefinedAttributeValue> GetHubProjectAttributeValueList(int hubId, int projectId, int attrVal)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
                              attrVal + "/attributevalues";
-            return Perform_Get<List<ProjectCustomAttributeValue>>(connStr);
+            return Perform_Get<List<PredefinedAttributeValue>>(connStr);
         }
         
         public bool CreateHubProjectAttributeValue(int hubId, int projectId, int attrId, 
-            ProjectCustomAttributeValue prjAttrVal)
+            PredefinedAttributeValue prjAttrVal)
         {
             string json_paylod = JsonConvert.SerializeObject(prjAttrVal);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + 

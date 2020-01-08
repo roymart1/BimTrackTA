@@ -16,7 +16,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId);
             
             IssueCommentApi issueComment = new IssueCommentApi();
-            List<Issue.Comment> listComment =  issueComment.GetIssueCommentList(hubId, projectId, issueId);
+            List<Comment> listComment =  issueComment.GetIssueCommentList(hubId, projectId, issueId);
         }    
         
         [Test]

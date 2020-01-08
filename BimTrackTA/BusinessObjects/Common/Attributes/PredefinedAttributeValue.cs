@@ -2,7 +2,7 @@
 namespace SeleniumTest.BusinessObjects
 {
 
-    public class ProjectCustomAttributeValue
+    public class PredefinedAttributeValue
     {
         public int Id { get; set; }
         public string Color { get; set; }

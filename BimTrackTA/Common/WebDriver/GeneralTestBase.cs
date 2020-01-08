@@ -164,7 +164,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectModelRandom(int hubId, int projectId)
         {
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            List<Project.Model> listModels = projectModelApi.GetProjectModelList(hubId, projectId);
+            List<Model> listModels = projectModelApi.GetProjectModelList(hubId, projectId);
             if (listModels.Count > 0)
             {
                 return listModels[0].Id;
@@ -198,7 +198,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectSheetRandom(int hubId, int projectId)
         {
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            List<Project.Sheet> listSheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
+            List<Sheet> listSheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
             if (listSheets.Count > 0)
             {
                 return listSheets[0].Id;
@@ -232,7 +232,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId)
         {
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
-            List<Revision.Instance> listInstance = projectSheetRevisionInstanceApi
+            List<Instance> listInstance = projectSheetRevisionInstanceApi
                 .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
             if (listInstance.Count > 0)
             {
@@ -302,7 +302,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId)
         {
             IssueCommentApi issueCommentApi = new IssueCommentApi();
-            List<Issue.Comment> listIssueComments = issueCommentApi
+            List<Comment> listIssueComments = issueCommentApi
                 .GetIssueCommentList(hubId, projectId, issueId);
             return listIssueComments[0].Id;
         } 
@@ -330,7 +330,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId)
         {
             IssueViewPointCommentApi issueViewPointCommentApi = new IssueViewPointCommentApi();
-            List<Issue.Comment> listIssueViewPointComments = issueViewPointCommentApi
+            List<Comment> listIssueViewPointComments = issueViewPointCommentApi
                 .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
             return listIssueViewPointComments[0].Id;
         } 

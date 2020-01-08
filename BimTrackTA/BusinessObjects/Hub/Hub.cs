@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SeleniumTest.BusinessObjects
 {
@@ -6,8 +7,9 @@ namespace SeleniumTest.BusinessObjects
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Author HubAuthor { get; set; }
-        public Image HubImage { get; set; }
-        public string CreationDate { get; set; }
+        public Author Author { get; set; }
+        public Image Image { get; set; }
+        public DateTime CreationDate { get; set; }
+        public List<HubUser> Users { get; set; }
     }
 }

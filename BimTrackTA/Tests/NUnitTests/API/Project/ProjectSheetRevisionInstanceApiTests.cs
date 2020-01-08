@@ -17,7 +17,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId);
             
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
-            List<Revision.Instance> instances = projectSheetRevisionInstanceApi
+            List<Instance> instances = projectSheetRevisionInstanceApi
                 .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
         }
 
@@ -45,7 +45,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
 
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
-            Revision.Instance instance = projectSheetRevisionInstanceApi
+            Instance instance = projectSheetRevisionInstanceApi
                 .GetProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instanceId);
         }
 

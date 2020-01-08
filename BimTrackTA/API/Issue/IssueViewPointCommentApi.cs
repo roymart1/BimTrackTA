@@ -7,11 +7,11 @@ namespace BimTrackTA.API
     public class IssueViewPointCommentApi : ApiBase
     {
         // This type of comment is the same as the ones you can have directly in the issue
-        public List<Issue.Comment> GetIssueViewPointCommentList(int hubId, int projectId, int issueId, int viewPointId)
+        public List<Comment> GetIssueViewPointCommentList(int hubId, int projectId, int issueId, int viewPointId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
                              + "/viewpoints/" + viewPointId + "/comments";
-            return Perform_Get<List<Issue.Comment>>(connStr);
+            return Perform_Get<List<Comment>>(connStr);
         }
 
         public bool CreateIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId, string name)

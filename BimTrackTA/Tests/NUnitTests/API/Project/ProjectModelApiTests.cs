@@ -15,7 +15,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            List<Project.Model> models = projectModelApi.GetProjectModelList(hubId, projectId);
+            List<Model> models = projectModelApi.GetProjectModelList(hubId, projectId);
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int modelId = __GetProjectModelRandom(hubId, projectId);
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            Project.Model model = projectModelApi.GetProjectModel(hubId, projectId, modelId);
+            Model model = projectModelApi.GetProjectModel(hubId, projectId, modelId);
         }
 
         [Test]

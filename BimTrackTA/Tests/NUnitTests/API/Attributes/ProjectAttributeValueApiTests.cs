@@ -18,7 +18,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
 
-            List<ProjectCustomAttributeValue> listAttrVal;
+            List<PredefinedAttributeValue> listAttrVal;
             listAttrVal = prjAttrValApi.GetHubProjectAttributeValueList(hubId, projectId, attrValId);
         }
 
@@ -30,7 +30,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int attrValId = __GetHubProjectAttributeRandom(hubId, projectId);
             
             // Create object AttributValue
-            ProjectCustomAttributeValue prjCst = new ProjectCustomAttributeValue();
+            PredefinedAttributeValue prjCst = new PredefinedAttributeValue();
             prjCst.Name = "zenUnknown";
             prjCst.Color = "#550088";
             

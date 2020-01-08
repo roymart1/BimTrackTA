@@ -6,11 +6,11 @@ namespace BimTrackTA.API
 {
     public class ProjectSheetRevisionInstanceApi : ApiBase
     {
-        public List<Revision.Instance> GetProjectSheetRevisionInstanceList(int hubId, int projectId, int sheetId, int revisionId)
+        public List<Instance> GetProjectSheetRevisionInstanceList(int hubId, int projectId, int sheetId, int revisionId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId + "/instances";
-            return Perform_Get<List<Revision.Instance>>(connStr);
+            return Perform_Get<List<Instance>>(connStr);
         }
 
         public bool CreateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
@@ -34,12 +34,12 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
 
-        public Revision.Instance GetProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
+        public Instance GetProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             int instanceId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId + "/instances/" + instanceId;
-            return Perform_Get<Revision.Instance>(connStr);
+            return Perform_Get<Instance>(connStr);
         }
 
         public bool UpdateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId,

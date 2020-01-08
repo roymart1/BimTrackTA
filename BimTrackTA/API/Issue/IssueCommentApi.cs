@@ -6,10 +6,10 @@ namespace BimTrackTA.API
 {
     public class IssueCommentApi : ApiBase
     {
-        public List<Issue.Comment> GetIssueCommentList(int hubId, int projectId, int issueId)
+        public List<Comment> GetIssueCommentList(int hubId, int projectId, int issueId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId + "/comments";
-            return Perform_Get<List<Issue.Comment>>(connStr);
+            return Perform_Get<List<Comment>>(connStr);
         }
 
         public bool CreateIssueComment(int hubId, int projectId, int issueId, string name)

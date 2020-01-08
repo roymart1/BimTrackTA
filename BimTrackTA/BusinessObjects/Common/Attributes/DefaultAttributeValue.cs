@@ -1,7 +1,9 @@
+
 namespace SeleniumTest.BusinessObjects
 {
-    public class DefaultAttributeValues
+    public class DefaultAttributeValue
     {
-        
+        public int CustomAttributeId { get; set; }
+        public int CustomAttributeValueId { get; set; }
     }
 }
