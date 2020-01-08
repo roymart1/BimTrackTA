@@ -6,7 +6,7 @@ namespace SeleniumTest.BusinessObjects
     public class Model
     {
         public int Id { get; set; }
-        public CompactProject Project { get; set; }
+        public ProjectTemplate Project { get; set; }
         public string Name { get; set; }
         public List<Revision> Revisions { get; set; }
         public Folder Folder { get; set; }

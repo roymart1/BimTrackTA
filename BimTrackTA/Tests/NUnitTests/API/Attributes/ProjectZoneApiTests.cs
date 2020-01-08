@@ -6,7 +6,6 @@ using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
-
     public class ProjectZoneApiTests : GeneralTestBase
     {
         [Test]
@@ -29,6 +28,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
             projectZoneApi.CreateHubProjectZone(hubId, projectId, name);
+            Assert.Pass();
         }
 
         [Test]
@@ -43,6 +43,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
             projectZoneApi.UpdateHubProjectZone(hubId, projectId, zoneId, key, value);
+            Assert.Pass();
         }
 
         [Test]
@@ -54,6 +55,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
                         
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
             projectZoneApi.DeleteHubProjectZone(hubId, projectId, zoneId);
+            Assert.Pass();
         }
 
     }
