@@ -334,5 +334,125 @@ namespace BimTrackTA.Common.WebDriver
                 .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
             return listIssueViewPointComments[0].Id;
         } 
+        
+        protected int __GetProjectDisciplineRandom(int hubId, int projectId, string name=null)
+        {
+            ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
+
+            List<Discipline> listProjectDisciplines = projectDisciplineApi
+                .GetHubProjectDisciplineList(hubId, projectId);
+            
+            if (name != null)
+            {
+                foreach (var discipline in listProjectDisciplines)
+                {
+                    if (discipline.Name.ToLower() == name.ToLower())
+                    {
+                        return discipline.Id;
+                    }
+                }
+            }
+            return listProjectDisciplines[0].Id;
+        } 
+        
+        protected int __GetProjectPhaseRandom(int hubId, int projectId, string name=null)
+        {
+            ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
+
+            List<Phase> listProjectPhases = projectPhaseApi
+                .GetHubProjectPhaseList(hubId, projectId);
+            
+            if (name != null)
+            {
+                foreach (var phase in listProjectPhases)
+                {
+                    if (phase.Name.ToLower() == name.ToLower())
+                    {
+                        return phase.Id;
+                    }
+                }
+            }
+            return listProjectPhases[0].Id;
+        } 
+        
+        protected int __GetProjectPriorityRandom(int hubId, int projectId, string name=null)
+        {
+            ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
+
+            List<Priority> listProjectPriorities = projectPriorityApi
+                .GetHubProjectPriorityList(hubId, projectId);
+            
+            if (name != null)
+            {
+                foreach (var priority in listProjectPriorities)
+                {
+                    if (priority.Name.ToLower() == name.ToLower())
+                    {
+                        return priority.Id;
+                    }
+                }
+            }
+            return listProjectPriorities[0].Id;
+        } 
+        
+        protected int __GetProjectStatusRandom(int hubId, int projectId, string name=null)
+        {
+            ProjectStatusApi projectStatusApi = new ProjectStatusApi();
+
+            List<Status> listProjectStatuses = projectStatusApi
+                .GetHubProjectStatusList(hubId, projectId);
+            
+            if (name != null)
+            {
+                foreach (var status in listProjectStatuses)
+                {
+                    if (status.Name.ToLower() == name.ToLower())
+                    {
+                        return status.Id;
+                    }
+                }
+            }
+            return listProjectStatuses[0].Id;
+        } 
+        
+        protected int __GetProjectTypeRandom(int hubId, int projectId, string name=null)
+        {
+            ProjectTypeApi projectTypeApi = new ProjectTypeApi();
+
+            List<BimType> listProjectTypes = projectTypeApi
+                .GetHubProjectTypeList(hubId, projectId);
+            
+            if (name != null)
+            {
+                foreach (var type in listProjectTypes)
+                {
+                    if (type.Name.ToLower() == name.ToLower())
+                    {
+                        return type.Id;
+                    }
+                }
+            }
+            return listProjectTypes[0].Id;
+        } 
+        
+        protected int __GetProjectZoneRandom(int hubId, int projectId, string name=null)
+        {
+            ProjectZoneApi projectZoneApi = new ProjectZoneApi();
+
+            List<Zone> listProjectZones = projectZoneApi
+                .GetHubProjectZoneList(hubId, projectId);
+            
+            if (name != null)
+            {
+                foreach (var zone in listProjectZones)
+                {
+                    if (zone.Name.ToLower() == name.ToLower())
+                    {
+                        return zone.Id;
+                    }
+                }
+            }
+            return listProjectZones[0].Id;
+        } 
     }
 }

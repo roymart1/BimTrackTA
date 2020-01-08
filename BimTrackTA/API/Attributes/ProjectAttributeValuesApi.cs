@@ -18,11 +18,12 @@ namespace BimTrackTA.API
         public bool CreateHubProjectAttributeValue(int hubId, int projectId, int attrId, 
             PredefinedAttributeValue prjAttrVal)
         {
-            string json_paylod = JsonConvert.SerializeObject(prjAttrVal);
+            // TODO: Do that everywhere instead...
+            string json_payload = JsonConvert.SerializeObject(prjAttrVal);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + 
                              attrId + "/attributevalues";
 
-            IRestResponse response =  Perform_Create(connStr, json_paylod);
+            IRestResponse response =  Perform_Create(connStr, json_payload);
             
             return response.IsSuccessful;
         }        
@@ -35,7 +36,17 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
             
-        }    
+        }
+
+        public bool UpdateHubProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId, string key, object value)
+        {
+            string jsonToSend = Create_UpdateJsonString(key, value);
+            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
+                             attrId + "/attributevalues/" + attrValId;
+            
+            IRestResponse response = Perform_Update(connStr, jsonToSend);
+            return response.IsSuccessful;
+        }
         
     }
 }

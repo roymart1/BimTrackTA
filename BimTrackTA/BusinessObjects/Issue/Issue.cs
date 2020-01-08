@@ -20,11 +20,11 @@ namespace SeleniumTest.BusinessObjects
         public int DefaultViewpointId { get; set; }
         public List<Discipline> Disciplines { get; set; }
         
-        public PredefinedAttributeValue ProjectPhase { get; set; }
-        public PredefinedAttributeValue ProjectZone { get; set; }
+        public Phase ProjectPhase { get; set; }
+        public Zone ProjectZone { get; set; }
         public Priority Priority { get; set; }
         public Status Status { get; set; }
-        public PredefinedAttributeValue Type { get; set; }
+        public BimType Type { get; set; }
         public IssueConfidentiality Confidentiality { get; set; }
         public IssueNotifyList NotifyList { get; set; }
 

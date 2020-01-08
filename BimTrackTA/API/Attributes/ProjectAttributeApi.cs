@@ -36,6 +36,14 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
         }
+
+        public bool UpdateHubProjectAttribute(int hubId, int projectId, int attributeId, string key, object value)
+        {
+            string jsonToSend = Create_UpdateJsonString(key, value);
+            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + attributeId;
+            IRestResponse response = Perform_Update(connStr, jsonToSend);
+            return response.IsSuccessful;
+        }
     }
     
 }

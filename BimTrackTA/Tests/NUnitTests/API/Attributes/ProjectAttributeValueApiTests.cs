@@ -37,6 +37,21 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi.CreateHubProjectAttributeValue(hubId, projectId, attrValId, prjCst);
         }
+
+        [Test]
+        public void Test_UpdateProjectAttributeValue()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int attrId = __GetHubProjectAttributeRandom(hubId, projectId);
+            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "zenUnknown");
+
+            string key = "Name";
+            string value = "UpdatedZenUnknown";
+            
+            ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
+            prjAttrValApi.UpdateHubProjectAttributeValue(hubId, projectId, attrValId, attrValId, key, value);
+        }
         
         [Test]
         public void Test_DeleteProjectAttributeValue()
@@ -44,7 +59,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId);
-            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "zenUnknown");
+            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "UpdatedZenUnknown");
             
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi.DeleteHubProjectAttributeValue(hubId, projectId, attrId, attrValId);

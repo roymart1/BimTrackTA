@@ -67,11 +67,25 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
 
         [Test]
-        public void Test_deleteProjectAttribute()
+        public void Test_UpdateProjectAttributeCustom()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenCustom");
+
+            string key = "Name";
+            string value = "UpdatedZenCustom";
+            
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            projectAttributeApi.UpdateHubProjectAttribute(hubId, projectId, attrId, key, value);
+        }
+
+        [Test]
+        public void Test_deleteProjectAttribute()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "UpdatedZenCustom");
                         
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
             bool bRet = projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
