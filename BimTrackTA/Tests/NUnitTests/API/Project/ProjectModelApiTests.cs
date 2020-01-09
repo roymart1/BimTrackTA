@@ -23,9 +23,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string name = "AutoModelTest";
+            
+            Project project = new Project();
+            project.Name = "AutoModelTest";
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            projectModelApi.CreateProjectModel(hubId, projectId, name);
+            projectModelApi.CreateProjectModel(hubId, projectId, project);
         }
         
         [Test]
@@ -45,11 +47,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             int modelId = __GetProjectModelRandom(hubId, projectId);
-            string key = "FolderId";
-            int value = 1;
+            
+            Project project = new Project();
+            project.Name = "UpdatedAutoModelTest";
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            projectModelApi.UpdateProjectModel(hubId, projectId, modelId, key, value);
+            projectModelApi.UpdateProjectModel(hubId, projectId, modelId, project);
         }
 
         [Test]

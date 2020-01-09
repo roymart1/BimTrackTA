@@ -23,9 +23,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string name = "AutoSheetTest";
+            
+            Sheet sheet = new Sheet();
+            sheet.Name = "AutoSheetTest";
+            
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            projectSheetApi.CreateProjectSheet(hubId, projectId, name);
+            projectSheetApi.CreateProjectSheet(hubId, projectId, sheet);
         }
 
         [Test]

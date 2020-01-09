@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
 
@@ -12,11 +13,11 @@ namespace BimTrackTA.API
             return Perform_Get<List<Folder>>(connStr);
         }
 
-        public bool CreateProjectSheetFolder(int hubId, int projectId, string name)
+        public bool CreateProjectSheetFolder(int hubId, int projectId, Folder folder)
         {
-            string jsonToSend = "{'Name': '" + name + "'}";
+            string jsonPayload = JsonConvert.SerializeObject(folder);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/folders";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create(connStr, jsonPayload);
             
             return response.IsSuccessful;
         }
@@ -29,11 +30,11 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
         
-        public bool UpdateProjectSheetFolder(int hubId, int projectId, int projectSheetFolderId, string key, object value)
+        public bool UpdateProjectSheetFolder(int hubId, int projectId, int projectSheetFolderId, Folder folder)
         {
-            string jsonToSend = Create_UpdateJsonString(key, value);
+            string jsonPayload = JsonConvert.SerializeObject(folder);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/folders/" + projectSheetFolderId;
-            IRestResponse response = Perform_Update(connStr, jsonToSend);
+            IRestResponse response = Perform_Update(connStr, jsonPayload);
 
             return response.IsSuccessful;
         }

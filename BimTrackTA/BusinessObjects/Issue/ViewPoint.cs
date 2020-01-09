@@ -7,7 +7,7 @@ namespace SeleniumTest.BusinessObjects
         public int Id { get; set; }
         public int IssueId { get; set; }
         public string ViewType { get; set; }
-        public Image Image { get; set; }
+        public BimImage BimImage { get; set; }
         public List<BimComment> Comments { get; set; }
         public string Source { get; set; }
         public string ViewName { get; set; }

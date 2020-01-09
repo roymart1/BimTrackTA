@@ -1,6 +1,7 @@
 using BimTrackTA.Common.WebDriver;
 using BimTrackTA.API;
 using NUnit.Framework;
+using SeleniumTest.BusinessObjects;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
@@ -12,11 +13,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string key = "Name";
-            string newName = "AutoImageTest";
+            
+            BimImage image = new BimImage();
+            image.Name = "AutoImageTest";
             
             ProjectImageApi projectImageApi = new ProjectImageApi();
-            projectImageApi.UpdateProjectImage(hubId, projectId, key, newName);
+            projectImageApi.UpdateProjectImage(hubId, projectId, image);
         }
     }
 }

@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Net.Http;
+using System.Text;
+using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -57,6 +62,37 @@ namespace BimTrackTA.API
             this.ProcessResponseError(response);
             return response;
         }
+        /*
+        protected IRestResponse Perform_Create_Multipart(string connectionStr, string jsonToSend)
+        {
+            RestRequest request = new RestRequest(connectionStr, Method.POST);
+
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonToSend);
+            StringBuilder sb = new StringBuilder();
+            foreach (KeyValuePair<string, string> kvp in dict)
+            {
+                if (!string.IsNullOrEmpty(kvp.Key) && kvp.Value != null)
+                {
+                    if (sb.Length > 0)
+                    {
+                        sb.Append("&");
+                    }
+
+                    sb.Append(HttpUtility.UrlEncode(kvp.Key));
+                    sb.Append("=");
+                    sb.Append(HttpUtility.UrlEncode(kvp.Value));
+                }
+            }
+
+            var postDataString = sb.ToString();
+            
+            request.AddParameter("multipart/form-data; charset=utf-8", postDataString, ParameterType.RequestBody);
+            //request.AddHeader("Content-type", "");
+            var response = client.Execute(request);
+            this.ProcessResponseError(response);
+            return response;
+        }
+        */
 
         protected IRestResponse Perform_Update(string connectionStr, string jsonToSend)
         {

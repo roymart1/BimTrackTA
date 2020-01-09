@@ -20,7 +20,7 @@ namespace SeleniumTest.BusinessObjects
 
         public Settings ProjectSettings { get; set; }
         public Author Author { get; set; }
-        public Image Image { get; set; }
+        public BimImage BimImage { get; set; }
         public DateTime CreationDate { get; set; }
         public string Name { get; set; }
 

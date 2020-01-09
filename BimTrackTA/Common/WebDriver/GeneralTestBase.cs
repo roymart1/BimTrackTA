@@ -17,18 +17,23 @@ namespace BimTrackTA.Common.WebDriver
         {
             HubApi hubApiApi = new HubApi();
             List<Hub> listHub = hubApiApi.GetHubList();
-            if (hubName != null)
+
+            if (listHub.Count > 0)
             {
-                foreach (var hub in listHub)
+                if (hubName != null)
                 {
-                    if (hub.Name.ToLower() == hubName.ToLower())
+                    foreach (var hub in listHub)
                     {
-                        return hub.Id;
+                        if (hub.Name.ToLower() == hubName.ToLower())
+                        {
+                            return hub.Id;
+                        }
                     }
                 }
+                // if none found the first one will be
+                return listHub[0].Id;
             }
-            // if none found the first one will be
-            return listHub[0].Id;
+            throw new Exception("No hub found.");
         }
 
         protected int __GetProjectRandom(int hubId, string projectName = null)
@@ -36,90 +41,113 @@ namespace BimTrackTA.Common.WebDriver
             // Go on with the retrieval of the project list 
             ProjectApi projectApi = new ProjectApi();
             List<Project> listProject =  projectApi.GetHubProjectList(hubId);
-            if (projectName != null)
+
+            if (listProject.Count > 0)
             {
-                foreach (var project in listProject)
+                if (projectName != null)
                 {
-                    if (project.Name.ToLower() == projectName.ToLower())
+                    foreach (var project in listProject)
                     {
-                        return project.Id;
+                        if (project.Name.ToLower() == projectName.ToLower())
+                        {
+                            return project.Id;
+                        }
                     }
                 }
+                // if none found the first one will be
+                return listProject[0].Id;
             }
-            // if none found the first one will be
-            return listProject[0].Id;
+            throw new Exception("No project for that hub.");
         }
 
         protected int __GetTeamRandom(int hubId, int projectId, string teamName=null)
         {
             ProjectTeamApi projectApi = new ProjectTeamApi();
             List<Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
-            if (teamName != null)
-            {
-                foreach (var team in listTeam)
-                {
-                    if (team.Name.ToLower() == teamName.ToLower())
-                    {
-                        return team.Id;
-                    }
-                }
-            }            
             
-            return listTeam[0].Id;
+            if (listTeam.Count > 0)
+            {
+                if (teamName != null)
+                {
+                    foreach (var team in listTeam)
+                    {
+                        if (team.Name.ToLower() == teamName.ToLower())
+                        {
+                            return team.Id;
+                        }
+                    }
+                }            
+            
+                return listTeam[0].Id;
+            }
+            throw new Exception("No team for that project.");
         }
         
         protected int __GetUserRandom(int hubId, int projectId, string userEmail=null)
         {
             ProjectUserApi projectApi = new ProjectUserApi();
             List<User> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
-            if (userEmail != null)
+
+            if (listUsers.Count > 0)
             {
-                foreach (var user in listUsers)
+                if (userEmail != null)
                 {
-                    if (user.Email.ToLower() == userEmail.ToLower())
+                    foreach (var user in listUsers)
                     {
-                        return user.Id;
+                        if (user.Email.ToLower() == userEmail.ToLower())
+                        {
+                            return user.Id;
+                        }
                     }
-                }
-            }            
+                }            
             
-            return listUsers[0].Id;
+                return listUsers[0].Id;
+            }
+            throw new Exception("No user for that project.");
         }   
        
         protected int __GetHubUserRandom(int hubId, string userEmail=null)
         {
             HubUserApi hubUserApi = new HubUserApi();
             List<HubUser> listUsers = hubUserApi.GetHubUsers(hubId);
-            if (userEmail != null)
+            if (listUsers.Count > 0)
             {
-                foreach (var user in listUsers)
+                if (userEmail != null)
                 {
-                    if (user.User.Email.ToLower() == userEmail.ToLower())
+                    foreach (var user in listUsers)
                     {
-                        return user.User.Id;
+                        if (user.User.Email.ToLower() == userEmail.ToLower())
+                        {
+                            return user.User.Id;
+                        }
                     }
                 }
+                return listUsers[0].User.Id;
             }
-            return listUsers[0].User.Id;
+            throw new Exception("No user for that hub.");
         }   
 
                
-        protected int __GetHubProjectTemplateRandom(int hubId, int projectId, string tmplName=null)
+        protected int __GetHubProjectTemplateRandom(int hubId, string tmplName=null)
         {
             ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
             List<ProjectTemplate> listPrjTemplates = projectTemplateApi.GetHubProjectTemplates(hubId);
-            
-            if (tmplName != null)
+
+            if (listPrjTemplates.Count > 0)
             {
-                foreach (var tmpl in listPrjTemplates)
+                if (tmplName != null)
                 {
-                    if (tmpl.Name.ToLower() == tmplName.ToLower())
+                    foreach (var tmpl in listPrjTemplates)
                     {
-                        return tmpl.Id;
+                        if (tmpl.Name.ToLower() == tmplName.ToLower())
+                        {
+                            return tmpl.Id;
+                        }
                     }
                 }
+                return listPrjTemplates[0].Id;
             }
-            return listPrjTemplates[0].Id;
+            throw new Exception("No project template for that hub.");
         }   
 
         protected int __GetHubProjectAttributeRandom(int hubId, int projectId, string attrName=null)
@@ -127,57 +155,85 @@ namespace BimTrackTA.Common.WebDriver
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
 
             List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
-            
-            if (attrName != null)
+
+            if (listPrjAttributes.Count > 0)
             {
-                foreach (var tmpl in listPrjAttributes)
+                if (attrName != null)
                 {
-                    if (tmpl.Name.ToLower() == attrName.ToLower())
+                    foreach (var tmpl in listPrjAttributes)
                     {
-                        return tmpl.Id;
+                        if (tmpl.Name.ToLower() == attrName.ToLower())
+                        {
+                            return tmpl.Id;
+                        }
                     }
                 }
+                return listPrjAttributes[0].Id;
             }
-            return listPrjAttributes[0].Id;
+            throw new Exception("No attribute for that project.");
         }   
         
-        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId, string attrName)
+        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId, string attrName=null)
         {
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
 
             ProjectAttribute prjAttribute = 
                 projectAttributeApi.GetHubProjectAttributeDetail(hubId, projectId, attrId);
             
-            if (attrName != null)
+            if (prjAttribute != null)
             {
-                foreach (var attrVal in prjAttribute.ProjectCustomAttributeValues)
+                if (attrName != null)
                 {
-                    if (attrVal.Name.ToLower() == attrName.ToLower())
+                    foreach (var attrVal in prjAttribute.ProjectCustomAttributeValues)
                     {
-                        return attrVal.Id;
+                        if (attrVal.Name.ToLower() == attrName.ToLower())
+                        {
+                            return attrVal.Id;
+                        }
                     }
                 }
+                return prjAttribute.ProjectCustomAttributeValues[0].Id;
             }
-            return prjAttribute.ProjectCustomAttributeValues[0].Id;
+            throw new Exception("Attribute value not found.");
         }
 
-        protected int __GetProjectModelRandom(int hubId, int projectId)
+        protected int __GetProjectModelRandom(int hubId, int projectId, string modelName=null)
         {
             ProjectModelApi projectModelApi = new ProjectModelApi();
             List<Model> listModels = projectModelApi.GetProjectModelList(hubId, projectId);
             if (listModels.Count > 0)
             {
+                if (modelName != null)
+                {
+                    foreach (var model in listModels)
+                    {
+                        if (model.Name.ToLower() == modelName.ToLower())
+                        {
+                            return model.Id;
+                        }
+                    }
+                }
                 return listModels[0].Id;
             }
             throw new Exception("There is no model in that project.");
         }
         
-        protected int __GetProjectModelFolderRandom(int hubId, int projectId)
+        protected int __GetProjectModelFolderRandom(int hubId, int projectId, string modelFolderName=null)
         {
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
             List<Folder> listFolders = projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
             if (listFolders.Count > 0)
             {
+                if (modelFolderName != null)
+                {
+                    foreach (var folder in listFolders)
+                    {
+                        if (folder.Name.ToLower() == modelFolderName.ToLower())
+                        {
+                            return folder.Id;
+                        }
+                    }
+                }
                 return listFolders[0].Id;
             }
             throw new Exception("There is no model folder in that project.");
@@ -195,23 +251,41 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("There is no revision for that model.");
         }
         
-        protected int __GetProjectSheetRandom(int hubId, int projectId)
+        protected int __GetProjectSheetRandom(int hubId, int projectId, string sheetName=null)
         {
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             List<Sheet> listSheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
             if (listSheets.Count > 0)
             {
+                foreach (var sheet in listSheets)
+                {
+                    if (sheet.Name.ToLower() == sheetName.ToLower())
+                    {
+                        return sheet.Id;
+                    }
+                }
                 return listSheets[0].Id;
             }
             throw new Exception("There is no sheet in that project.");
         }
         
-        protected int __GetProjectSheetFolderRandom(int hubId, int projectId)
+        protected int __GetProjectSheetFolderRandom(int hubId, int projectId, string sheetFolderName=null)
         {
             ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
             List<Folder> listFolders = projectSheetFolderApi.GetProjectSheetFolderList(hubId, projectId);
+            
             if (listFolders.Count > 0)
             {
+                if (sheetFolderName != null)
+                {
+                    foreach (var folder in listFolders)
+                    {
+                        if (folder.Name.ToLower() == sheetFolderName.ToLower())
+                        {
+                            return folder.Id;
+                        }
+                    }
+                }
                 return listFolders[0].Id;
             }
             throw new Exception("There is no sheet folder in that project.");
@@ -246,18 +320,22 @@ namespace BimTrackTA.Common.WebDriver
             IssueApi issueApi = new IssueApi();
 
             List<Issue> listIssues = issueApi.GetIssueList(hubId, projectId);
-            
-            if (issueTitle != null)
+
+            if (listIssues.Count > 0)
             {
-                foreach (var issue in listIssues)
+                if (issueTitle != null)
                 {
-                    if (issue.Title.ToLower() == issueTitle.ToLower())
+                    foreach (var issue in listIssues)
                     {
-                        return issue.Id;
+                        if (issue.Title.ToLower() == issueTitle.ToLower())
+                        {
+                            return issue.Id;
+                        }
                     }
                 }
+                return listIssues[0].Id;
             }
-            return listIssues[0].Id;
+            throw new Exception("No issue for that project.");
         }   
         
         protected int __GetArchivedIssueRandom(int hubId, int projectId, string issueTitle=null)
@@ -265,18 +343,22 @@ namespace BimTrackTA.Common.WebDriver
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
 
             List<Issue> listArchivedIssues = issueArchivedApi.GetIssueArchivedList(hubId, projectId);
-            
-            if (issueTitle != null)
+
+            if (listArchivedIssues.Count > 0)
             {
-                foreach (var archivedIssue in listArchivedIssues)
+                if (issueTitle != null)
                 {
-                    if (archivedIssue.Title.ToLower() == issueTitle.ToLower())
+                    foreach (var archivedIssue in listArchivedIssues)
                     {
-                        return archivedIssue.Id;
+                        if (archivedIssue.Title.ToLower() == issueTitle.ToLower())
+                        {
+                            return archivedIssue.Id;
+                        }
                     }
                 }
+                return listArchivedIssues[0].Id;
             }
-            return listArchivedIssues[0].Id;
+            throw new Exception("No archived issue for that project.");
         }
         
         protected int __GetIssueAttachmentRandom(int hubId, int projectId, int issueId, string attachmentName=null)
@@ -285,18 +367,22 @@ namespace BimTrackTA.Common.WebDriver
 
             List<Issue.Attachment> listIssueAttachments = issueAttachmentApi
                 .GetIssueAttachmentList(hubId, projectId, issueId);
-            
-            if (attachmentName != null)
+
+            if (listIssueAttachments.Count > 0)
             {
-                foreach (var issue in listIssueAttachments)
+                if (attachmentName != null)
                 {
-                    if (issue.Name.ToLower() == attachmentName.ToLower())
+                    foreach (var issue in listIssueAttachments)
                     {
-                        return issue.Id;
+                        if (issue.Name.ToLower() == attachmentName.ToLower())
+                        {
+                            return issue.Id;
+                        }
                     }
                 }
+                return listIssueAttachments[0].Id;
             }
-            return listIssueAttachments[0].Id;
+            throw new Exception("No attachment for that issue.");
         }  
         
         protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId, string commentValue=null)
@@ -304,17 +390,22 @@ namespace BimTrackTA.Common.WebDriver
             IssueCommentApi issueCommentApi = new IssueCommentApi();
             List<BimComment> listIssueComments = issueCommentApi
                 .GetIssueCommentList(hubId, projectId, issueId);
-            if (commentValue != null)
+
+            if (listIssueComments.Count > 0)
             {
-                foreach (var comment in listIssueComments)
+                if (commentValue != null)
                 {
-                    if (comment.Comment.ToLower() == commentValue.ToLower())
+                    foreach (var comment in listIssueComments)
                     {
-                        return comment.Id;
+                        if (comment.Comment.ToLower() == commentValue.ToLower())
+                        {
+                            return comment.Id;
+                        }
                     }
                 }
+                return listIssueComments[0].Id;
             }
-            return listIssueComments[0].Id;
+            throw new Exception("No comment for that issue.");
         } 
         
         protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId, string viewName=null)
@@ -323,26 +414,45 @@ namespace BimTrackTA.Common.WebDriver
 
             List<ViewPoint> listIssueViewPoints = issueViewPointApi
                 .GetIssueViewPointList(hubId, projectId, issueId);
-            
-            if (viewName != null)
+
+            if (listIssueViewPoints.Count > 0)
             {
-                foreach (var viewPoint in listIssueViewPoints)
+                if (viewName != null)
                 {
-                    if (viewPoint.ViewName.ToLower() == viewName.ToLower())
+                    foreach (var viewPoint in listIssueViewPoints)
                     {
-                        return viewPoint.Id;
+                        if (viewPoint.ViewName.ToLower() == viewName.ToLower())
+                        {
+                            return viewPoint.Id;
+                        }
                     }
                 }
+                return listIssueViewPoints[0].Id;
             }
-            return listIssueViewPoints[0].Id;
+            throw new Exception("No view point for that issue.");
         } 
         
-        protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId)
+        protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId, string commentValue=null)
         {
             IssueViewPointCommentApi issueViewPointCommentApi = new IssueViewPointCommentApi();
             List<BimComment> listIssueViewPointComments = issueViewPointCommentApi
                 .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
-            return listIssueViewPointComments[0].Id;
+
+            if (listIssueViewPointComments.Count > 0)
+            {
+                if (commentValue != null)
+                {
+                    foreach (var comment in listIssueViewPointComments)
+                    {
+                        if (comment.Comment.ToLower() == commentValue.ToLower())
+                        {
+                            return comment.Id;
+                        }
+                    }
+                }
+                return listIssueViewPointComments[0].Id;
+            }
+            throw new Exception("No comment for that viewpoint.");
         } 
         
         protected int __GetProjectDisciplineRandom(int hubId, int projectId, string name=null)
@@ -351,18 +461,22 @@ namespace BimTrackTA.Common.WebDriver
 
             List<Discipline> listProjectDisciplines = projectDisciplineApi
                 .GetHubProjectDisciplineList(hubId, projectId);
-            
-            if (name != null)
+
+            if (listProjectDisciplines.Count > 0)
             {
-                foreach (var discipline in listProjectDisciplines)
+                if (name != null)
                 {
-                    if (discipline.Name.ToLower() == name.ToLower())
+                    foreach (var discipline in listProjectDisciplines)
                     {
-                        return discipline.Id;
+                        if (discipline.Name.ToLower() == name.ToLower())
+                        {
+                            return discipline.Id;
+                        }
                     }
                 }
+                return listProjectDisciplines[0].Id;
             }
-            return listProjectDisciplines[0].Id;
+            throw new Exception("No discipline for that project.");
         } 
         
         protected int __GetProjectPhaseRandom(int hubId, int projectId, string name=null)
@@ -371,18 +485,22 @@ namespace BimTrackTA.Common.WebDriver
 
             List<Phase> listProjectPhases = projectPhaseApi
                 .GetHubProjectPhaseList(hubId, projectId);
-            
-            if (name != null)
+
+            if (listProjectPhases.Count > 0)
             {
-                foreach (var phase in listProjectPhases)
+                if (name != null)
                 {
-                    if (phase.Name.ToLower() == name.ToLower())
+                    foreach (var phase in listProjectPhases)
                     {
-                        return phase.Id;
+                        if (phase.Name.ToLower() == name.ToLower())
+                        {
+                            return phase.Id;
+                        }
                     }
                 }
+                return listProjectPhases[0].Id;
             }
-            return listProjectPhases[0].Id;
+            throw new Exception("No phase for that project.");
         } 
         
         protected int __GetProjectPriorityRandom(int hubId, int projectId, string name=null)
@@ -391,18 +509,22 @@ namespace BimTrackTA.Common.WebDriver
 
             List<Priority> listProjectPriorities = projectPriorityApi
                 .GetHubProjectPriorityList(hubId, projectId);
-            
-            if (name != null)
+
+            if (listProjectPriorities.Count > 0)
             {
-                foreach (var priority in listProjectPriorities)
+                if (name != null)
                 {
-                    if (priority.Name.ToLower() == name.ToLower())
+                    foreach (var priority in listProjectPriorities)
                     {
-                        return priority.Id;
+                        if (priority.Name.ToLower() == name.ToLower())
+                        {
+                            return priority.Id;
+                        }
                     }
                 }
+                return listProjectPriorities[0].Id;
             }
-            return listProjectPriorities[0].Id;
+            throw new Exception("No priority for that project.");
         } 
         
         protected int __GetProjectStatusRandom(int hubId, int projectId, string name=null)
@@ -411,18 +533,22 @@ namespace BimTrackTA.Common.WebDriver
 
             List<Status> listProjectStatuses = projectStatusApi
                 .GetHubProjectStatusList(hubId, projectId);
-            
-            if (name != null)
+
+            if (listProjectStatuses.Count > 0)
             {
-                foreach (var status in listProjectStatuses)
+                if (name != null)
                 {
-                    if (status.Name.ToLower() == name.ToLower())
+                    foreach (var status in listProjectStatuses)
                     {
-                        return status.Id;
+                        if (status.Name.ToLower() == name.ToLower())
+                        {
+                            return status.Id;
+                        }
                     }
                 }
+                return listProjectStatuses[0].Id;
             }
-            return listProjectStatuses[0].Id;
+           throw new Exception("No status for that project.");
         } 
         
         protected int __GetProjectTypeRandom(int hubId, int projectId, string name=null)
@@ -431,18 +557,22 @@ namespace BimTrackTA.Common.WebDriver
 
             List<BimType> listProjectTypes = projectTypeApi
                 .GetHubProjectTypeList(hubId, projectId);
-            
-            if (name != null)
+
+            if (listProjectTypes.Count > 0)
             {
-                foreach (var type in listProjectTypes)
+                if (name != null)
                 {
-                    if (type.Name.ToLower() == name.ToLower())
+                    foreach (var type in listProjectTypes)
                     {
-                        return type.Id;
+                        if (type.Name.ToLower() == name.ToLower())
+                        {
+                            return type.Id;
+                        }
                     }
                 }
+                return listProjectTypes[0].Id;
             }
-            return listProjectTypes[0].Id;
+            throw new Exception("No type in that project.");
         } 
         
         protected int __GetProjectZoneRandom(int hubId, int projectId, string name=null)
@@ -451,18 +581,22 @@ namespace BimTrackTA.Common.WebDriver
 
             List<Zone> listProjectZones = projectZoneApi
                 .GetHubProjectZoneList(hubId, projectId);
-            
-            if (name != null)
+
+            if (listProjectZones.Count > 0)
             {
-                foreach (var zone in listProjectZones)
+                if (name != null)
                 {
-                    if (zone.Name.ToLower() == name.ToLower())
+                    foreach (var zone in listProjectZones)
                     {
-                        return zone.Id;
+                        if (zone.Name.ToLower() == name.ToLower())
+                        {
+                            return zone.Id;
+                        }
                     }
                 }
+                return listProjectZones[0].Id;
             }
-            return listProjectZones[0].Id;
+            throw new Exception("No zone in that project.");
         } 
     }
 }

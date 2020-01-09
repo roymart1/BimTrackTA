@@ -2,10 +2,10 @@ using System;
 
 namespace SeleniumTest.BusinessObjects
 {
-    public class Image
+    public class BimImage
     {
         public string ThumbnailUrl { get; set; }
-        public DateTime ThumbnailUrlExpiration { get; set; }
+        public DateTime? ThumbnailUrlExpiration { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
         public int Size { get; set; }

@@ -23,9 +23,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string name = "AutoModelFolderTest"; 
+            
+            Folder folder = new Folder();
+            folder.Name = "AutoModelFolderTest";
+            
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
-            projectModelFolderApi.CreateProjectModelFolder(hubId, projectId, name);
+            projectModelFolderApi.CreateProjectModelFolder(hubId, projectId, folder);
         }
         
         [Test]

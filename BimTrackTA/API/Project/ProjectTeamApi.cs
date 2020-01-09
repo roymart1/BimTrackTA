@@ -16,11 +16,11 @@ namespace BimTrackTA.API
         }
         
         
-        public bool CreateHubProjectTeam(int hubId, int projectId, string teamName)
+        public bool CreateHubProjectTeam(int hubId, int projectId, Team team)
         {
-            string jsonToSend = "{'Name': '"+ teamName +"'}";
+            string jsonPayload = JsonConvert.SerializeObject(team);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create(connStr, jsonPayload);
             
             return response.IsSuccessful;
         }
@@ -38,12 +38,12 @@ namespace BimTrackTA.API
             return Perform_Get<List<User>>(connStr);
         }
 
-        public bool UpdateHubProjectTeam(int hubId, int projectId, int teamId, string key, object value)
+        public bool UpdateHubProjectTeam(int hubId, int projectId, int teamId, Team team)
         {
-            string jsonToSend = Create_UpdateJsonString(key, value);
+            string jsonPayload = JsonConvert.SerializeObject(team);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams/" + teamId;
             
-            IRestResponse response =  Perform_Update(connStr, jsonToSend);
+            IRestResponse response =  Perform_Update(connStr, jsonPayload);
             return response.IsSuccessful;
         }
     }

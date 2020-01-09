@@ -24,7 +24,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             
             ProjectApi projectApi = new ProjectApi();
-            projectApi.CreateHubProject(hubId, 98, "AutoNewPrjOther");
+            projectApi.CreateHubProject(hubId, 99, "AutoNewPrj");
         }
 
         [Test]

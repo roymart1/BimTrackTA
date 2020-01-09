@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
 
@@ -12,11 +13,11 @@ namespace BimTrackTA.API
             return Perform_Get<List<Revision>>(connStr);
         }
 
-        public bool CreateProjectSheetRevision(int hubId, int projectId, int sheetId, string name)
+        public bool CreateProjectSheetRevision(int hubId, int projectId, int sheetId, Revision revision)
         {
-            string jsonToSend = "{'Name': '" + name + "'}";
+            string jsonPayload = JsonConvert.SerializeObject(revision);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId + "/revisions";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create(connStr, jsonPayload);
             
             return response.IsSuccessful;
         }

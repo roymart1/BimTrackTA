@@ -28,11 +28,13 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int sheetId = __GetProjectSheetRandom(hubId, projectId);
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId);
-            string name = "AutoRevisionInstance";
+            
+            Instance instance = new Instance();
+            instance.ViewName = "AutoRevisionInstance";
             
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             projectSheetRevisionInstanceApi
-                .CreateProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, name);
+                .CreateProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instance);
         }
         
         [Test]
@@ -58,12 +60,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId);
             int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
 
-            string key = "ViewName";
-            string newName = "UpdatedRevisionInstance";
+            Instance instance = new Instance();
+            instance.ViewName = "UpdatedRevisionInstance";
             
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             projectSheetRevisionInstanceApi.UpdateProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId,
-                instanceId, key, newName);
+                instanceId, instance);
         }
         
         [Test]

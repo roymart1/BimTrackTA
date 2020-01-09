@@ -25,10 +25,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             int modelId = __GetProjectModelRandom(hubId, projectId);
-            string name = "AutoRevision";
+            
+            Revision revision = new Revision();
+            revision.Number = 10;
             
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
-            projectModelRevisionApi.CreateProjectModelRevision(hubId, projectId, modelId, name);
+            projectModelRevisionApi.CreateProjectModelRevision(hubId, projectId, modelId, revision);
         }   
         
         [Test]
