@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BimTrackTA.API;
 using BimTrackTA.Common.WebDriver;
@@ -65,11 +66,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
             PredefinedAttributeValue predefinedAttributeValue = new PredefinedAttributeValue();
             predefinedAttributeValue.Name = "UpdatedZenUnknown";
             predefinedAttributeValue.Color = "#FF0000";
-
-            // TODO: This one doesn't seem to work and it looks like it's not on my side...
+            
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi
-                .UpdateHubProjectAttributeValue(hubId, projectId, attrValId, attrValId, predefinedAttributeValue);
+                .UpdateHubProjectAttributeValue(hubId, projectId, attrId, attrValId, predefinedAttributeValue);
         }
         
         [Test]
@@ -78,14 +78,14 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
-            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "UpdatedZenUnknown");
+            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "zenUnknown");
             
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi.DeleteHubProjectAttributeValue(hubId, projectId, attrId, attrValId);
             
             // Delete the attribute created in the setup
-            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
+            // ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            // projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
         }
     }
 }

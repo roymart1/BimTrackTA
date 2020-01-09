@@ -22,7 +22,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "UpdatedAutoNewPrj");
             
             Issue issue = new Issue();
             issue.Title = "AutoNewIssue";
@@ -78,6 +78,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId);
             
             IssueApi issueApi = new IssueApi();
+            issueApi.GetIssueHistory(hubId, projectId, issueId);
         }
 
         [Test]
