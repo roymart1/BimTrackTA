@@ -48,7 +48,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             prjAttr.AddNewCustomAttributeValue("xzenblue", "#0000FF");
             
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            bool bRet = projectAttributeApi.CreateHubProjectAttributeList(hubId, projectId, prjAttr);
+            bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
         }
         
         
@@ -63,7 +63,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             prjAttr.Type = "Text";
             
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            bool bRet = projectAttributeApi.CreateHubProjectAttributeList(hubId, projectId, prjAttr);
+            bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
+            // TODO: This one takes a while. Before finding an elegant way to do it, let's wait a little.
+            System.Threading.Thread.Sleep(1000);
         }
 
         [Test]
@@ -73,15 +75,27 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenCustom");
 
-            string key = "Name";
-            string value = "UpdatedZenCustom";
-            
+            ProjectAttribute projectAttribute = new ProjectAttribute();
+            projectAttribute.Name = "UpdatedZenCustom";
+            projectAttribute.Type = "Text";
+
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            projectAttributeApi.UpdateHubProjectAttribute(hubId, projectId, attrId, key, value);
+            projectAttributeApi.UpdateHubProjectAttribute(hubId, projectId, attrId, projectAttribute);
         }
 
         [Test]
-        public void Test_deleteProjectAttribute()
+        public void Test_DeleteProjectAttributePredef()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId);
+            int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
+                        
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            bool bRet = projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
+        }
+
+        [Test]
+        public void Test_DeleteProjectAttributeCustom()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
@@ -90,6 +104,5 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
             bool bRet = projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
         }
-
     }
 }

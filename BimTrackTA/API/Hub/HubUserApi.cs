@@ -23,7 +23,7 @@ namespace BimTrackTA.API
 
         public bool CreateHubUser(int hubId, string email, UserType userType=UserType.Admin)
         {
-            string jsonToSend = "{'Email': '" + email + "', 'Role': '" + userType.ToString() + "'}";
+            string jsonToSend = "{'Email': '" + email + "', 'Role': '" + userType + "'}";
             string connStr = "v2/hubs/" + hubId + "/users/";
             
             IRestResponse response =  Perform_Create(connStr, jsonToSend);
@@ -41,7 +41,7 @@ namespace BimTrackTA.API
         public bool UpdateUser(int hubId, int userId, UserType userType, bool resendHubInvite)
         {
             string jsonToSend = "{'Role': '" + userType +
-                                "', 'ResendHubInvite': " + resendHubInvite + "}";
+                                "', 'ResendHubInvite': " + resendHubInvite.ToString().ToLower() + "}";
             string connStr = "v2/hubs/" + hubId + "/users/" + userId;
             IRestResponse response = Perform_Update(connStr, jsonToSend);
 

@@ -28,7 +28,7 @@ namespace BimTrackTA.API
             {
                 JObject json = JObject.Parse(response.Content);
                 JToken message = json["Message"];
-                throw new BTException("Exception - Error Message: " + message.ToString());
+                throw new BTException("Exception - Error Message: " + message);
             }
         }
 

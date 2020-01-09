@@ -25,10 +25,14 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string name = "AutoProjectPhaseTest";
-
+            
+            Phase phase = new Phase();
+            phase.Name = "AutoPhase";
+            phase.Color = "#FF0000";
+            
+            // TODO: This doesn't work, so update doesn't work and we can't really test delete.
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
-            projectPhaseApi.CreateHubProjectPhase(hubId, projectId, name);
+            projectPhaseApi.CreateHubProjectPhase(hubId, projectId, phase);
         }
 
         [Test]
@@ -36,21 +40,22 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            int phaseId = __GetProjectPhaseRandom(hubId, projectId, "AutoProjectPhaseTest");
+            int phaseId = __GetProjectPhaseRandom(hubId, projectId, "AutoPhase");
 
-            string key = "Name";
-            string value = "UpdatedProjectPhaseTest";
+            Phase phase = new Phase();
+            phase.Name = "UpdatedPhase";
+            phase.Color = "#FF0000";
             
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
-            projectPhaseApi.UpdateHubProjectPhase(hubId, projectId, phaseId, key, value);
+            projectPhaseApi.UpdateHubProjectPhase(hubId, projectId, phaseId, phase);
         }
 
         [Test]
-        public void Test_deleteProjectPhase()
+        public void Test_DeleteProjectPhase()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            int phaseId = __GetProjectPhaseRandom(hubId, projectId, "UpdatedProjectPhaseTest");
+            int phaseId = __GetProjectPhaseRandom(hubId, projectId, "UpdatedPhase");
                         
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
             projectPhaseApi.DeleteHubProjectPhase(hubId, projectId, phaseId);

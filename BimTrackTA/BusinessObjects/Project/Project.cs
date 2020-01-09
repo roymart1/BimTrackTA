@@ -12,7 +12,7 @@ namespace SeleniumTest.BusinessObjects
         public List<Discipline> Disciplines { get; set; }
         public List<Priority> Priorities { get; set; }
         public List<Status> Statuses { get; set; }
-        public List<Type> Types { get; set; }
+        public List<BimType> Types { get; set; }
         public List<CustomAttribute> Phases { get; set; }
         public List<CustomAttribute> Zones { get; set; }
         public List<Team> Teams { get; set; }
@@ -28,12 +28,12 @@ namespace SeleniumTest.BusinessObjects
         {
             public int DefaultDueDateDays { get; set; }
             public int ClosedProjectIssueStatusId { get; set; }
-            public int DefaultProjectPhaseId { get; set; }
-            public int DefaultProjectZoneId { get; set; }
-            public int DefaultProjectIssueLabelId { get; set; }
-            public int DefaultProjectIssuePriorityId { get; set; }
-            public int DefaultProjectIssueStatusId { get; set; }
-            public int DefaultProjectIssueTypeId { get; set; }
+            public int? DefaultProjectPhaseId { get; set; }
+            public int? DefaultProjectZoneId { get; set; }
+            public int? DefaultProjectIssueLabelId { get; set; }
+            public int? DefaultProjectIssuePriorityId { get; set; }
+            public int? DefaultProjectIssueStatusId { get; set; }
+            public int? DefaultProjectIssueTypeId { get; set; }
             public string DefaultColorAttributeProperty { get; set; }
             public int DefaultColorCustomAttributeId { get; set; }
             public bool IssueMandatoryAttributesZone { get; set; }

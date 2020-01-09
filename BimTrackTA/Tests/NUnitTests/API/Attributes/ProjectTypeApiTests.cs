@@ -25,10 +25,13 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string name = "AutoProjectTypeTest";
+            
+            BimType bimType = new BimType();
+            bimType.Name = "AutoProjectTypeTest";
+            bimType.Color = "#FF0000";
 
             ProjectTypeApi projectTypeApi = new ProjectTypeApi();
-            projectTypeApi.CreateHubProjectType(hubId, projectId, name);
+            projectTypeApi.CreateHubProjectType(hubId, projectId, bimType);
         }
 
         [Test]
@@ -38,11 +41,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int typeId = __GetProjectTypeRandom(hubId, projectId, "AutoProjectTypeTest");
 
-            string key = "Name";
-            string value = "UpdatedProjectTypeTest";
+            BimType bimType = new BimType();
+            bimType.Name = "UpdatedProjectTypeTest";
+            bimType.Color = "#FF0000";
             
             ProjectTypeApi projectTypeApi = new ProjectTypeApi();
-            projectTypeApi.UpdateHubProjectType(hubId, projectId, typeId, key, value);
+            projectTypeApi.UpdateHubProjectType(hubId, projectId, typeId, bimType);
         }
 
         [Test]

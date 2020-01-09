@@ -25,10 +25,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string name = "AutoProjectDisciplineTest";
+            
+            Discipline discipline = new Discipline();
+            discipline.Name = "AutoProjectDisciplineTest";
 
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
-            projectDisciplineApi.CreateHubProjectDiscipline(hubId, projectId, name);
+            projectDisciplineApi.CreateHubProjectDiscipline(hubId, projectId, discipline);
         }
 
         [Test]
@@ -38,11 +40,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int disciplineId = __GetProjectDisciplineRandom(hubId, projectId, "AutoProjectDisciplineTest");
 
-            string key = "Name";
-            string value = "UpdatedProjectDisciplineTest";
+            Discipline discipline = new Discipline();
+            discipline.Name = "UpdatedProjectDisciplineTest";
             
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
-            projectDisciplineApi.UpdateHubProjectDiscipline(hubId, projectId, disciplineId, key, value);
+            projectDisciplineApi.UpdateHubProjectDiscipline(hubId, projectId, disciplineId, discipline);
         }
 
         [Test]

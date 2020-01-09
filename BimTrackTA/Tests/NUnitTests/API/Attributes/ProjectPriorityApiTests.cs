@@ -25,10 +25,14 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string name = "AutoProjectPriorityTest";
+            Priority priority = new Priority();
+            priority.Name = "AutoPriority";
+            priority.Color = "#FF0000";
 
+            
+            // TODO: This doesn't work, so update doesn't work and we can't really test delete.
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
-            projectPriorityApi.CreateHubProjectPriority(hubId, projectId, name);
+            projectPriorityApi.CreateHubProjectPriority(hubId, projectId, priority);
         }
 
         [Test]
@@ -36,21 +40,22 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            int priorityId = __GetProjectPriorityRandom(hubId, projectId, "AutoProjectPriorityTest");
+            int priorityId = __GetProjectPriorityRandom(hubId, projectId, "AutoPriority");
 
-            string key = "Name";
-            string value = "UpdatedProjectPriorityTest";
+            Priority priority = new Priority();
+            priority.Name = "UpdatedPriority";
+            priority.Color = "#FF0000";
             
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
-            projectPriorityApi.UpdateHubProjectPriority(hubId, projectId, priorityId, key, value);
+            projectPriorityApi.UpdateHubProjectPriority(hubId, projectId, priorityId, priority);
         }
 
         [Test]
-        public void Test_deleteProjectPriority()
+        public void Test_DeleteProjectPriority()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            int priorityId = __GetProjectPriorityRandom(hubId, projectId, "UpdatedProjectPriorityTest");
+            int priorityId = __GetProjectPriorityRandom(hubId, projectId, "UpdatedPriority");
                         
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
             projectPriorityApi.DeleteHubProjectPriority(hubId, projectId, priorityId);

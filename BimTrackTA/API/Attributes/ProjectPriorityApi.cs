@@ -14,11 +14,11 @@ namespace BimTrackTA.API
             return Perform_Get<List<Priority>>(connStr);
         }
 
-        public bool CreateHubProjectPriority(int hubId, int projectId, string name)
+        public bool CreateHubProjectPriority(int hubId, int projectId, Priority priority)
         {
-            string jsonToSend = "{'Name': '" + name + "'}";
+            string jsonPayload = JsonConvert.SerializeObject(priority);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create(connStr, jsonPayload);
             
             return response.IsSuccessful;
         }
@@ -32,12 +32,12 @@ namespace BimTrackTA.API
             
         }
 
-        public bool UpdateHubProjectPriority(int hubId, int projectId, int priorityId, string key, object value)
+        public bool UpdateHubProjectPriority(int hubId, int projectId, int priorityId, Priority priority)
         {
-            string jsonToSend = Create_UpdateJsonString(key, value);
+            string jsonPayload = JsonConvert.SerializeObject(priority);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities/" + priorityId;
             
-            IRestResponse response = Perform_Update(connStr, jsonToSend);
+            IRestResponse response = Perform_Update(connStr, jsonPayload);
             return response.IsSuccessful;
         }
         

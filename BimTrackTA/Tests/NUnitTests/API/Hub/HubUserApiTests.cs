@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubUserId = __GetHubUserRandom(hubId, "bimoneauto+zxz89674@gmail.com");
             
             HubUserApi hubUserApi = new HubUserApi();
-            bool bRet = hubUserApi.UpdateUser(hubId, hubUserId, HubUserApi.UserType.Guest, false);
+            hubUserApi.UpdateUser(hubId, hubUserId, HubUserApi.UserType.Guest, false);
         }
         
         [Test]

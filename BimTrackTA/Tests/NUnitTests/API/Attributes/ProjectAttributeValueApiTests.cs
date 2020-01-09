@@ -9,12 +9,29 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
     public class ProjectAttributeValueApiTests : GeneralTestBase
     {
+        // We need to create a project attribute before testing everything...
+        [Test]
+        public void CreateProjectAttribute()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            var prjAttr = new ProjectAttribute();
+            prjAttr.Name = "ZenPredef";
+            prjAttr.Type = "Predefined";
+            prjAttr.AddNewCustomAttributeValue("xzengreen", "#00FF00");
+            prjAttr.AddNewCustomAttributeValue("xzenblue", "#0000FF");
+            
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
+        }
+        
         [Test]
         public void Test_GetProjectAttributeValueList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int attrValId = __GetHubProjectAttributeRandom(hubId, projectId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int attrValId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
             
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
 
@@ -26,10 +43,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateProjectAttributeValue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int attrValId = __GetHubProjectAttributeRandom(hubId, projectId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int attrValId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
             
-            // Create object AttributValue
             PredefinedAttributeValue prjCst = new PredefinedAttributeValue();
             prjCst.Name = "zenUnknown";
             prjCst.Color = "#550088";
@@ -42,29 +58,34 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_UpdateProjectAttributeValue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int attrId = __GetHubProjectAttributeRandom(hubId, projectId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
             int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "zenUnknown");
 
-            string key = "Name";
-            string value = "UpdatedZenUnknown";
-            
+            PredefinedAttributeValue predefinedAttributeValue = new PredefinedAttributeValue();
+            predefinedAttributeValue.Name = "UpdatedZenUnknown";
+            predefinedAttributeValue.Color = "#FF0000";
+
+            // TODO: This one doesn't seem to work and it looks like it's not on my side...
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
-            prjAttrValApi.UpdateHubProjectAttributeValue(hubId, projectId, attrValId, attrValId, key, value);
+            prjAttrValApi
+                .UpdateHubProjectAttributeValue(hubId, projectId, attrValId, attrValId, predefinedAttributeValue);
         }
         
         [Test]
         public void Test_DeleteProjectAttributeValue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int attrId = __GetHubProjectAttributeRandom(hubId, projectId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
             int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "UpdatedZenUnknown");
             
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi.DeleteHubProjectAttributeValue(hubId, projectId, attrId, attrValId);
+            
+            // Delete the attribute created in the setup
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
         }
-
-        
     }
 }

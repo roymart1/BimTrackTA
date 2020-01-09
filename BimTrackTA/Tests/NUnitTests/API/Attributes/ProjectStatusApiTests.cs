@@ -25,10 +25,15 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            string name = "AutoProjectStatusTest";
+            
+            Status status = new Status();
+            status.Name = "AutoStatus";
+            status.Color = "#FF0000";
 
+            
+            // TODO: This doesn't work, so update doesn't work and we can't really test delete.
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
-            projectStatusApi.CreateHubProjectStatus(hubId, projectId, name);
+            projectStatusApi.CreateHubProjectStatus(hubId, projectId, status);
         }
 
         [Test]
@@ -36,13 +41,14 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            int statusId = __GetProjectStatusRandom(hubId, projectId, "AutoProjectStatusTest");
-
-            string key = "Name";
-            string value = "UpdatedProjectStatusTest";
+            int statusId = __GetProjectStatusRandom(hubId, projectId, "AutoStatus");
+            
+            Status status = new Status();
+            status.Name = "UpdatedStatus";
+            status.Color = "#FF0000";
             
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
-            projectStatusApi.UpdateHubProjectStatus(hubId, projectId, statusId, key, value);
+            projectStatusApi.UpdateHubProjectStatus(hubId, projectId, statusId,status);
         }
 
         [Test]
@@ -50,7 +56,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
-            int statusId = __GetProjectStatusRandom(hubId, projectId, "UpdatedProjectStatusTest");
+            int statusId = __GetProjectStatusRandom(hubId, projectId, "UpdatedStatus");
                         
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
             projectStatusApi.DeleteHubProjectStatus(hubId, projectId, statusId);

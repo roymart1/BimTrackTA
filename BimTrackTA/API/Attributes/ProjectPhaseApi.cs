@@ -14,11 +14,11 @@ namespace BimTrackTA.API
             return Perform_Get<List<Phase>>(connStr);
         }
 
-        public bool CreateHubProjectPhase(int hubId, int projectId, string name)
+        public bool CreateHubProjectPhase(int hubId, int projectId, Phase phase)
         {
-            string jsonToSend = "{'Name': '" + name + "'}";
+            string jsonPayload = JsonConvert.SerializeObject(phase);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create(connStr, jsonPayload);
             
             return response.IsSuccessful;
         }
@@ -32,12 +32,12 @@ namespace BimTrackTA.API
             
         }
 
-        public bool UpdateHubProjectPhase(int hubId, int projectId, int phaseId, string key, object value)
+        public bool UpdateHubProjectPhase(int hubId, int projectId, int phaseId, Phase phase)
         {
-            string jsonToSend = Create_UpdateJsonString(key, value);
+            string jsonPayload = JsonConvert.SerializeObject(phase);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases/" + phaseId;
             
-            IRestResponse response = Perform_Update(connStr, jsonToSend);
+            IRestResponse response = Perform_Update(connStr, jsonPayload);
             return response.IsSuccessful;
         }
         

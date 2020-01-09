@@ -14,7 +14,8 @@ namespace BimTrackTA.API
 
        public bool CreateHubProject(int hubId, int templateId, string prjName)
        {
-           string jsonToSend = "{'ProjectTemplateId':" + templateId + ",'Name': '" + prjName + "'}";
+           // TODO: This doesn't work for some reason.
+           string jsonToSend = "{'ProjectTemplateId':" + templateId + ", 'Name': '" + prjName + "'}";
            string connStr = "v2/hubs/" + hubId + "/projects";
            IRestResponse response =  Perform_Create(connStr, jsonToSend);
             

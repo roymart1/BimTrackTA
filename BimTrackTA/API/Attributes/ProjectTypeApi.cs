@@ -14,11 +14,11 @@ namespace BimTrackTA.API
             return Perform_Get<List<BimType>>(connStr);
         }
 
-        public bool CreateHubProjectType(int hubId, int projectId, string name)
+        public bool CreateHubProjectType(int hubId, int projectId, BimType bimType)
         {
-            string jsonToSend = "{'Name': '" + name + "'}";
+            string jsonPayload = JsonConvert.SerializeObject(bimType);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create(connStr, jsonPayload);
             
             return response.IsSuccessful;
         }
@@ -32,12 +32,12 @@ namespace BimTrackTA.API
             
         }
 
-        public bool UpdateHubProjectType(int hubId, int projectId, int typeId, string key, object value)
+        public bool UpdateHubProjectType(int hubId, int projectId, int typeId, BimType bimType)
         {
-            string jsonToSend = Create_UpdateJsonString(key, value);
+            string jsonPayload = JsonConvert.SerializeObject(bimType);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types/" + typeId;
             
-            IRestResponse response = Perform_Update(connStr, jsonToSend);
+            IRestResponse response = Perform_Update(connStr, jsonPayload);
             return response.IsSuccessful;
         }
         
