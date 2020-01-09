@@ -20,7 +20,7 @@ namespace BimTrackTA.API
 
         public bool RestoreArchivedIssue(int hubId, int projectId, int issueId)
         {
-            string jsonToSend = "{'ArchiveIssue': false}";
+            string jsonToSend = "{'ArchiveIssue': false, 'StatusId': 1}";
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/archivedissues/" + issueId;
             IRestResponse response = Perform_Patch(connStr, jsonToSend);
 

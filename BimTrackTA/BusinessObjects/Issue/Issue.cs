@@ -16,8 +16,8 @@ namespace SeleniumTest.BusinessObjects
         public DateTime LastModificationDate { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime ClosingDate { get; set; }
-        public int DefaultViewpointId { get; set; }
+        public DateTime? ClosingDate { get; set; }
+        public int? DefaultViewpointId { get; set; }
         public List<Discipline> Disciplines { get; set; }
         
         public Phase ProjectPhase { get; set; }

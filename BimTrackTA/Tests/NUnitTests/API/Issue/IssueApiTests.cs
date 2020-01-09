@@ -24,8 +24,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             
+            Issue issue = new Issue();
+            issue.Title = "AutoNewIssue";
+            
             IssueApi issueApi = new IssueApi();
-            issueApi.CreateIssue(hubId, projectId, "AutoNewIssue");
+            issueApi.CreateIssue(hubId, projectId, issue);
         }
 
         [Test]
@@ -58,11 +61,13 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int issueId = __GetIssueRandom(hubId, projectId);
             
-            string key = "Title";
-            string value = "UpdatedNewIssue"; 
+            Issue issue = new Issue();
+            issue.Title = "UpdatedNewIssue";
+            issue.Type = new BimType {Name = "Issue"};
             
+            // TODO: See what are the required parameters.
             IssueApi issueApi = new IssueApi();
-            issueApi.UpdateIssue(hubId, projectId, issueId, key, value);
+            issueApi.UpdateIssue(hubId, projectId, issueId, issue);
         }
 
         [Test]
