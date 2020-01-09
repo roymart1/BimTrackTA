@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
 
@@ -6,18 +7,18 @@ namespace BimTrackTA.API
 {
     public class IssueCommentApi : ApiBase
     {
-        public List<Comment> GetIssueCommentList(int hubId, int projectId, int issueId)
+        public List<BimComment> GetIssueCommentList(int hubId, int projectId, int issueId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId + "/comments";
-            return Perform_Get<List<Comment>>(connStr);
+            return Perform_Get<List<BimComment>>(connStr);
         }
 
-        public bool CreateIssueComment(int hubId, int projectId, int issueId, string name)
+        public bool CreateIssueComment(int hubId, int projectId, int issueId, BimComment bimComment)
         {
-            string jsonToSend = "{'Name': '" + name + "'}";
+            string jsonPayload = JsonConvert.SerializeObject(bimComment);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/comments";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create(connStr, jsonPayload);
             
             return response.IsSuccessful;
         }

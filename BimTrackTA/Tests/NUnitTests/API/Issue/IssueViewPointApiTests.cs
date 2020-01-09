@@ -26,8 +26,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int issueId = __GetIssueRandom(hubId, projectId);
             
+            ViewPoint viewPoint = new ViewPoint();
+            viewPoint.ViewType = "TwoD";
+            
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
-            issueViewPoint.CreateIssueViewPoint(hubId, projectId, issueId, "AutoIssueViewPoint");
+            issueViewPoint.CreateIssueViewPoint(hubId, projectId, issueId, viewPoint);
         }
 
         [Test]
@@ -50,11 +53,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId);
             int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
 
-            string key = "ViewName";
-            string value = "UpdatedIssueViewPoint";
+            ViewPoint viewPoint = new ViewPoint();
+            viewPoint.ViewType = "ThreeD";
          
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
-            issueViewPoint.UpdateIssueViewPoint(hubId, projectId, issueId, issueViewPointId, key, value);
+            issueViewPoint.UpdateIssueViewPoint(hubId, projectId, issueId, issueViewPointId, viewPoint);
         }
         
         [Test]

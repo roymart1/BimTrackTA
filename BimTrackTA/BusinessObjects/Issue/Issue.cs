@@ -29,7 +29,7 @@ namespace SeleniumTest.BusinessObjects
         public IssueNotifyList NotifyList { get; set; }
 
         public List<Attachment> Attachments { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<BimComment> Comments { get; set; }
         public List<ViewPoint> ViewPoints { get; set; }
         public IssueHistory ChangeSets { get; set; }
         public List<CustomAttribute> CustomAttributes { get; set; }

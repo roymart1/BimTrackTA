@@ -26,6 +26,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId);
             int issueId = __GetIssueRandom(hubId, projectId);
             
+            // TODO: This needs to be a multipart form-data
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
             issueAttachment.CreateIssueAttachment(hubId, projectId, issueId, "AutoIssueAttachment");
         }
@@ -36,7 +37,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             int issueId = __GetIssueRandom(hubId, projectId);
-            int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId);
+            int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId, "AutoIssueAttachment");
 
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
             issueAttachment.DeleteIssueAttachment(hubId, projectId, issueId, attachmentId);

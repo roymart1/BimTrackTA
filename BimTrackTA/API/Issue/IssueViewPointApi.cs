@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
 
@@ -12,12 +13,13 @@ namespace BimTrackTA.API
             return Perform_Get<List<ViewPoint>>(connStr);
         }
 
-        public bool CreateIssueViewPoint(int hubId, int projectId, int issueId, string viewName)
+        public bool CreateIssueViewPoint(int hubId, int projectId, int issueId, ViewPoint viewPoint)
         {
-            string jsonToSend = "{'ViewName': '" + viewName + "'}";
+            // TODO: Error about not being able to manage Content-Type: multipart/form_data
+            string jsonPayload = JsonConvert.SerializeObject(viewPoint);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/viewpoints";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create(connStr, jsonPayload);
             
             return response.IsSuccessful;
         }
@@ -38,13 +40,12 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
 
-        public bool UpdateIssueViewPoint(int hubId, int projectId, int issueId, int viewPointId, string key,
-            object value)
+        public bool UpdateIssueViewPoint(int hubId, int projectId, int issueId, int viewPointId, ViewPoint viewPoint)
         {
-            string jsonToSend = Create_UpdateJsonString(key, value);
+            string jsonPayload = JsonConvert.SerializeObject(viewPoint);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
                              + "/viewpoints/" + viewPointId;
-            IRestResponse response = Perform_Update(connStr, jsonToSend);
+            IRestResponse response = Perform_Update(connStr, jsonPayload);
 
             return response.IsSuccessful;
         }

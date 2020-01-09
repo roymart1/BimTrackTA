@@ -17,7 +17,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
             
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
-            List<Comment> listComment =  issueViewPointComment
+            List<BimComment> listComment =  issueViewPointComment
                 .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
         }    
         
@@ -29,9 +29,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId);
             int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
 
+            BimComment comment = new BimComment();
+            comment.Comment = "AutoIssueComment";
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
             issueViewPointComment
-                .CreateIssueViewPointComment(hubId, projectId, issueId, viewPointId, "AutoIssueComment");
+                .CreateIssueViewPointComment(hubId, projectId, issueId, viewPointId, comment);
         }
 
         [Test]

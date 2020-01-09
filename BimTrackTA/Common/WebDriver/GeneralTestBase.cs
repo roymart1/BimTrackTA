@@ -299,11 +299,21 @@ namespace BimTrackTA.Common.WebDriver
             return listIssueAttachments[0].Id;
         }  
         
-        protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId)
+        protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId, string commentValue=null)
         {
             IssueCommentApi issueCommentApi = new IssueCommentApi();
-            List<Comment> listIssueComments = issueCommentApi
+            List<BimComment> listIssueComments = issueCommentApi
                 .GetIssueCommentList(hubId, projectId, issueId);
+            if (commentValue != null)
+            {
+                foreach (var comment in listIssueComments)
+                {
+                    if (comment.Comment.ToLower() == commentValue.ToLower())
+                    {
+                        return comment.Id;
+                    }
+                }
+            }
             return listIssueComments[0].Id;
         } 
         
@@ -330,7 +340,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId)
         {
             IssueViewPointCommentApi issueViewPointCommentApi = new IssueViewPointCommentApi();
-            List<Comment> listIssueViewPointComments = issueViewPointCommentApi
+            List<BimComment> listIssueViewPointComments = issueViewPointCommentApi
                 .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
             return listIssueViewPointComments[0].Id;
         } 
