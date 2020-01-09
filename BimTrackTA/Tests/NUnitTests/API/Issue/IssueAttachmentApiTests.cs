@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using BimTrackTA.Common.WebDriver;
 using BimTrackTA.API;
 using NUnit.Framework;
@@ -23,12 +25,13 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateIssueAttachment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int issueId = __GetIssueRandom(hubId, projectId);
-            
-            // TODO: This needs to be a multipart form-data
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int issueId = __GetIssueRandom(hubId, projectId, "AttachmentTest");
+            string fileName = "AutoAttachment";
+            string pathToAttachment = "../../../Tests/NUnitTests/API/Issue/Attachment.txt";
+
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
-            issueAttachment.CreateIssueAttachment(hubId, projectId, issueId, "AutoIssueAttachment");
+            issueAttachment.CreateIssueAttachment(hubId, projectId, issueId, fileName, pathToAttachment);
         }
 
         [Test]
@@ -37,7 +40,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId);
             int issueId = __GetIssueRandom(hubId, projectId);
-            int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId, "AutoIssueAttachment");
+            int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId, "AutoAttachment");
 
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
             issueAttachment.DeleteIssueAttachment(hubId, projectId, issueId, attachmentId);

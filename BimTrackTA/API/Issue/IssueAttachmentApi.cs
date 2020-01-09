@@ -12,12 +12,11 @@ namespace BimTrackTA.API
             return Perform_Get<List<Issue.Attachment>>(connStr);
         }
 
-        public bool CreateIssueAttachment(int hubId, int projectId, int issueId, string name)
+        public bool CreateIssueAttachment(int hubId, int projectId, int issueId, string fileName, string pathToAttachment)
         {
-            string jsonToSend = "{'Name': '" + name + "'}";
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/attachments";
-            IRestResponse response =  Perform_Create(connStr, jsonToSend);
+            IRestResponse response =  Perform_Create_Multipart(connStr, fileName, pathToAttachment);
             
             return response.IsSuccessful;
         }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -121,6 +123,17 @@ namespace BimTrackTA.API
                 return "{'" + key + "': '" + value + "'}";
             }
             return "{'" + key + "': " + value + "}";
+        }
+
+        protected IRestResponse Perform_Create_Multipart(string connectionStr, string fileName, string pathToFile)
+        {
+            RestRequest request = new RestRequest(connectionStr, Method.POST);
+            request.AlwaysMultipartFormData = true;
+            FileStream fs = File.OpenRead(pathToFile);
+            request.AddFile(fileName, stream => fs.CopyTo(stream), fileName, fs.Length, "application/octet-stream");
+            var response = client.ExecuteTaskAsync(request, CancellationToken.None).Result;
+            this.ProcessResponseError(response);
+            return response;
         }
     }
 }
