@@ -2,8 +2,8 @@ namespace SeleniumTest.BusinessObjects
 {
     public class Xyz
     {
-        public int X { set; get; }
-        public int Y { set; get; }
-        public int Z { set; get; }
+        public float X { set; get; }
+        public float Y { set; get; }
+        public float Z { set; get; }
     }
 }

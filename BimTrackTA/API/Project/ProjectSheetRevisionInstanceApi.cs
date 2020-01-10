@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using RestSharp;
@@ -17,7 +18,17 @@ namespace BimTrackTA.API
         public bool CreateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             Instance instance)
         {
-            string jsonPayload = JsonConvert.SerializeObject(instance);
+            if (instance.CropBoxCenter == null || instance.CropBoxRotation == null || instance.CropBoxSize == null ||
+                instance.Position == null || instance.Rotation == null)
+            {
+                throw new Exception("You need to provide these values:\n" +
+                                    "    - CropBoxCenter (Type: Xyz)\n" +
+                                    "    - CropBoxRotation (Type: Xyz)\n" +
+                                    "    - CropBoxSize (Type: Xyz)\n" +
+                                    "    - Position (Type: Xyz)\n" +
+                                    "    - Rotation (Type: Xyz)\n");
+            }
+                string jsonPayload = JsonConvert.SerializeObject(instance);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId  + "/instances";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

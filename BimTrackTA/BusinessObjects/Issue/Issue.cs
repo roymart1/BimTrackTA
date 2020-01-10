@@ -7,15 +7,18 @@ namespace SeleniumTest.BusinessObjects
     {
         public int Id { get; set; }
         public int ProjectId { get; set; }
+        public int PriorityId { get; set; }
+        public int TypeId { get; set; }
+        public int StatusId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Group { get; set; }
         public Author Author { get; set; }
         public User AssignedTo { get; set; }
         public Author LastModificationAuthor { get; set; }
-        public DateTime LastModificationDate { get; set; }
-        public DateTime DueDate { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime? LastModificationDate { get; set; }
+        public DateTime? DueDate { get; set; }
+        public DateTime? CreationDate { get; set; }
         public DateTime? ClosingDate { get; set; }
         public int? DefaultViewpointId { get; set; }
         public List<Discipline> Disciplines { get; set; }
@@ -40,9 +43,9 @@ namespace SeleniumTest.BusinessObjects
             public int Id { get; set; }
             public string Name { get; set; }
             public int Size { get; set; }
-            public DateTime Date { get; set; }
+            public DateTime? Date { get; set; }
             public string Url { get; set; }
-            public DateTime UrlExpiration { get; set; }
+            public DateTime? UrlExpiration { get; set; }
         }
         
         public class IssueHistory
@@ -52,7 +55,7 @@ namespace SeleniumTest.BusinessObjects
             public class ChangeSet
             {
                 public User Author { get; set; }
-                public DateTime CreationDate { get; set; }
+                public DateTime? CreationDate { get; set; }
                 public string ChangeType { get; set; }
                 private List<Change> Changes { get; set; }
 

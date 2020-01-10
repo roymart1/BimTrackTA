@@ -52,7 +52,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
 
         [Test]
-        public void Test_deleteProjectStatus()
+        public void Test_DeleteProjectStatus()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");

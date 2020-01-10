@@ -13,11 +13,10 @@ namespace BimTrackTA.API
             return Perform_Get<List<Sheet>>(connStr);
         }
 
-        public bool CreateProjectSheet(int hubId, int projectId, Sheet sheet)
+        public bool CreateProjectSheet(int hubId, int projectId, string sheetName, string sheetPath)
         {
-            string jsonPayload = JsonConvert.SerializeObject(sheet);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create_Multipart(connStr, sheetName, sheetPath);
             
             return response.IsSuccessful;
         }

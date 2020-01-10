@@ -12,7 +12,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetProjectModels()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
             List<Model> models = projectModelApi.GetProjectModelList(hubId, projectId);
@@ -22,19 +22,20 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateProjectModel()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
-            Project project = new Project();
-            project.Name = "AutoModelTest";
+            string modelName = "AutoModelTest.ifc";
+            string pathToModel = "../../../Tests/NUnitTests/API/TestResources/Model.ifc";
+            
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            projectModelApi.CreateProjectModel(hubId, projectId, project);
+            projectModelApi.CreateProjectModel(hubId, projectId, modelName, pathToModel);
         }
         
         [Test]
         public void Test_GetProjectModel()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int modelId = __GetProjectModelRandom(hubId, projectId);
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
@@ -45,7 +46,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_UpdateProjectModel()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int modelId = __GetProjectModelRandom(hubId, projectId);
             
             Project project = new Project();
@@ -59,7 +60,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteProjectModel()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int modelId = __GetProjectModelRandom(hubId, projectId);
             
             ProjectModelApi projectModelApi = new ProjectModelApi();

@@ -61,7 +61,7 @@ namespace BimTrackTA.API
             request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             var response = client.Execute(request);
-            this.ProcessResponseError(response);
+            ProcessResponseError(response);
             return response;
         }
         protected IRestResponse Perform_Update(string connectionStr, string jsonToSend)
@@ -70,7 +70,7 @@ namespace BimTrackTA.API
             request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             var response = client.Execute(request);
-            this.ProcessResponseError(response);
+            ProcessResponseError(response);
             return response;
         }
 
@@ -80,7 +80,7 @@ namespace BimTrackTA.API
             request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             var response = client.Execute(request);
-            this.ProcessResponseError(response);
+            ProcessResponseError(response);
             return response;
         }
 
@@ -104,10 +104,10 @@ namespace BimTrackTA.API
                 request.AddParameter("metadata", metadata, "application/json", ParameterType.RequestBody);
             }
 
-            FileStream fs = File.OpenRead(pathToFile);
+            Stream fs = File.OpenRead(pathToFile);
             request.AddFile(fileName, stream => fs.CopyTo(stream), fileName, fs.Length, "application/octet-stream");
             var response = client.ExecuteTaskAsync(request, CancellationToken.None).Result;
-            this.ProcessResponseError(response);
+            ProcessResponseError(response);
             return response;
         }
     }

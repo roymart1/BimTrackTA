@@ -59,13 +59,16 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
+            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
             
+            // TODO: Issue can't be found and it doesn't appear to be on my side (doesn't work with API too)...
+            // Hypothesis: I need to have a real type, priority and status id for it to work appropriately.
             Issue issue = new Issue();
             issue.Title = "UpdatedNewIssue";
-            issue.Type = new BimType {Name = "Issue"};
+            issue.TypeId = 1;
+            issue.PriorityId = 1;
+            issue.StatusId = 1;
             
-            // TODO: See what are the required parameters.
             IssueApi issueApi = new IssueApi();
             issueApi.UpdateIssue(hubId, projectId, issueId, issue);
         }
@@ -75,7 +78,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
+            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
             
             IssueApi issueApi = new IssueApi();
             issueApi.GetIssueHistory(hubId, projectId, issueId);
@@ -86,7 +89,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
+            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
             
             IssueApi issueApi = new IssueApi();
             issueApi.ArchiveIssue(hubId, projectId, issueId);

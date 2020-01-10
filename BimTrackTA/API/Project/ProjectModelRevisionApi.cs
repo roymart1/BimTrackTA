@@ -13,11 +13,10 @@ namespace BimTrackTA.API
             return Perform_Get<List<Revision>>(connStr);
         }
 
-        public bool CreateProjectModelRevision(int hubId, int projectId, int modelId, Revision revision)
+        public bool CreateProjectModelRevision(int hubId, int projectId, int modelId, string revisionName, string filePath)
         {
-            string jsonPayload = JsonConvert.SerializeObject(revision);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId + "/revisions";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create_Multipart(connStr, revisionName, filePath);
             
             return response.IsSuccessful;
         }

@@ -12,7 +12,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
         [Test]
         public void CreateIssue()
         {
-            // TODO: Ooops, something went wrong error message.
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
@@ -61,7 +60,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId);
+            int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId, "AutoNewIssueToArchive");
             
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
             issueArchivedApi.RestoreArchivedIssue(hubId, projectId, issueArchivedId);

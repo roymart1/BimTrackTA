@@ -239,13 +239,26 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("There is no model folder in that project.");
         }
         
-        protected int __GetProjectModelRevisionRandom(int hubId, int projectId, int modelId)
+        protected int __GetProjectModelRevisionRandom(int hubId, int projectId, int modelId, string fileName=null)
         {
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             List<Revision> listRevisions = projectModelRevisionApi
                 .GetProjectModelRevisionList(hubId, projectId, modelId);
             if (listRevisions.Count > 0)
             {
+                if (fileName != null)
+                {
+                    foreach (var revision in listRevisions)
+                    {
+                        if (revision.FileInfo != null)
+                        {
+                            if (revision.FileInfo.Name.ToLower() == fileName.ToLower())
+                            {
+                                return revision.Id;
+                            }
+                        }
+                    }
+                }
                 return listRevisions[0].Id;
             }
             throw new Exception("There is no revision for that model.");
@@ -291,13 +304,26 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("There is no sheet folder in that project.");
         }
         
-        protected int __GetProjectSheetRevisionRandom(int hubId, int projectId, int sheetId)
+        protected int __GetProjectSheetRevisionRandom(int hubId, int projectId, int sheetId, string fileName=null)
         {
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             List<Revision> listRevisions = projectSheetRevisionApi
                 .GetProjectSheetRevisionList(hubId, projectId, sheetId);
             if (listRevisions.Count > 0)
             {
+                if (fileName != null)
+                {
+                    foreach (var revision in listRevisions)
+                    {
+                        if (revision.FileInfo != null)
+                        {
+                            if (revision.FileInfo.Name.ToLower() == fileName.ToLower())
+                            {
+                                return revision.Id;
+                            }
+                        }
+                    }
+                }
                 return listRevisions[0].Id;
             }
             throw new Exception("There is no revision for that sheet.");

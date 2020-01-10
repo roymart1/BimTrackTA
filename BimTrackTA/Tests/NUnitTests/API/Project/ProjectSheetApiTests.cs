@@ -12,7 +12,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetProjectSheets()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             List<Sheet> sheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
@@ -22,36 +22,35 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateProjectSheet()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            
-            Sheet sheet = new Sheet();
-            sheet.Name = "AutoSheetTest";
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+
+            string sheetName = "AutoSheetTest.pdf";
+            string sheetPath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";
             
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            projectSheetApi.CreateProjectSheet(hubId, projectId, sheet);
+            projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, sheetPath);
         }
 
         [Test]
-        public void Test_GetProjectModel()
+        public void Test_GetProjectSheet()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int sheetId = __GetProjectSheetRandom(hubId, projectId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetTest.pdf");
             
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            Sheet sheet = projectSheetApi.GetProjectSheet(hubId, projectId, sheetId);
+            projectSheetApi.GetProjectSheet(hubId, projectId, sheetId);
         }
-        
+
         [Test]
         public void Test_DeleteProjectSheet()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
-            int sheetId = __GetProjectSheetRandom(hubId, projectId);
-            
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetTest.pdf");
+
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             projectSheetApi.DeleteProjectSheet(hubId, projectId, sheetId);
         }
-
     }
 }
