@@ -29,7 +29,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
 
             Team team = new Team();
-            team.Name = "Ventilation2";
+            team.Name = "Ventilation3";
             
             ProjectTeamApi projectApi = new ProjectTeamApi();
             projectApi.CreateHubProjectTeam(hubId, projectId, team);
@@ -40,7 +40,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
-            int teamId = __GetTeamRandom(hubId, projectId, "Ventilation2");
+            int teamId = __GetTeamRandom(hubId, projectId, "Ventilation3");
             
             ProjectTeamApi projectApi = new ProjectTeamApi();
             List<User> listUser = projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
@@ -52,10 +52,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
-            int teamId = __GetTeamRandom(hubId, projectId, "Ventilation2");
+            int teamId = __GetTeamRandom(hubId, projectId, "Ventilation3");
             
             Team team = new Team();
-            team.Name = "UpdatedVentilation2";
+            team.Name = "UpdatedVentilation3";
             
             ProjectTeamApi projectApi = new ProjectTeamApi();
             projectApi.UpdateHubProjectTeam(hubId, projectId, teamId, team);
@@ -66,14 +66,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
-            int teamId = __GetTeamRandom(hubId, projectId, "UpdatedVentilation2");
+            int teamId = __GetTeamRandom(hubId, projectId, "UpdatedVentilation3");
             
-            ProjectTeamApi projectApi = new ProjectTeamApi();
-            IRestResponse resRet = projectApi.DeleteHubProjectTeam(hubId, projectId, teamId);
-            if (resRet.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                Console.Out.WriteLine("Failed to delete team " + teamId + " Reason == " + resRet.Content);
-            }
+            ProjectTeamApi projectTeamApi = new ProjectTeamApi();
+            projectTeamApi.DeleteHubProjectTeam(hubId, projectId, teamId);
         }
     }
 }

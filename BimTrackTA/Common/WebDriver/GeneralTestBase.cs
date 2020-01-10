@@ -86,7 +86,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetUserRandom(int hubId, int projectId, string userEmail=null)
         {
             ProjectUserApi projectApi = new ProjectUserApi();
-            List<User> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
+            List<ProjectUser> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
 
             if (listUsers.Count > 0)
             {
@@ -94,14 +94,14 @@ namespace BimTrackTA.Common.WebDriver
                 {
                     foreach (var user in listUsers)
                     {
-                        if (user.Email.ToLower() == userEmail.ToLower())
+                        if (user.user.Email.ToLower() == userEmail.ToLower())
                         {
-                            return user.Id;
+                            return user.user.Id;
                         }
                     }
                 }            
             
-                return listUsers[0].Id;
+                return listUsers[0].user.Id;
             }
             throw new Exception("No user for that project.");
         }   

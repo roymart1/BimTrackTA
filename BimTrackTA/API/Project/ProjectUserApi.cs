@@ -11,10 +11,10 @@ namespace BimTrackTA.API
         
         
         
-        public List<User> GetHubProjectUsers(int hubId, int projectId)
+        public List<ProjectUser> GetHubProjectUsers(int hubId, int projectId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/users";
-            return Perform_Get<List<User>>(connStr);
+            return Perform_Get<List<ProjectUser>>(connStr);
         }
 
         public bool CreateHubProjectUser(int hubId, int projectId, ProjectUser user)
