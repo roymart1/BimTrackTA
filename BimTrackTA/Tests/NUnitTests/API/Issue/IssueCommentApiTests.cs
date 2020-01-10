@@ -8,23 +8,23 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class IssueCommentApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetIssueCommentList()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
-            
-            IssueCommentApi issueComment = new IssueCommentApi();
-            List<BimComment> listComment =  issueComment.GetIssueCommentList(hubId, projectId, issueId);
-        }    
-        
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateIssueComment()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
+            
+            // We need to create an issue for us to be able to create its attachment
+            Issue issue = new Issue();
+            issue.Title = "IssueCommentTest";
+            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
+            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
+            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
+            IssueApi issueApi = new IssueApi();
+            issueApi.CreateIssue(hubId, projectId, issue);
+            
+            // Now that the issue is created, we can create a comment for it
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest");
             
             BimComment bimComment = new BimComment();
             bimComment.Comment = "AutoIssueComment";
@@ -32,17 +32,33 @@ namespace BimTrackTA.Tests.NUnitTests.API
             IssueCommentApi issueComment = new IssueCommentApi();
             issueComment.CreateIssueComment(hubId, projectId, issueId, bimComment);
         }
+        
+        [Test, Order(2)]
+        public void Test_GetIssueCommentList()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest");
+            
+            IssueCommentApi issueComment = new IssueCommentApi();
+            List<BimComment> listComment =  issueComment.GetIssueCommentList(hubId, projectId, issueId);
+        }    
 
-        [Test]
+        [Test, Order(3)]
         public void Test_DeleteIssueComment()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
-            int commentId = __GetIssueCommentRandom(hubId, projectId, issueId);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest");
+            int commentId = __GetIssueCommentRandom(hubId, projectId, issueId, "AutoIssueComment");
 
             IssueCommentApi issueComment = new IssueCommentApi();
             issueComment.DeleteIssueComment(hubId, projectId, issueId, commentId);
-        }
+            
+            // We now need to delete the temporary issue to clean up the test
+            IssueApi issueApi = new IssueApi();
+            issueApi.ArchiveIssue(hubId, projectId, issueId);
+            IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
+            issueArchivedApi.DeleteArchivedIssue(hubId, projectId, issueId);        }
     }
 }

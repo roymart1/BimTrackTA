@@ -8,44 +8,26 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class ProjectSheetRevisionInstanceApiTests : GeneralTestBase
     {
-        // We need to create the instance and the revision first
-        [Test]
-        public void Setup_CreateSheetAndRevision()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-
-            string sheetName = "AutoSheetForInstanceTest.pdf";
-            string revisionName = "AutoSheetRevisionForInstanceTest.pdf";
-            string filePath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";
-            
-            ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, filePath);
-
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest.pdf");
-            ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
-            projectSheetRevisionApi.CreateProjectSheetRevision(hubId, projectId, sheetId, revisionName, filePath);
-        }
-        
-        [Test]
-        public void Test_GetProjectSheetRevisionInstances()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest.pdf");
-            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
-            
-            ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
-            List<Instance> instances = projectSheetRevisionInstanceApi
-                .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
-        }
-
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateProjectSheetRevisionInstance()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            // We need to create the sheet to create the revision to create its instance
+            string sheetName = "AutoSheetForInstanceTest.pdf";
+            string revisionName = "AutoSheetRevisionForInstanceTest.pdf";
+            string filePath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";   
+            
+            ProjectSheetApi projectSheetApi = new ProjectSheetApi();
+            projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, filePath);
+            
+            // Now that the sheet is created, we can create the revision
             int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest.pdf");
+            ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
+            projectSheetRevisionApi.CreateProjectSheetRevision(hubId, projectId, sheetId, revisionName, filePath);
+            
+            // We can finally create the instance for the newly created revision
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
             
             Xyz xyz = new Xyz{X=0,Y=0,Z=0};
@@ -62,7 +44,20 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 .CreateProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instance);
         }
         
-        [Test]
+        [Test, Order(2)]
+        public void Test_GetProjectSheetRevisionInstances()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest.pdf");
+            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
+            
+            ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
+            List<Instance> instances = projectSheetRevisionInstanceApi
+                .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
+        }
+        
+        [Test, Order(3)]
         public void Test_GetProjectSheetRevisionInstance()
         {
             int hubId = __GetHubRandom();
@@ -76,7 +71,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 .GetProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instanceId);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_UpdateProjectSheetRevisionInstance()
         {
             int hubId = __GetHubRandom();
@@ -93,7 +88,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 instanceId, instance);
         }
         
-        [Test]
+        [Test, Order(5)]
         public void Test_DeleteProjectSheetRevisionInstance()
         {
             int hubId = __GetHubRandom();
@@ -105,16 +100,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             projectSheetRevisionInstanceApi
                 .DeleteProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instanceId);
-        }
-        
-        // We need to delete the instance and the revision that were created
-        [Test]
-        public void End_DeleteSheetAndRevision()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest.pdf");
-
+            
+            // Delete the sheet that we created
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             projectSheetApi.DeleteProjectSheet(hubId, projectId, sheetId);
             // I don't need to delete the revision, because deleting the sheet implicitly deletes the revision.

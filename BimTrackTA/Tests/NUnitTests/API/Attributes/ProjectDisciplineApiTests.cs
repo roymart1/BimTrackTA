@@ -9,18 +9,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
     public class ProjectDisciplineApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetProjectDisciplineList()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
-
-            List<Discipline> listPrjDisciplines = projectDisciplineApi.GetHubProjectDisciplineList(hubId, projectId);
-        }    
-        
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateProjectDiscipline()
         {
             int hubId = __GetHubRandom();
@@ -32,8 +21,19 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
             projectDisciplineApi.CreateHubProjectDiscipline(hubId, projectId, discipline);
         }
+        
+        [Test, Order(2)]
+        public void Test_GetProjectDisciplineList()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
 
-        [Test]
+            List<Discipline> listPrjDisciplines = projectDisciplineApi.GetHubProjectDisciplineList(hubId, projectId);
+        }  
+
+        [Test, Order(3)]
         public void Test_UpdateProjectDisciplineCustom()
         {
             int hubId = __GetHubRandom();
@@ -47,7 +47,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectDisciplineApi.UpdateHubProjectDiscipline(hubId, projectId, disciplineId, discipline);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectDiscipline()
         {
             int hubId = __GetHubRandom();
@@ -57,6 +57,5 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
             projectDisciplineApi.DeleteHubProjectDiscipline(hubId, projectId, disciplineId);
         }
-
     }
 }

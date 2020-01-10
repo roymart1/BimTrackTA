@@ -8,21 +8,28 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class ProjectModelFolderApiTests : GeneralTestBase
     {
-        // We need to create the project model first
-        [Test]
-        public void Setup_CreateProjectModel()
+        [Test, Order(1)]
+        public void Test_CreateProjectModelFolder()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
+            // We need to create the model first
             string modelName = "ModelForFolderTest.ifc";
             string pathToModel = "../../../Tests/NUnitTests/API/TestResources/Model.ifc";
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
             projectModelApi.CreateProjectModel(hubId, projectId, modelName, pathToModel);
+            
+            // Now, we can give it a folder
+            Folder folder = new Folder();
+            folder.Name = "AutoModelFolderTest";
+            
+            ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
+            projectModelFolderApi.CreateProjectModelFolder(hubId, projectId, folder);
         }
         
-        [Test]
+        [Test, Order(2)]
         public void Test_GetProjectModelFolders()
         {
             int hubId = __GetHubRandom();
@@ -32,20 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             List<Folder> folders = projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
         }
 
-        [Test]
-        public void Test_CreateProjectModelFolder()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            Folder folder = new Folder();
-            folder.Name = "AutoModelFolderTest";
-            
-            ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
-            projectModelFolderApi.CreateProjectModelFolder(hubId, projectId, folder);
-        }
-        
-        [Test]
+        [Test, Order(3)]
         public void Test_UpdateProjectModelFolder()
         {
             int hubId = __GetHubRandom();
@@ -59,7 +53,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectModelFolderApi.UpdateProjectModelFolder(hubId, projectId, folderId, key, newName);
         }
         
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectModelFolder()
         {
             int hubId = __GetHubRandom();
@@ -68,16 +62,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
             projectModelFolderApi.DeleteProjectModelFolder(hubId, projectId, folderId);
-        }
-        
-        // Delete the project used to create the folder at the end
-        [Test]
-        public void End_DeleteProjectModel()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int modelId = __GetProjectModelRandom(hubId, projectId, "ModelForFolderTest.ifc");
             
+            // Delete the model that we created on the first test to clean up the tests
+            int modelId = __GetProjectModelRandom(hubId, projectId, "ModelForFolderTest.ifc");
             ProjectModelApi projectModelApi = new ProjectModelApi();
             projectModelApi.DeleteProjectModel(hubId, projectId, modelId);
         }

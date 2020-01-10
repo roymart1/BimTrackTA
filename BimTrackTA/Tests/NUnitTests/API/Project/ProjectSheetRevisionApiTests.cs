@@ -8,21 +8,29 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class ProjectSheetRevisionApiTests : GeneralTestBase
     {
-        // We need to create a sheet first
-        [Test]
-        public void Setup_CreateProjectSheet()
+        [Test, Order(1)]
+        public void Test_CreateProjectSheetRevision()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-
+            
+            // We need to create the sheet before creating its revision
             string sheetName = "AutoSheetForRevisionTest.pdf";
             string sheetPath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";
-            
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, sheetPath);
+            projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, sheetPath);  
+            
+            // Now we can bind it to our revision using its ID
+            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest.pdf");
+            
+            string revisionName = "AutoRevisionTest.pdf";
+            string revisionPath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";
+            
+            ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
+            projectSheetRevisionApi.CreateProjectSheetRevision(hubId, projectId, sheetId, revisionName, revisionPath);
         }
         
-        [Test]
+        [Test, Order(2)]
         public void Test_GetProjectSheetRevisions()
         {
             int hubId = __GetHubRandom();
@@ -33,21 +41,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             List<Revision> revisions = projectSheetRevisionApi.GetProjectSheetRevisionList(hubId, projectId, sheetId);
         }
 
-        [Test]
-        public void Test_CreateProjectSheetRevision()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest.pdf");
-            
-            string revisionName = "AutoRevisionTest.pdf";
-            string revisionPath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";
-            
-            ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
-            projectSheetRevisionApi.CreateProjectSheetRevision(hubId, projectId, sheetId, revisionName, revisionPath);
-        }
-        
-        [Test]
+        [Test, Order(3)]
         public void Test_GetProjectSheetRevision()
         {
             int hubId = __GetHubRandom();
@@ -59,7 +53,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             Revision revision = projectSheetRevisionApi.GetProjectSheetRevision(hubId, projectId, sheetId, revisionId);
         }
         
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectSheetRevision()
         {
             int hubId = __GetHubRandom();
@@ -69,16 +63,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             projectSheetRevisionApi.DeleteProjectSheetRevision(hubId, projectId, sheetId, revisionId);
-        }
-        
-        // Delete the sheet that we created
-        [Test]
-        public void End_DeleteProjectSheet()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest.pdf");
             
+            // Now we can delete the sheet that we created for the revision to clean up the test
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             projectSheetApi.DeleteProjectSheet(hubId, projectId, sheetId);
         }

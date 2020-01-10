@@ -52,19 +52,11 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
         
-        public bool PatchIssues(int hubId, int projectId, string path, object value)
+        public bool PatchIssues(int hubId, int projectId, MultiUpdate multiUpdate)
         {
-            string jsonToSend;
-            if (value is string || value is char)
-            {
-                jsonToSend = "{'op': 'replace', 'path': '" + path + "', 'value': '" + value + "'}";
-            }
-            else
-            {               
-                jsonToSend = "{'op': 'replace', 'path': '" + path + "', 'value': " + value + "}";
-            }
+            string jsonPayload = JsonConvert.SerializeObject(multiUpdate);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues";
-            IRestResponse response = Perform_Patch(connStr, jsonToSend);
+            IRestResponse response = Perform_Patch(connStr, jsonPayload);
 
             return response.IsSuccessful;
         }

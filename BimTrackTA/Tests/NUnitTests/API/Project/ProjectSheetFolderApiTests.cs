@@ -8,21 +8,27 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class ProjectSheetFolderApiTests : GeneralTestBase
     {
-        // We need to create a sheet first
-        [Test]
-        public void Setup_CreateProjectSheet()
+        [Test, Order(1)]
+        public void Test_CreateProjectSheetFolder()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-
+            
+            // Before creating a folder, we need to create a sheet
             string sheetName = "AutoSheetForFolderTest.pdf";
             string sheetPath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";
-            
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, sheetPath);
+            
+            // Now we can create a folder and give it to it
+            Folder folder = new Folder();
+            folder.Name = "AutoSheetFolderTest";
+            
+            ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
+            projectSheetFolderApi.CreateProjectSheetFolder(hubId, projectId, folder);
         }
         
-        [Test]
+        [Test, Order(2)]
         public void Test_GetProjectSheetFolders()
         {
             int hubId = __GetHubRandom();
@@ -31,21 +37,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
             List<Folder> folders = projectSheetFolderApi.GetProjectSheetFolderList(hubId, projectId);
         }
-
-        [Test]
-        public void Test_CreateProjectSheetFolder()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            Folder folder = new Folder();
-            folder.Name = "AutoSheetFolderTest";
-            
-            ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
-            projectSheetFolderApi.CreateProjectSheetFolder(hubId, projectId, folder);
-        }
         
-        [Test]
+        [Test, Order(3)]
         public void Test_UpdateProjectSheetFolder()
         {
             int hubId = __GetHubRandom();
@@ -59,7 +52,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectSheetFolderApi.UpdateProjectSheetFolder(hubId, projectId, folderId, folder);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectSheetFolder()
         {
             int hubId = __GetHubRandom();
@@ -68,16 +61,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
             projectSheetFolderApi.DeleteProjectSheetFolder(hubId, projectId, folderId);
-        }
-        
-        // Delete the sheet that we created
-        [Test]
-        public void End_DeleteProjectSheet()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetFolderTest.pdf");
             
+            // Delete the sheet we created for the folder to clean up the test
+            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetFolderTest.pdf");
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             projectSheetApi.DeleteProjectSheet(hubId, projectId, sheetId);
         }

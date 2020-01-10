@@ -12,18 +12,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
     public class ProjectUserApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetProjectUsers()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            ProjectUserApi projectApi = new ProjectUserApi();
-            // Call the get users from a specific project
-            List<ProjectUser> prjUsers = projectApi.GetHubProjectUsers(hubId, projectId);
-        }
-
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateProjectUser()
         {
             int hubId = __GetHubRandom();
@@ -39,7 +28,18 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectUserApi.CreateHubProjectUser(hubId, projectId, user);
         }
 
-        [Test]
+        [Test, Order(2)]
+        public void Test_GetProjectUsers()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            ProjectUserApi projectApi = new ProjectUserApi();
+            // Call the get users from a specific project
+            List<ProjectUser> prjUsers = projectApi.GetHubProjectUsers(hubId, projectId);
+        }
+        
+        [Test, Order(3)]
         public void Test_UpdateProjectUser()
         {
             int hubId = __GetHubRandom();
@@ -53,7 +53,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectApi.UpdateHubProjectUser(hubId, projectId, userId, user);
         }
         
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectUser()
         {
             int hubId = __GetHubRandom();

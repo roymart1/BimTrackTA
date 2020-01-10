@@ -8,17 +8,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class ProjectModelApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetProjectModels()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            ProjectModelApi projectModelApi = new ProjectModelApi();
-            List<Model> models = projectModelApi.GetProjectModelList(hubId, projectId);
-        }
-
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateProjectModel()
         {
             int hubId = __GetHubRandom();
@@ -31,7 +21,17 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectModelApi.CreateProjectModel(hubId, projectId, modelName, pathToModel);
         }
         
-        [Test]
+        [Test, Order(2)]
+        public void Test_GetProjectModels()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            ProjectModelApi projectModelApi = new ProjectModelApi();
+            List<Model> models = projectModelApi.GetProjectModelList(hubId, projectId);
+        }
+        
+        [Test, Order(3)]
         public void Test_GetProjectModel()
         {
             int hubId = __GetHubRandom();
@@ -42,7 +42,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             Model model = projectModelApi.GetProjectModel(hubId, projectId, modelId);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_UpdateProjectModel()
         {
             int hubId = __GetHubRandom();
@@ -56,7 +56,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectModelApi.UpdateProjectModel(hubId, projectId, modelId, project);
         }
 
-        [Test]
+        [Test, Order(5)]
         public void Test_DeleteProjectModel()
         {
             int hubId = __GetHubRandom();

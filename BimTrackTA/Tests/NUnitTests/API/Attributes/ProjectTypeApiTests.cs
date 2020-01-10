@@ -9,18 +9,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
     public class ProjectTypeApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetProjectTypeList()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            ProjectTypeApi projectTypeApi = new ProjectTypeApi();
-
-            List<BimType> listPrjTypes = projectTypeApi.GetHubProjectTypeList(hubId, projectId);
-        }    
-        
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateProjectType()
         {
             int hubId = __GetHubRandom();
@@ -33,8 +22,19 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectTypeApi projectTypeApi = new ProjectTypeApi();
             projectTypeApi.CreateHubProjectType(hubId, projectId, bimType);
         }
+        
+        [Test, Order(2)]
+        public void Test_GetProjectTypeList()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            ProjectTypeApi projectTypeApi = new ProjectTypeApi();
 
-        [Test]
+            List<BimType> listPrjTypes = projectTypeApi.GetHubProjectTypeList(hubId, projectId);
+        }    
+
+        [Test, Order(3)]
         public void Test_UpdateProjectTypeCustom()
         {
             int hubId = __GetHubRandom();
@@ -49,7 +49,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectTypeApi.UpdateHubProjectType(hubId, projectId, typeId, bimType);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectType()
         {
             int hubId = __GetHubRandom();
@@ -59,6 +59,5 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectTypeApi projectTypeApi = new ProjectTypeApi();
             projectTypeApi.DeleteHubProjectType(hubId, projectId, typeId);
         }
-
     }
 }

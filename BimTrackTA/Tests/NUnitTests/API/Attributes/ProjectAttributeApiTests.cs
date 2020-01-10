@@ -9,18 +9,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
     public class ProjectAttributeApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetProjectAttributeList()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-
-            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
-        }    
-
-        [Test]
+        [Test, Order(1)]
         public void Test_GetProjectAttributeDetail()
         {
             int hubId = __GetHubRandom();
@@ -33,7 +22,18 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 projectId, listPrjAttributes[0].Id);
         }    
         
-        [Test]
+        [Test, Order(2)]
+        public void Test_GetProjectAttributeList()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+
+            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
+        }    
+
+        [Test, Order(3)]
         public void Test_CreateProjectAttributePredefined()
         {
             int hubId = __GetHubRandom();
@@ -51,8 +51,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
         }
         
-        
-        [Test]
+        [Test, Order(4)]
         public void Test_CreateProjectAttributeCustom()
         {
             int hubId = __GetHubRandom();
@@ -68,7 +67,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             System.Threading.Thread.Sleep(1000);
         }
 
-        [Test]
+        [Test, Order(5)]
         public void Test_UpdateProjectAttributeCustom()
         {
             int hubId = __GetHubRandom();
@@ -83,7 +82,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectAttributeApi.UpdateHubProjectAttribute(hubId, projectId, attrId, projectAttribute);
         }
 
-        [Test]
+        [Test, Order(6)]
         public void Test_DeleteProjectAttributePredef()
         {
             int hubId = __GetHubRandom();
@@ -94,7 +93,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             bool bRet = projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
         }
 
-        [Test]
+        [Test, Order(7)]
         public void Test_DeleteProjectAttributeCustom()
         {
             int hubId = __GetHubRandom();

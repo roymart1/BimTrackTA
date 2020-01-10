@@ -8,17 +8,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class ProjectApiTests : GeneralTestBase
     {
-        
-        [Test]
-        public void Test_GetHubProjectList()
-        {
-            int hubId = __GetHubRandom();
-            
-            ProjectApi projectApi = new ProjectApi();
-            List<Project> listProject =  projectApi.GetHubProjectList(hubId);
-        }    
-        
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateHubProject()
         {
             int hubId = __GetHubRandom();
@@ -26,8 +16,17 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectApi projectApi = new ProjectApi();
             projectApi.CreateHubProject(hubId, "AutoNewPrjTest");
         }
-
-        [Test]
+        
+        [Test, Order(2)]
+        public void Test_GetHubProjectList()
+        {
+            int hubId = __GetHubRandom();
+            
+            ProjectApi projectApi = new ProjectApi();
+            List<Project> listProject =  projectApi.GetHubProjectList(hubId);
+        } 
+        
+        [Test, Order(3)]
         public void Test_GetHubProjectDetails()
         {
             int hubId = __GetHubRandom();
@@ -37,7 +36,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             Project project = projectApi.GetHubProjectDetails(hubId, projectId);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_UpdateProjectName()
         {
             int hubId = __GetHubRandom();

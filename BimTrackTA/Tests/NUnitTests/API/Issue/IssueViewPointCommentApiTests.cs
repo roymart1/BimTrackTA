@@ -8,7 +8,42 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class IssueViewPointCommentApiTests : GeneralTestBase
     {
-        [Test]
+        [Test, Order(1)]
+        public void Test_CreateIssueViewPointComment()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            // To be able to create a comment for the viewpoint, we first need to create the issue and the viewpoint
+            Issue issue = new Issue();
+            issue.Title = "IssueViewPointCommentTest";
+            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
+            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
+            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
+            IssueApi issueApi = new IssueApi();
+            issueApi.CreateIssue(hubId, projectId, issue);
+            
+            // Now that we have created the issue, we can give it a viewpoint
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest");
+            ViewPoint viewPoint = new ViewPoint();
+            viewPoint.ViewType = "TwoD";
+            string path = "../../../Tests/NUnitTests/API/TestResources/ViewPoint.txt";
+            string fileName = "ViewPointCommentTest";
+            IssueViewPointApi issueViewPoint = new IssueViewPointApi();
+            issueViewPoint.CreateIssueViewPoint(hubId, projectId, issueId, fileName, path, viewPoint);
+            
+            // Finally, we can give it a comment.
+            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
+            
+            BimComment comment = new BimComment();
+            comment.Comment = "AutoIssueComment";
+            
+            IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
+            issueViewPointComment
+                .CreateIssueViewPointComment(hubId, projectId, issueId, viewPointId, comment);
+        }
+        
+        [Test, Order(2)]
         public void Test_GetIssueViewPointCommentList()
         {
             int hubId = __GetHubRandom();
@@ -19,24 +54,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
             List<BimComment> listComment =  issueViewPointComment
                 .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
-        }    
-        
-        [Test]
-        public void Test_CreateIssueViewPointComment()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
-            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
+        }   
 
-            BimComment comment = new BimComment();
-            comment.Comment = "AutoIssueComment";
-            IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
-            issueViewPointComment
-                .CreateIssueViewPointComment(hubId, projectId, issueId, viewPointId, comment);
-        }
-
-        [Test]
+        [Test, Order(3)]
         public void Test_DeleteIssueViewPointComment()
         {
             int hubId = __GetHubRandom();
@@ -47,6 +67,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
             issueViewPointComment.DeleteIssueViewPointComment(hubId, projectId, issueId, viewPointId, viewPointCommentId);
+            
+            // We now need to delete the temporary issue to clean up the test
+            IssueApi issueApi = new IssueApi();
+            issueApi.ArchiveIssue(hubId, projectId, issueId);
+            IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
+            issueArchivedApi.DeleteArchivedIssue(hubId, projectId, issueId);
         }
     }
 }

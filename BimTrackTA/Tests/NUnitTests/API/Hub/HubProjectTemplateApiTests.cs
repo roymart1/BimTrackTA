@@ -9,15 +9,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
     public class HubProjectTemplateApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetHubProjectTemplates()
-        {
-            int hubId = __GetHubRandom();
-            ProjectTemplateApi prjtemplateApi = new ProjectTemplateApi();
-            List<ProjectTemplate> listPrjTemplates = prjtemplateApi.GetHubProjectTemplates(hubId);
-        }
-
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateHubProjectTemplate()
         {
             int hubId = __GetHubRandom();
@@ -28,8 +20,15 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectTemplateApi.CreateHubProjectTemplate(hubId, listProject[1].Id, "ZenAirport");
         }
         
+        [Test, Order(2)]
+        public void Test_GetHubProjectTemplates()
+        {
+            int hubId = __GetHubRandom();
+            ProjectTemplateApi prjtemplateApi = new ProjectTemplateApi();
+            List<ProjectTemplate> listPrjTemplates = prjtemplateApi.GetHubProjectTemplates(hubId);
+        } 
 
-        [Test]
+        [Test, Order(3)]
         public void Test_DeleteHubProjectTemplate()
         {
             int hubId = __GetHubRandom();
@@ -39,9 +38,5 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             projectTemplateApi.DeleteHubProjectTemplate(hubId, prjTmplId);
         }
-        
-        
-
-
     }
 }

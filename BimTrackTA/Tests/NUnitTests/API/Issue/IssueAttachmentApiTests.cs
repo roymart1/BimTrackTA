@@ -10,23 +10,23 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class IssueAttachmentApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetIssueAttachmentList()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
-            
-            IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
-            List<Issue.Attachment> listAttachment =  issueAttachment.GetIssueAttachmentList(hubId, projectId, issueId);
-        }    
-        
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateIssueAttachment()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "AttachmentTest");
+            
+            // We need to create an issue for us to be able to create its attachment
+            Issue issue = new Issue();
+            issue.Title = "IssueAttachmentTest";
+            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
+            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
+            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
+            IssueApi issueApi = new IssueApi();
+            issueApi.CreateIssue(hubId, projectId, issue);
+            
+            // Now that it's created, we can create its attachment 
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueAttachmentTest");
             string fileName = "AutoAttachment";
             string pathToAttachment = "../../../Tests/NUnitTests/API/TestResources/Attachment.txt";
 
@@ -34,16 +34,33 @@ namespace BimTrackTA.Tests.NUnitTests.API
             issueAttachment.CreateIssueAttachment(hubId, projectId, issueId, fileName, pathToAttachment);
         }
 
-        [Test]
+        [Test, Order(2)]
+        public void Test_GetIssueAttachmentList()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueAttachmentTest");
+            
+            IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
+            List<Issue.Attachment> listAttachment =  issueAttachment.GetIssueAttachmentList(hubId, projectId, issueId);
+        }  
+        
+        [Test, Order(3)]
         public void Test_DeleteIssueAttachment()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueAttachmentTest");
             int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId, "AutoAttachment");
 
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
             issueAttachment.DeleteIssueAttachment(hubId, projectId, issueId, attachmentId);
+            
+            // We now need to delete the temporary issue to clean up the test
+            IssueApi issueApi = new IssueApi();
+            issueApi.ArchiveIssue(hubId, projectId, issueId);
+            IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
+            issueArchivedApi.DeleteArchivedIssue(hubId, projectId, issueId);
         }
     }
 }

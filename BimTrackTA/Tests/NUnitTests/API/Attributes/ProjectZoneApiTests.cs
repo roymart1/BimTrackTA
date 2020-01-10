@@ -8,19 +8,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class ProjectZoneApiTests : GeneralTestBase
     {
-
-        
-        [Test]
-        public void Test_GetProjectZoneList()
-        {        
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            ProjectZoneApi projectZoneApi = new ProjectZoneApi();
-
-            List<Zone> listPrjZones = projectZoneApi.GetHubProjectZoneList(hubId, projectId);
-        }    
-        
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateProjectZone()
         {
             int hubId = __GetHubRandom();
@@ -33,8 +21,18 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
             projectZoneApi.CreateHubProjectZone(hubId, projectId, zone);
         }
+        
+        [Test, Order(2)]
+        public void Test_GetProjectZoneList()
+        {        
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            ProjectZoneApi projectZoneApi = new ProjectZoneApi();
 
-        [Test]
+            List<Zone> listPrjZones = projectZoneApi.GetHubProjectZoneList(hubId, projectId);
+        }  
+        
+        [Test, Order(3)]
         public void Test_UpdateProjectZoneCustom()
         {
             int hubId = __GetHubRandom();
@@ -49,7 +47,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectZoneApi.UpdateHubProjectZone(hubId, projectId, zoneId, zone);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectZone()
         {
             int hubId = __GetHubRandom();

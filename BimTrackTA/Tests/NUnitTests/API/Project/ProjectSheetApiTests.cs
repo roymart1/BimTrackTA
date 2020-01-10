@@ -8,17 +8,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 {
     public class ProjectSheetApiTests : GeneralTestBase
     {
-        [Test]
-        public void Test_GetProjectSheets()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            List<Sheet> sheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
-        }
-
-        [Test]
+        [Test, Order(1)]
         public void Test_CreateProjectSheet()
         {
             int hubId = __GetHubRandom();
@@ -30,8 +20,18 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, sheetPath);
         }
+        
+        [Test, Order(2)]
+        public void Test_GetProjectSheets()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            
+            ProjectSheetApi projectSheetApi = new ProjectSheetApi();
+            List<Sheet> sheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
+        }
 
-        [Test]
+        [Test, Order(3)]
         public void Test_GetProjectSheet()
         {
             int hubId = __GetHubRandom();
@@ -42,7 +42,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectSheetApi.GetProjectSheet(hubId, projectId, sheetId);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectSheet()
         {
             int hubId = __GetHubRandom();

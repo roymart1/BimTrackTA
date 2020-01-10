@@ -12,7 +12,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class HubApiTests : GeneralTestBase
     {
         
-        [Test]
+        [Test, Order(1)]
         public void Test_GetHubList()
         {
             
@@ -27,17 +27,14 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             Hub hubObj = hubApiApi.GetHub(listHub[0].Id);
             Console.Out.WriteLine("------------------- TEST END -----------------------");
-        }    
+        }
         
-        
-        [Test]
+        [Test, Order(2)]
         public void Test_GetHubInfo()
         {
             int hubId = __GetHubRandom();
             HubApi hubApiApi = new HubApi();
             Hub hub = hubApiApi.GetHub(hubId);
-        }           
-        
-        
+        }
     }
 }

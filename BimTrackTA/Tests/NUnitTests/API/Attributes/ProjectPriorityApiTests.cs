@@ -9,7 +9,20 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
     public class ProjectPriorityApiTests : GeneralTestBase
     {
-        [Test]
+        [Test, Order(1)]
+        public void Test_CreateProjectPriority()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            Priority priority = new Priority();
+            priority.Name = "AutoPriority";
+            priority.Color = "#FF0000";
+            
+            ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
+            projectPriorityApi.CreateHubProjectPriority(hubId, projectId, priority);
+        }
+        
+        [Test, Order(2)]
         public void Test_GetProjectPriorityList()
         {
             int hubId = __GetHubRandom();
@@ -18,24 +31,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
 
             List<Priority> listPrjPriorities = projectPriorityApi.GetHubProjectPriorityList(hubId, projectId);
-        }    
+        }   
         
-        [Test]
-        public void Test_CreateProjectPriority()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            Priority priority = new Priority();
-            priority.Name = "AutoPriority";
-            priority.Color = "#FF0000";
-
-            
-            // TODO: This doesn't work, so update doesn't work and we can't really test delete.
-            ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
-            projectPriorityApi.CreateHubProjectPriority(hubId, projectId, priority);
-        }
-
-        [Test]
+        [Test, Order(3)]
         public void Test_UpdateProjectPriorityCustom()
         {
             int hubId = __GetHubRandom();
@@ -50,7 +48,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectPriorityApi.UpdateHubProjectPriority(hubId, projectId, priorityId, priority);
         }
 
-        [Test]
+        [Test, Order(4)]
         public void Test_DeleteProjectPriority()
         {
             int hubId = __GetHubRandom();
@@ -60,6 +58,5 @@ namespace BimTrackTA.Tests.NUnitTests.API
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
             projectPriorityApi.DeleteHubProjectPriority(hubId, projectId, priorityId);
         }
-
     }
 }
