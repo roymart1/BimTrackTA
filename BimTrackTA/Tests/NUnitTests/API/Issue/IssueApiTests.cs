@@ -12,7 +12,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetIssueList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             IssueApi issueApi = new IssueApi();
             List<Issue> listIssue =  issueApi.GetIssueList(hubId, projectId);
@@ -22,7 +22,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "UpdatedAutoNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             Issue issue = new Issue();
             issue.Title = "AutoNewIssue";
@@ -35,7 +35,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetIssueDetails()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             
             IssueApi issueApi = new IssueApi();
@@ -46,7 +46,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_PatchIssues()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             string path = "/ZoneId";
             int value = 1234; 
             
@@ -58,7 +58,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_UpdateIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             
             Issue issue = new Issue();
@@ -74,7 +74,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetIssueHistory()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             
             IssueApi issueApi = new IssueApi();
@@ -85,7 +85,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_ArchiveIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             
             IssueApi issueApi = new IssueApi();

@@ -12,7 +12,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetIssueViewPointCommentList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
             
@@ -25,7 +25,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateIssueViewPointComment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
 
@@ -40,7 +40,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteIssueViewPointComment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
             int viewPointCommentId = __GetIssueViewPointCommentRandom(hubId, projectId, issueId, viewPointId);

@@ -33,7 +33,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteHubProjectTemplate()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
             int prjTmplId = __GetHubProjectTemplateRandom(hubId, "BimHubSuper");
             
             ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();

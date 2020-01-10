@@ -13,7 +13,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetProjectPriorityList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
 
@@ -24,7 +24,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateProjectPriority()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             Priority priority = new Priority();
             priority.Name = "AutoPriority";
             priority.Color = "#FF0000";
@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_UpdateProjectPriorityCustom()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int priorityId = __GetProjectPriorityRandom(hubId, projectId, "AutoPriority");
 
             Priority priority = new Priority();
@@ -54,7 +54,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteProjectPriority()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int priorityId = __GetProjectPriorityRandom(hubId, projectId, "UpdatedPriority");
                         
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();

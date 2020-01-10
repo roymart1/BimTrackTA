@@ -14,7 +14,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetProjectZoneList()
         {        
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
 
             List<Zone> listPrjZones = projectZoneApi.GetHubProjectZoneList(hubId, projectId);
@@ -24,7 +24,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateProjectZone()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             Zone zone = new Zone();
             zone.Name = "AutoProjectZoneTest";
@@ -37,9 +37,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
         [Test]
         public void Test_UpdateProjectZoneCustom()
         {
-            // TODO: I don't know why, but this doesn't work... It seems like it's not looking for the correct project.
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int zoneId = __GetProjectZoneRandom(hubId, projectId, "AutoProjectZoneTest");
             
             Zone zone = new Zone();
@@ -54,12 +53,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteProjectZone()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int zoneId = __GetProjectZoneRandom(hubId, projectId, "UpdatedProjectZoneTest");
                         
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
             projectZoneApi.DeleteHubProjectZone(hubId, projectId, zoneId);
         }
-
     }
 }

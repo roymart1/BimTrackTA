@@ -13,7 +13,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetProjectPhaseList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
 
@@ -24,7 +24,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateProjectPhase()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             Phase phase = new Phase();
             phase.Name = "AutoPhase";
@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_UpdateProjectPhaseCustom()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int phaseId = __GetProjectPhaseRandom(hubId, projectId, "AutoPhase");
 
             Phase phase = new Phase();
@@ -54,7 +54,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteProjectPhase()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int phaseId = __GetProjectPhaseRandom(hubId, projectId, "UpdatedPhase");
                         
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();

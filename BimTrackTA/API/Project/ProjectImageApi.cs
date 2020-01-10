@@ -6,11 +6,10 @@ namespace BimTrackTA.API
 {
     public class ProjectImageApi : ApiBase
     {
-        public bool UpdateProjectImage(int hubId, int projectId, BimImage image)
+        public bool UpdateProjectImage(int hubId, int projectId, string fileName, string filePath)
         {
-            string jsonPayload = JsonConvert.SerializeObject(image);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/image";
-            IRestResponse response = Perform_Create(connStr, jsonPayload);
+            IRestResponse response = Perform_Create_Multipart(connStr, fileName, filePath);
 
             return response.IsSuccessful;
         }

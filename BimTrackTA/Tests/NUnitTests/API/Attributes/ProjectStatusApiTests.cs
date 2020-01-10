@@ -13,7 +13,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetProjectStatusList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
 
@@ -24,7 +24,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateProjectStatus()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             Status status = new Status();
             status.Name = "AutoStatus";
@@ -40,7 +40,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_UpdateProjectStatusCustom()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int statusId = __GetProjectStatusRandom(hubId, projectId, "AutoStatus");
             
             Status status = new Status();
@@ -55,7 +55,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_deleteProjectStatus()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int statusId = __GetProjectStatusRandom(hubId, projectId, "UpdatedStatus");
                         
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();

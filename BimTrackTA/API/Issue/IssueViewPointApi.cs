@@ -13,13 +13,12 @@ namespace BimTrackTA.API
             return Perform_Get<List<ViewPoint>>(connStr);
         }
 
-        public bool CreateIssueViewPoint(int hubId, int projectId, int issueId, ViewPoint viewPoint)
+        public bool CreateIssueViewPoint(int hubId, int projectId, int issueId, string fileName, string filePath, ViewPoint viewPoint)
         {
-            // TODO: Error about not being able to manage Content-Type: multipart/form_data
             string jsonPayload = JsonConvert.SerializeObject(viewPoint);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/viewpoints";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create_Multipart(connStr, fileName, filePath, jsonPayload);
             
             return response.IsSuccessful;
         }

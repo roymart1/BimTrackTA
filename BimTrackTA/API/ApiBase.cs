@@ -15,9 +15,9 @@ namespace BimTrackTA.API
 {
     public class ApiBase
     {
-        protected RestClient client;  
-            
-        
+        protected RestClient client;
+
+
         public ApiBase()
         {
             string szKey = CTX.keyChain.ApiKey;
@@ -27,8 +27,8 @@ namespace BimTrackTA.API
             };
             client.AddDefaultHeader("Authorization", $"Bearer {szKey}");
         }
-        
-        
+
+
         protected void ProcessResponseError(IRestResponse response)
         {
             if (response.IsSuccessful != true)
@@ -64,38 +64,6 @@ namespace BimTrackTA.API
             this.ProcessResponseError(response);
             return response;
         }
-        /*
-        protected IRestResponse Perform_Create_Multipart(string connectionStr, string jsonToSend)
-        {
-            RestRequest request = new RestRequest(connectionStr, Method.POST);
-
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonToSend);
-            StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair<string, string> kvp in dict)
-            {
-                if (!string.IsNullOrEmpty(kvp.Key) && kvp.Value != null)
-                {
-                    if (sb.Length > 0)
-                    {
-                        sb.Append("&");
-                    }
-
-                    sb.Append(HttpUtility.UrlEncode(kvp.Key));
-                    sb.Append("=");
-                    sb.Append(HttpUtility.UrlEncode(kvp.Value));
-                }
-            }
-
-            var postDataString = sb.ToString();
-            
-            request.AddParameter("multipart/form-data; charset=utf-8", postDataString, ParameterType.RequestBody);
-            //request.AddHeader("Content-type", "");
-            var response = client.Execute(request);
-            this.ProcessResponseError(response);
-            return response;
-        }
-        */
-
         protected IRestResponse Perform_Update(string connectionStr, string jsonToSend)
         {
             RestRequest request = new RestRequest(connectionStr, Method.PUT);
@@ -122,13 +90,20 @@ namespace BimTrackTA.API
             {
                 return "{'" + key + "': '" + value + "'}";
             }
+
             return "{'" + key + "': " + value + "}";
         }
 
-        protected IRestResponse Perform_Create_Multipart(string connectionStr, string fileName, string pathToFile)
+        protected IRestResponse Perform_Create_Multipart(string connectionStr, string fileName, string pathToFile,
+            string metadata=null)
         {
             RestRequest request = new RestRequest(connectionStr, Method.POST);
-            request.AlwaysMultipartFormData = true;
+            if (metadata != null)
+            { 
+                request.AlwaysMultipartFormData = true;
+                request.AddParameter("metadata", metadata, "application/json", ParameterType.RequestBody);
+            }
+
             FileStream fs = File.OpenRead(pathToFile);
             request.AddFile(fileName, stream => fs.CopyTo(stream), fileName, fs.Length, "application/octet-stream");
             var response = client.ExecuteTaskAsync(request, CancellationToken.None).Result;

@@ -12,10 +12,13 @@ namespace BimTrackTA.API
            return Perform_Get<List<Project>>(connStr);
        }
 
-       public bool CreateHubProject(int hubId, int templateId, string prjName)
+       public bool CreateHubProject(int hubId, string prjName, int projectTemplateId=-1)
        {
-           // TODO: This doesn't work for some reason.
-           string jsonToSend = "{'ProjectTemplateId':" + templateId + ", 'Name': '" + prjName + "'}";
+           string jsonToSend = "{'Name': '" + prjName + "'}";
+           if (projectTemplateId != -1)
+           {
+               jsonToSend = "{'ProjectTemplateId':" + projectTemplateId + ", 'Name': '" + prjName + "'}";
+           }
            string connStr = "v2/hubs/" + hubId + "/projects";
            IRestResponse response =  Perform_Create(connStr, jsonToSend);
             

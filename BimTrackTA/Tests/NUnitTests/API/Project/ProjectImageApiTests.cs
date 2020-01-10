@@ -12,13 +12,13 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_UpdateImage()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
-            BimImage image = new BimImage();
-            image.Name = "AutoImageTest";
+            string imageName = "AutoImageTest";
+            string filePath = "../../../Tests/NUnitTests/API/TestResources/Colors.jpg";
             
             ProjectImageApi projectImageApi = new ProjectImageApi();
-            projectImageApi.UpdateProjectImage(hubId, projectId, image);
+            projectImageApi.UpdateProjectImage(hubId, projectId, imageName, filePath);
         }
     }
 }

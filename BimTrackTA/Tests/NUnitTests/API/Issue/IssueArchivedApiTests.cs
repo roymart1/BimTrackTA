@@ -14,7 +14,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             // TODO: Ooops, something went wrong error message.
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             Issue issue = new Issue();
             issue.Title = "AutoNewIssueToArchive";
@@ -28,7 +28,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void ArchiveIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssueToArchive");
             
             IssueApi issueApi = new IssueApi();
@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetIssueArchivedList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
             List<Issue> listIssue =  issueArchivedApi.GetIssueArchivedList(hubId, projectId);
@@ -49,7 +49,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetIssueArchived()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId, "AutoNewIssueToArchive");
             
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
@@ -60,10 +60,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_RestoreArchivedIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId);
             
-            // TODO: It says that the request is invalid.
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
             issueArchivedApi.RestoreArchivedIssue(hubId, projectId, issueArchivedId);
         }
@@ -72,7 +71,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void RearchiveRestoredIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssueToArchive");
             
             IssueApi issueApi = new IssueApi();
@@ -83,7 +82,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteArchivedIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId);
             
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();

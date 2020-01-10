@@ -12,7 +12,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetIssueCommentList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             
             IssueCommentApi issueComment = new IssueCommentApi();
@@ -23,13 +23,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateIssueComment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             
             BimComment bimComment = new BimComment();
             bimComment.Comment = "AutoIssueComment";
-            //bimComment.MentionedTeams = mentionedTeams;
-            //bimComment.MentionedUsers = mentionedUsers;
             
             IssueCommentApi issueComment = new IssueCommentApi();
             issueComment.CreateIssueComment(hubId, projectId, issueId, bimComment);
@@ -39,7 +37,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteIssueComment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId);
             int commentId = __GetIssueCommentRandom(hubId, projectId, issueId);
 
