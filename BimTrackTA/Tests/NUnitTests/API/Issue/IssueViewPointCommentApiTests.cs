@@ -15,18 +15,19 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             // To be able to create a comment for the viewpoint, we first need to create the issue and the viewpoint
-            Issue issue = new Issue();
-            issue.Title = "IssueViewPointCommentTest";
-            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
-            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
-            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
+            Issue issue = new Issue
+            {
+                Title = "IssueViewPointCommentTest",
+                TypeId = __GetProjectTypeRandom(hubId, projectId),
+                PriorityId = __GetProjectPriorityRandom(hubId, projectId),
+                StatusId = __GetProjectStatusRandom(hubId, projectId)
+            };
             IssueApi issueApi = new IssueApi();
             issueApi.CreateIssue(hubId, projectId, issue);
             
             // Now that we have created the issue, we can give it a viewpoint
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest");
-            ViewPoint viewPoint = new ViewPoint();
-            viewPoint.ViewType = "TwoD";
+            ViewPoint viewPoint = new ViewPoint {ViewType = "TwoD"};
             string path = "../../../Tests/NUnitTests/API/TestResources/ViewPoint.txt";
             string fileName = "ViewPointCommentTest";
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
@@ -34,10 +35,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             // Finally, we can give it a comment.
             int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
-            
-            BimComment comment = new BimComment();
-            comment.Comment = "AutoIssueComment";
-            
+
+            BimComment comment = new BimComment {Comment = "AutoIssueComment"};
+
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
             issueViewPointComment
                 .CreateIssueViewPointComment(hubId, projectId, issueId, viewPointId, comment);

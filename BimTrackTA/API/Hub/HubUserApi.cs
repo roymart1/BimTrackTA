@@ -23,12 +23,14 @@ namespace BimTrackTA.API
 
         public bool CreateHubUser(int hubId, string email, UserType userType=UserType.Admin)
         {
+            // Pretty straightforward: send an email and a user type. The framework manages the rest.
             string jsonToSend = "{'Email': '" + email + "', 'Role': '" + userType + "'}";
             string connStr = "v2/hubs/" + hubId + "/users/";
             
             IRestResponse response =  Perform_Create(connStr, jsonToSend);
             
-            return response.IsSuccessful;        }
+            return response.IsSuccessful;        
+        }
 
         public bool DeleteHubUser(int hubId, int userId)
         {

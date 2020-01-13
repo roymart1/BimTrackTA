@@ -16,6 +16,9 @@ namespace BimTrackTA.API
 
         public bool CreateHubProjectType(int hubId, int projectId, BimType bimType)
         {
+            // Required fields for BimType object are: 
+            //     - Name (string)
+            //     - Color (hex format)
             string jsonPayload = JsonConvert.SerializeObject(bimType);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

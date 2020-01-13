@@ -7,6 +7,8 @@ namespace SeleniumTest.BusinessObjects
     {
         public int Id { get; set; }
         public int TotalIssues { get; set; }
+        // Only used for creation: the id of the template from which you are creating the project
+        public int ProjectTemplateId { get; set; }
         
         public List<String> IssuesGroups { get; set; }
         public List<Discipline> Disciplines { get; set; }
@@ -20,7 +22,7 @@ namespace SeleniumTest.BusinessObjects
 
         public Settings ProjectSettings { get; set; }
         public Author Author { get; set; }
-        public BimImage BimImage { get; set; }
+        public Image Image { get; set; }
         public DateTime? CreationDate { get; set; }
         public string Name { get; set; }
 

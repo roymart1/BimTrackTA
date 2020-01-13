@@ -16,6 +16,8 @@ namespace BimTrackTA.API
 
         public bool CreateHubProjectDiscipline(int hubId, int projectId, Discipline discipline)
         {
+            // Required fields for Discipline object are: 
+            //     - Name (string)
             string jsonPayload = JsonConvert.SerializeObject(discipline);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/disciplines";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

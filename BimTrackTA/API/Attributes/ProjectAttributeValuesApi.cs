@@ -18,6 +18,9 @@ namespace BimTrackTA.API
         public bool CreateHubProjectAttributeValue(int hubId, int projectId, int attrId, 
             PredefinedAttributeValue prjAttrVal)
         {
+            // Required fields for PredefinedAttributeValue object are: 
+            //     - Name (string)
+            //     - Color (hex format)
             string jsonPayload = JsonConvert.SerializeObject(prjAttrVal);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + 
                              attrId + "/attributevalues";

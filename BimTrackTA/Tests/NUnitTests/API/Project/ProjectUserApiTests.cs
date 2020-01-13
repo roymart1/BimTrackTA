@@ -18,11 +18,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int userId = __GetHubUserRandom(hubId, "bimoneauto+ki1120_013436@gmail.com");
-            
-            
-            ProjectUser user = new ProjectUser();
-            user.UserId = userId;
-            user.Role = "Reader";
+
+
+            ProjectUser user = new ProjectUser {UserId = userId, Role = "Reader"};
 
             ProjectUserApi projectUserApi = new ProjectUserApi();
             projectUserApi.CreateHubProjectUser(hubId, projectId, user);
@@ -46,9 +44,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int userId = __GetUserRandom(hubId, projectId);
 
-            ProjectUser user = new ProjectUser();
-            user.Role = "Editor";    
-            
+            ProjectUser user = new ProjectUser {Role = "Editor"};
+
+
             ProjectUserApi projectApi = new ProjectUserApi();
             projectApi.UpdateHubProjectUser(hubId, projectId, userId, user);
         }

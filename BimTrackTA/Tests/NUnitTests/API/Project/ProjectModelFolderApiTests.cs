@@ -22,9 +22,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectModelApi.CreateProjectModel(hubId, projectId, modelName, pathToModel);
             
             // Now, we can give it a folder
-            Folder folder = new Folder();
-            folder.Name = "AutoModelFolderTest";
-            
+            Folder folder = new Folder {Name = "AutoModelFolderTest"};
+
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
             projectModelFolderApi.CreateProjectModelFolder(hubId, projectId, folder);
         }
@@ -46,11 +45,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int folderId = __GetProjectModelFolderRandom(hubId, projectId, "AutoModelFolderTest");
 
-            string key = "Name";
-            string newName = "UpdatedModelFolderTest";
+            Folder folder = new Folder {Name = "UpdatedModelFolderTest"};
 
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
-            projectModelFolderApi.UpdateProjectModelFolder(hubId, projectId, folderId, key, newName);
+            projectModelFolderApi.UpdateProjectModelFolder(hubId, projectId, folderId, folder);
         }
         
         [Test, Order(4)]

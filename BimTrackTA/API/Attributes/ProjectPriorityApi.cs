@@ -16,6 +16,11 @@ namespace BimTrackTA.API
 
         public bool CreateHubProjectPriority(int hubId, int projectId, Priority priority)
         {
+            // Required fields for Priority object are: 
+            //     - Name (string)
+            //     - Color (hex format)
+            //
+            // CTRL+Click on Priority for further details about the object's attributes
             string jsonPayload = JsonConvert.SerializeObject(priority);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

@@ -18,6 +18,8 @@ namespace BimTrackTA.API
         
         public bool CreateHubProjectTeam(int hubId, int projectId, Team team)
         {
+            // Required fields for Team object are: 
+            //     - Name (string)
             string jsonPayload = JsonConvert.SerializeObject(team);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

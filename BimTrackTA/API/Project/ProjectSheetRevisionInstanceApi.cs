@@ -18,6 +18,8 @@ namespace BimTrackTA.API
         public bool CreateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             Instance instance)
         {
+            // These are the elements you need to create an instance of a revision. CTRL+Click on Instance for
+            // more details on the attributes of the instance object.
             if (instance.CropBoxCenter == null || instance.CropBoxRotation == null || instance.CropBoxSize == null ||
                 instance.Position == null || instance.Rotation == null)
             {
@@ -28,7 +30,7 @@ namespace BimTrackTA.API
                                     "    - Position (Type: Xyz)\n" +
                                     "    - Rotation (Type: Xyz)\n");
             }
-                string jsonPayload = JsonConvert.SerializeObject(instance);
+            string jsonPayload = JsonConvert.SerializeObject(instance);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId  + "/instances";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

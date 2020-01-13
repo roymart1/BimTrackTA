@@ -2,7 +2,7 @@ using System;
 
 namespace SeleniumTest.BusinessObjects
 {
-    public class BimImage
+    public class Image
     {
         public string ThumbnailUrl { get; set; }
         public DateTime? ThumbnailUrlExpiration { get; set; }

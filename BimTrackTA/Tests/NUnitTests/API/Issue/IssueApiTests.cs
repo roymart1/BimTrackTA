@@ -13,13 +13,15 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            Issue issue = new Issue();
-            issue.Title = "AutoNewIssue";
-            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
-            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
-            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
-            
+
+            Issue issue = new Issue
+            {
+                Title = "AutoNewIssue",
+                TypeId = __GetProjectTypeRandom(hubId, projectId),
+                PriorityId = __GetProjectPriorityRandom(hubId, projectId),
+                StatusId = __GetProjectStatusRandom(hubId, projectId)
+            };
+
             IssueApi issueApi = new IssueApi();
             issueApi.CreateIssue(hubId, projectId, issue);
         }
@@ -53,20 +55,14 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
 
             int priorityId = __GetProjectPriorityRandom(hubId, projectId);
-            Operation operation = new Operation();
-            operation.path = "/PriorityId";
-            operation.value = priorityId;
-            
-            List<Operation> operations = new List<Operation>();
-            operations.Add(operation);
-            
-            List<int> issueIds = new List<int>();
-            issueIds.Add(issueId);
-            
-            MultiUpdate multiUpdate = new MultiUpdate();
-            multiUpdate.Operations = operations;
-            multiUpdate.IssueIds = issueIds;
-            
+            Operation operation = new Operation {path = "/PriorityId", value = priorityId};
+
+            List<Operation> operations = new List<Operation> {operation};
+
+            List<int> issueIds = new List<int> {issueId};
+
+            MultiUpdate multiUpdate = new MultiUpdate {Operations = operations, IssueIds = issueIds};
+
             IssueApi issueApi = new IssueApi();
             issueApi.PatchIssues(hubId, projectId, multiUpdate);
         }
@@ -77,15 +73,15 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
-            
-            // TODO: Issue can't be found and it doesn't appear to be on my side (doesn't work with API too)...
-            // Hypothesis: I need to have a real type, priority and status id for it to work appropriately.
-            Issue issue = new Issue();
-            issue.Title = "UpdatedNewIssue";
-            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
-            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
-            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
-            
+
+            Issue issue = new Issue
+            {
+                Title = "UpdatedNewIssue",
+                TypeId = __GetProjectTypeRandom(hubId, projectId),
+                PriorityId = __GetProjectPriorityRandom(hubId, projectId),
+                StatusId = __GetProjectStatusRandom(hubId, projectId)
+            };
+
             IssueApi issueApi = new IssueApi();
             issueApi.UpdateIssue(hubId, projectId, issueId, issue);
         }

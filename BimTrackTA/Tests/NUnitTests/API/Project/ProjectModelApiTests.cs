@@ -48,12 +48,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int modelId = __GetProjectModelRandom(hubId, projectId);
-            
-            Project project = new Project();
-            project.Name = "UpdatedAutoModelTest";
-            
+
+            Model model = new Model {Name = "UpdatedAutoModelTest"};
+
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            projectModelApi.UpdateProjectModel(hubId, projectId, modelId, project);
+            projectModelApi.UpdateProjectModel(hubId, projectId, modelId, model);
         }
 
         [Test, Order(5)]

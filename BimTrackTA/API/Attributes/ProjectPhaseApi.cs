@@ -16,6 +16,9 @@ namespace BimTrackTA.API
 
         public bool CreateHubProjectPhase(int hubId, int projectId, Phase phase)
         {
+            // Required fields for Phase object are: 
+            //     - Name (string)
+            //     - Color (hex format)
             string jsonPayload = JsonConvert.SerializeObject(phase);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

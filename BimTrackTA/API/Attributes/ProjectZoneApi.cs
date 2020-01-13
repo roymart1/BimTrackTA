@@ -16,6 +16,9 @@ namespace BimTrackTA.API
 
         public bool CreateHubProjectZone(int hubId, int projectId, Zone zone)
         {
+            // Required fields for Zone object are: 
+            //     - Name (string)
+            //     - Color (hex format)
             string jsonPayload = JsonConvert.SerializeObject(zone);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/zones";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

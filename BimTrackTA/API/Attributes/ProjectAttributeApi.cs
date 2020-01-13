@@ -16,6 +16,11 @@ namespace BimTrackTA.API
         
         public bool CreateHubProjectAttribute(int hubId, int projectId, ProjectAttribute prjAttr)
         {
+            // Required fields for ProjectAttribute object are: 
+            //     - Name (string)
+            //     - Type ('predifined' or 'custom')
+            //
+            // CTRL+Click on ProjectAttribute for further details about the object's attributes
             string jsonPayload = JsonConvert.SerializeObject(prjAttr);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes";
 

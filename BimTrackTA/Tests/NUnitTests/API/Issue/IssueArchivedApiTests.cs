@@ -13,13 +13,15 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            Issue issue = new Issue();
-            issue.Title = "AutoNewIssueToArchive";
-            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
-            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
-            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
-            
+
+            Issue issue = new Issue
+            {
+                Title = "AutoNewIssueToArchive",
+                TypeId = __GetProjectTypeRandom(hubId, projectId),
+                PriorityId = __GetProjectPriorityRandom(hubId, projectId),
+                StatusId = __GetProjectStatusRandom(hubId, projectId)
+            };
+
             IssueApi issueApi = new IssueApi();
             issueApi.CreateIssue(hubId, projectId, issue);
             

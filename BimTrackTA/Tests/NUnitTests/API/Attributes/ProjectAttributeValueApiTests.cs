@@ -17,20 +17,16 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             // We need to create the project attribute before we can give it a value...
-            var prjAttr = new ProjectAttribute();
-            prjAttr.Name = "ZenPredef";
-            prjAttr.Type = "Predefined";
+            var prjAttr = new ProjectAttribute {Name = "ZenPredef", Type = "Predefined"};
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
             bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
             
             
             // Now, we can create the attribute value with the newly created attribute
             int attrValId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
-            
-            PredefinedAttributeValue prjCst = new PredefinedAttributeValue();
-            prjCst.Name = "zenUnknown";
-            prjCst.Color = "#550088";
-            
+
+            PredefinedAttributeValue prjCst = new PredefinedAttributeValue {Name = "zenUnknown", Color = "#550088"};
+
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi.CreateHubProjectAttributeValue(hubId, projectId, attrValId, prjCst);
         }
@@ -56,10 +52,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
             int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "zenUnknown");
 
-            PredefinedAttributeValue predefinedAttributeValue = new PredefinedAttributeValue();
-            predefinedAttributeValue.Name = "UpdatedZenUnknown";
-            predefinedAttributeValue.Color = "#FF0000";
-            
+            PredefinedAttributeValue predefinedAttributeValue = new PredefinedAttributeValue
+            {
+                Name = "UpdatedZenUnknown", Color = "#FF0000"
+            };
+
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi
                 .UpdateHubProjectAttributeValue(hubId, projectId, attrId, attrValId, predefinedAttributeValue);

@@ -30,15 +30,17 @@ namespace BimTrackTA.Tests.NUnitTests.API
             // We can finally create the instance for the newly created revision
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
             
-            Xyz xyz = new Xyz{X=0,Y=0,Z=0};
-            Instance instance = new Instance();
-            instance.ViewName = "AutoRevisionInstance";
-            instance.Position = xyz;
-            instance.Rotation = xyz;
-            instance.CropBoxCenter = xyz;
-            instance.CropBoxRotation = xyz;
-            instance.CropBoxSize = xyz;
-            
+            Xyz xyz = new Xyz{ X = 0, Y = 0, Z = 0};
+            Instance instance = new Instance
+            {
+                ViewName = "AutoRevisionInstance",
+                Position = xyz,
+                Rotation = xyz,
+                CropBoxCenter = xyz,
+                CropBoxRotation = xyz,
+                CropBoxSize = xyz
+            };
+
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             projectSheetRevisionInstanceApi
                 .CreateProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instance);
@@ -80,9 +82,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
             int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
 
-            Instance instance = new Instance();
-            instance.ViewName = "UpdatedRevisionInstance";
-            
+            Instance instance = new Instance {ViewName = "UpdatedRevisionInstance"};
+
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             projectSheetRevisionInstanceApi.UpdateProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId,
                 instanceId, instance);

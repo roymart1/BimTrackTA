@@ -38,11 +38,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            
-            var prjAttr = new ProjectAttribute();
-            prjAttr.Name = "ZenPredef";
-            prjAttr.Type = "Predefined";
+
+
+            var prjAttr = new ProjectAttribute {Name = "ZenPredef", Type = "Predefined"};
             prjAttr.AddNewCustomAttributeValue("xzenred", "#FF0000");
             prjAttr.AddNewCustomAttributeValue("xzengreen", "#00FF00");
             prjAttr.AddNewCustomAttributeValue("xzenblue", "#0000FF");
@@ -56,11 +54,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            var prjAttr = new ProjectAttribute();
-            prjAttr.Name = "ZenCustom";
-            prjAttr.Type = "Text";
-            
+
+            var prjAttr = new ProjectAttribute {Name = "ZenCustom", Type = "Text"};
+
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
             bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
             // TODO: This one takes a while. Before finding an elegant way to do it, let's wait a little.
@@ -74,9 +70,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenCustom");
 
-            ProjectAttribute projectAttribute = new ProjectAttribute();
-            projectAttribute.Name = "UpdatedZenCustom";
-            projectAttribute.Type = "Text";
+            ProjectAttribute projectAttribute = new ProjectAttribute {Name = "UpdatedZenCustom", Type = "Text"};
 
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
             projectAttributeApi.UpdateHubProjectAttribute(hubId, projectId, attrId, projectAttribute);

@@ -16,6 +16,11 @@ namespace BimTrackTA.API
 
         public bool CreateHubProjectStatus(int hubId, int projectId, Status status)
         {
+            // Required fields for Status object are: 
+            //     - Name (string)
+            //     - Color (hex format)
+            //
+            // CTRL+Click on Status for further details about the object's attributes
             string jsonPayload = JsonConvert.SerializeObject(status);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

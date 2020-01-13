@@ -14,11 +14,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            Phase phase = new Phase();
-            phase.Name = "AutoPhase";
-            phase.Color = "#FF0000";
-            
+
+            Phase phase = new Phase {Name = "AutoPhase", Color = "#FF0000"};
+
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
             projectPhaseApi.CreateHubProjectPhase(hubId, projectId, phase);
         }
@@ -41,10 +39,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int phaseId = __GetProjectPhaseRandom(hubId, projectId, "AutoPhase");
 
-            Phase phase = new Phase();
-            phase.Name = "UpdatedPhase";
-            phase.Color = "#FF0000";
-            
+            Phase phase = new Phase {Name = "UpdatedPhase", Color = "#FF0000"};
+
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
             projectPhaseApi.UpdateHubProjectPhase(hubId, projectId, phaseId, phase);
         }

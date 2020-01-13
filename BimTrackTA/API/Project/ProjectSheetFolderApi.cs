@@ -15,6 +15,10 @@ namespace BimTrackTA.API
 
         public bool CreateProjectSheetFolder(int hubId, int projectId, Folder folder)
         {
+            // Required fields for Folder object are: 
+            //     - Name (string)
+            //
+            // Since you need a project id, that means that you need to have created a project in that hub first.
             string jsonPayload = JsonConvert.SerializeObject(folder);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/folders";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

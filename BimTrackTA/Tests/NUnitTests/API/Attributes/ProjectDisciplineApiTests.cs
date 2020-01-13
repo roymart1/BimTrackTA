@@ -14,9 +14,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            
-            Discipline discipline = new Discipline();
-            discipline.Name = "AutoProjectDisciplineTest";
+
+            Discipline discipline = new Discipline {Name = "AutoProjectDisciplineTest"};
 
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
             projectDisciplineApi.CreateHubProjectDiscipline(hubId, projectId, discipline);
@@ -40,9 +39,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int disciplineId = __GetProjectDisciplineRandom(hubId, projectId, "AutoProjectDisciplineTest");
 
-            Discipline discipline = new Discipline();
-            discipline.Name = "UpdatedProjectDisciplineTest";
-            
+            Discipline discipline = new Discipline {Name = "UpdatedProjectDisciplineTest"};
+
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
             projectDisciplineApi.UpdateHubProjectDiscipline(hubId, projectId, disciplineId, discipline);
         }

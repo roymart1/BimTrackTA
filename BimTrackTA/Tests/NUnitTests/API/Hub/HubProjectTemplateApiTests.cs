@@ -13,11 +13,17 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateHubProjectTemplate()
         {
             int hubId = __GetHubRandom();
-            ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
             
             ProjectApi projectApi = new ProjectApi();
             List<Project> listProject =  projectApi.GetHubProjectList(hubId);
-            projectTemplateApi.CreateHubProjectTemplate(hubId, listProject[1].Id, "ZenAirport");
+
+            ProjectTemplate projectTemplate = new ProjectTemplate
+            {
+                Name = "ZenAirport", SourceProjectId = listProject[1].Id
+            };
+
+            ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
+            projectTemplateApi.CreateHubProjectTemplate(hubId, projectTemplate);
         }
         
         [Test, Order(2)]

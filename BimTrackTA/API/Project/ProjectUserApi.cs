@@ -19,6 +19,11 @@ namespace BimTrackTA.API
 
         public bool CreateHubProjectUser(int hubId, int projectId, ProjectUser user)
         {
+            // Required fields for ProjectUser object are: 
+            //     - Name (string)
+            //     - Role ('Editor' or 'Reader')
+            //
+            // CTRL+Click on ProjectUser for further details about the object's attributes
             string jsonPayload = JsonConvert.SerializeObject(user);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/users";
             IRestResponse response =  Perform_Create(connStr, jsonPayload);

@@ -12,9 +12,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateHubProject()
         {
             int hubId = __GetHubRandom();
-            
+
+            Project project = new Project {Name = "AutoNewPrjTest"};
+
             ProjectApi projectApi = new ProjectApi();
-            projectApi.CreateHubProject(hubId, "AutoNewPrjTest");
+            projectApi.CreateHubProject(hubId, project);
         }
         
         [Test, Order(2)]
@@ -41,11 +43,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoNewPrjTest");
-            string key = "Name";
-            string value = "AutoUpdatedNewPrjTest";
-            
+
+            Project project = new Project {Name = "AutoUpdatedNewPrjTest"};
+
             ProjectApi projectApi = new ProjectApi();
-            projectApi.UpdateHubProject(hubId, projectId, key, value);
+            projectApi.UpdateHubProject(hubId, projectId, project);
         }
     }
 }

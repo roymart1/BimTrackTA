@@ -15,20 +15,21 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             // We need to create an issue for us to be able to create its attachment
-            Issue issue = new Issue();
-            issue.Title = "IssueCommentTest";
-            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
-            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
-            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
+            Issue issue = new Issue
+            {
+                Title = "IssueCommentTest",
+                TypeId = __GetProjectTypeRandom(hubId, projectId),
+                PriorityId = __GetProjectPriorityRandom(hubId, projectId),
+                StatusId = __GetProjectStatusRandom(hubId, projectId)
+            };
             IssueApi issueApi = new IssueApi();
             issueApi.CreateIssue(hubId, projectId, issue);
             
             // Now that the issue is created, we can create a comment for it
             int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest");
-            
-            BimComment bimComment = new BimComment();
-            bimComment.Comment = "AutoIssueComment";
-            
+
+            BimComment bimComment = new BimComment {Comment = "AutoIssueComment"};
+
             IssueCommentApi issueComment = new IssueCommentApi();
             issueComment.CreateIssueComment(hubId, projectId, issueId, bimComment);
         }

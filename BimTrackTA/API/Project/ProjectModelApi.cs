@@ -15,6 +15,10 @@ namespace BimTrackTA.API
 
         public bool CreateProjectModel(int hubId, int projectId, string modelName, string filePath)
         {
+            // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
+            // to end with .ifc or .ifczip.
+            //
+            // Since you need a project id, that means that you need to have created a project in that hub first.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models";
             IRestResponse response =  Perform_Create_Multipart(connStr, modelName, filePath);
             
@@ -35,9 +39,10 @@ namespace BimTrackTA.API
             return Perform_Get<Model>(connStr);
         }
 
-        public bool UpdateProjectModel(int hubId, int projectId, int modelId, Project project)
+        public bool UpdateProjectModel(int hubId, int projectId, int modelId, Model model)
         {
-            string jsonPayload = JsonConvert.SerializeObject(project);
+            // CTRL+Click on Model for further information about that object.
+            string jsonPayload = JsonConvert.SerializeObject(model);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
             IRestResponse response = Perform_Update(connStr, jsonPayload);
 

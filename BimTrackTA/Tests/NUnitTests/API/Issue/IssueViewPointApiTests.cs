@@ -15,19 +15,20 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             // We need to create an issue for us to be able to create its attachment
-            Issue issue = new Issue();
-            issue.Title = "IssueViewPointTest";
-            issue.TypeId = __GetProjectTypeRandom(hubId, projectId);
-            issue.PriorityId = __GetProjectPriorityRandom(hubId, projectId);
-            issue.StatusId = __GetProjectStatusRandom(hubId, projectId);
+            Issue issue = new Issue
+            {
+                Title = "IssueViewPointTest",
+                TypeId = __GetProjectTypeRandom(hubId, projectId),
+                PriorityId = __GetProjectPriorityRandom(hubId, projectId),
+                StatusId = __GetProjectStatusRandom(hubId, projectId)
+            };
             IssueApi issueApi = new IssueApi();
             issueApi.CreateIssue(hubId, projectId, issue);
             
             // Now that the issue is created, we can give it a viewpoint
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointTest");
-            
-            ViewPoint viewPoint = new ViewPoint();
-            viewPoint.ViewType = "TwoD";
+
+            ViewPoint viewPoint = new ViewPoint {ViewType = "TwoD"};
             string path = "../../../Tests/NUnitTests/API/TestResources/ViewPoint.txt";
             string fileName = "ViewPoint";
             
@@ -66,9 +67,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointTest");
             int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPoint");
 
-            ViewPoint viewPoint = new ViewPoint();
-            viewPoint.ViewType = "ThreeD";
-         
+            ViewPoint viewPoint = new ViewPoint {ViewType = "ThreeD"};
+
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
             issueViewPoint.UpdateIssueViewPoint(hubId, projectId, issueId, issueViewPointId, viewPoint);
         }

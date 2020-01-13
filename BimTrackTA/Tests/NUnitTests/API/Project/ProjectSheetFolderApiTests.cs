@@ -21,9 +21,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, sheetPath);
             
             // Now we can create a folder and give it to it
-            Folder folder = new Folder();
-            folder.Name = "AutoSheetFolderTest";
-            
+            Folder folder = new Folder {Name = "AutoSheetFolderTest"};
+
             ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
             projectSheetFolderApi.CreateProjectSheetFolder(hubId, projectId, folder);
         }
@@ -45,8 +44,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int folderId = __GetProjectSheetFolderRandom(hubId, projectId, "AutoSheetFolderTest");
 
-            Folder folder = new Folder();
-            folder.Name = "UpdatedSheetFolderTest";
+            Folder folder = new Folder {Name = "UpdatedSheetFolderTest"};
 
             ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
             projectSheetFolderApi.UpdateProjectSheetFolder(hubId, projectId, folderId, folder);
