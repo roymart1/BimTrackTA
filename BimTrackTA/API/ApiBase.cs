@@ -24,38 +24,36 @@ namespace BimTrackTA.API
             _client.AddDefaultHeader("Authorization", $"Bearer {szKey}");
         }
         
-        private void ProcessResponseError(IRestResponse response, IRestRequest request)
+        private IRestResponse ProcessResponseError(IRestResponse response, IRestRequest request)
         {
+            // If we have the "too many requests" problem
+            if (response.StatusCode == HttpStatusCode.TooManyRequests)
+            {
+                // Sleep for 2 seconds
+                Thread.Sleep(2000);
+                return Perform_Request(request);
+            }
             if (response.IsSuccessful != true)
             {
-                // If we have the "too many requests" problem
-                if (response.StatusCode == HttpStatusCode.TooManyRequests)
-                {
-                    // Sleep for 2 seconds
-                    Thread.Sleep(2000);
-                    Perform_Request(request);
-                }
-                else
-                {
-                    JObject json = JObject.Parse(response.Content);
-                    JToken message = json["Message"];
-                    throw new BTException("Exception - Error Message: " + message + "\nFull error: " + json);
-                }
+                JObject json = JObject.Parse(response.Content);
+                JToken message = json["Message"];
+                throw new BTException("Exception - Error Message: " + message + "\nFull error: " + json);
             }
+            return response;
         }
         
         private IRestResponse Perform_Request(IRestRequest request)
         {
             var response = _client.Execute(request);
-            ProcessResponseError(response, request);
-            return response;
+            var updatedResponse = ProcessResponseError(response, request);
+            return updatedResponse;
         }
         
         private IRestResponse Perform_Request_Async(IRestRequest request)
         {
             var response = _client.ExecuteTaskAsync(request, CancellationToken.None).Result;
-            ProcessResponseError(response, request);
-            return response;
+            var updatedResponse = ProcessResponseError(response, request);
+            return updatedResponse;
         }
 
         private IRestResponse Create_And_Execute_Post_Patch_Put_Request(string connectionStr, string jsonToSend, Method method)
