@@ -59,8 +59,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
             bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
-            // TODO: This one takes a while. Before finding an elegant way to do it, let's wait a little.
-            System.Threading.Thread.Sleep(1000);
         }
 
         [Test, Order(5)]

@@ -15,11 +15,11 @@ namespace SeleniumTest.BusinessObjects
         public string ViewUniqueId { get; set; }
         public bool WasCreatedFromSheetInstance { get; set; }
 
-        public ViewPointViewStateSummary ViewStateSummary { get; set; }
-        public ViewPointViewState ViewState { get; set; }
-        public Camera PerspectiveCamera { get; set; }
-        public Camera OrthogonalCamera { get; set; }
-        public ViewPointPinPoint PinPoint { get; set; }
+        //public ViewPointViewStateSummary ViewStateSummary { get; set; }
+        //public ViewPointViewState ViewState { get; set; }
+        //public Camera PerspectiveCamera { get; set; }
+        //public Camera OrthogonalCamera { get; set; }
+        //public ViewPointPinPoint PinPoint { get; set; }
         
         
         

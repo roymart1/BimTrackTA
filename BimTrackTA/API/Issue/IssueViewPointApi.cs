@@ -13,13 +13,13 @@ namespace BimTrackTA.API
             return Perform_Get<List<ViewPoint>>(connStr);
         }
 
-        public bool CreateIssueViewPoint(int hubId, int projectId, int issueId, string fileName, string filePath, ViewPoint viewPoint)
+        public bool CreateIssueViewPoint(int hubId, int projectId, int issueId, ViewPoint viewPoint, string imageName, string imagePath)
         {
             string jsonPayload = JsonConvert.SerializeObject(viewPoint);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/viewpoints";
-            IRestResponse response =  Perform_Create_Multipart(connStr, fileName, filePath, jsonPayload);
-            
+            IRestResponse response =  Perform_Create_Multipart(connStr, imageName, imagePath,  jsonPayload);
+        
             return response.IsSuccessful;
         }
 
