@@ -35,7 +35,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             issueViewPoint.CreateIssueViewPoint(hubId, projectId, issueId, viewPoint, fileName, path);
             
             // Finally, we can give it a comment.
-            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
+            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
 
             BimComment comment = new BimComment {Comment = "AutoIssueComment"};
 
@@ -49,8 +49,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
-            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest");
+            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
             
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
             List<BimComment> listComment =  issueViewPointComment
@@ -62,9 +62,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
-            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
-            int viewPointCommentId = __GetIssueViewPointCommentRandom(hubId, projectId, issueId, viewPointId);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest");
+            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
+            int viewPointCommentId = __GetIssueViewPointCommentRandom(hubId, projectId, issueId, viewPointId, "AutoIssueComment");
             
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
             issueViewPointComment.DeleteIssueViewPointComment(hubId, projectId, issueId, viewPointId, viewPointCommentId);

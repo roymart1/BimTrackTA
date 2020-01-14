@@ -125,9 +125,8 @@ namespace BimTrackTA.Common.WebDriver
                 return listUsers[0].User.Id;
             }
             throw new Exception("No user for that hub.");
-        }   
+        }
 
-               
         protected int __GetHubProjectTemplateRandom(int hubId, string tmplName=null)
         {
             ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
@@ -434,7 +433,7 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("No comment for that issue.");
         } 
         
-        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId)
+        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId, string viewName=null)
         {
             IssueViewPointApi issueViewPointApi = new IssueViewPointApi();
 
@@ -443,6 +442,16 @@ namespace BimTrackTA.Common.WebDriver
 
             if (listIssueViewPoints.Count > 0)
             {
+                if (viewName != null)
+                {
+                    foreach (ViewPoint viewPoint in listIssueViewPoints)
+                    {
+                        if (viewPoint.ViewName != null && viewPoint.ViewName.ToLower() == viewName)
+                        {
+                            return viewPoint.Id;
+                        }
+                    }
+                }
                 return listIssueViewPoints[0].Id;
             }
             throw new Exception("No view point for that issue.");
