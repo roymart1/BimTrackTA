@@ -19,7 +19,7 @@ namespace BimTrackTA.API
             return Perform_Get<Issue>(connStr);
         }
         
-        public bool CreateIssue(int hubId, int projectId, Issue issue)
+        public int CreateIssue(int hubId, int projectId, Issue issue)
         {            
             // Required fields for Issue object are: 
             //     - Title (string)
@@ -31,9 +31,7 @@ namespace BimTrackTA.API
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues";
-            IRestResponse response =  Perform_Create(connStr, issue);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, issue);
         }
 
         public bool UpdateIssue(int hubId, int projectId, int issueId, Issue issue)

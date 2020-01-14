@@ -15,7 +15,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<Instance>>(connStr);
         }
 
-        public bool CreateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
+        public int CreateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             Instance instance)
         {
             // These are the elements you need to create an instance of a revision. CTRL+Click on Instance for
@@ -32,9 +32,7 @@ namespace BimTrackTA.API
             }
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId  + "/instances";
-            IRestResponse response =  Perform_Create(connStr, instance);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, instance);
         }
         
         public bool DeleteProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 

@@ -16,7 +16,7 @@ namespace BimTrackTA.API
         }
 
 
-        public bool CreateHubProjectTemplate(int hubId, ProjectTemplate template)
+        public int CreateHubProjectTemplate(int hubId, ProjectTemplate template)
         {
             // Required fields for ProjectTemplate object are: 
             //     - Name (string)
@@ -26,9 +26,7 @@ namespace BimTrackTA.API
             //
             // CTRL+Click on ProjectTemplate for further details about the object's attributes
             string connStr = "/v2/hubs/"+ hubId +"/projecttemplates";
-            IRestResponse response =  Perform_Create(connStr, template);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, template);
         }
         
         public bool DeleteHubProjectTemplate(int hubId, int hubProjectTemplateId)

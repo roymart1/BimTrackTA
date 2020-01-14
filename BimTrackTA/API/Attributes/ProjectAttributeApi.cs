@@ -14,7 +14,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<ProjectAttribute>>(connStr);
         }
         
-        public bool CreateHubProjectAttribute(int hubId, int projectId, ProjectAttribute prjAttr)
+        public int CreateHubProjectAttribute(int hubId, int projectId, ProjectAttribute prjAttr)
         {
             // Required fields for ProjectAttribute object are: 
             //     - Name (string)
@@ -23,9 +23,7 @@ namespace BimTrackTA.API
             // CTRL+Click on ProjectAttribute for further details about the object's attributes
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes";
 
-            IRestResponse response =  Perform_Create(connStr, prjAttr);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, prjAttr);
         }
         
         public ProjectAttribute GetHubProjectAttributeDetail(int hubId, int projectId, int attributeId)

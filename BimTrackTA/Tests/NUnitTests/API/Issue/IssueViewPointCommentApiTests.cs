@@ -23,20 +23,17 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 StatusId = __GetProjectStatusRandom(hubId, projectId)
             };
             IssueApi issueApi = new IssueApi();
-            issueApi.CreateIssue(hubId, projectId, issue);
+            int issueId = issueApi.CreateIssue(hubId, projectId, issue);
             
             // Now that we have created the issue, we can give it a viewpoint
-            int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest");
             ViewPoint viewPoint = new ViewPoint {ViewType = "TwoD", Source = "Web", ViewName = "ViewPointCommentTest"};
             string path = "../../../Tests/NUnitTests/API/TestResources/Colors.jpg";
             string fileName = "Colors.jpg";
             
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
-            issueViewPoint.CreateIssueViewPoint(hubId, projectId, issueId, viewPoint, fileName, path);
+            int viewPointId = issueViewPoint.CreateIssueViewPoint(hubId, projectId, issueId, viewPoint, fileName, path);
             
             // Finally, we can give it a comment.
-            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
-
             BimComment comment = new BimComment {Comment = "AutoIssueComment"};
 
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
@@ -53,8 +50,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
             
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
-            List<BimComment> listComment =  issueViewPointComment
-                .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
+            issueViewPointComment.GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
         }   
 
         [Test, Order(3)]

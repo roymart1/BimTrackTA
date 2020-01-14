@@ -14,7 +14,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<Status>>(connStr);
         }
 
-        public bool CreateHubProjectStatus(int hubId, int projectId, Status status)
+        public int CreateHubProjectStatus(int hubId, int projectId, Status status)
         {
             // Required fields for Status object are: 
             //     - Name (string)
@@ -22,9 +22,7 @@ namespace BimTrackTA.API
             //
             // CTRL+Click on Status for further details about the object's attributes
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status";
-            IRestResponse response =  Perform_Create(connStr, status);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, status);
         }
 
         public bool DeleteHubProjectStatus(int hubId, int projectId, int statusId)

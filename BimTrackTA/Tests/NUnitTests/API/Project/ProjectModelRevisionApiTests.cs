@@ -18,12 +18,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             string modelName = "ModelForRevisionTest.ifc";
             string pathToModel = "../../../Tests/NUnitTests/API/TestResources/Model.ifc";
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            projectModelApi.CreateProjectModel(hubId, projectId, modelName, pathToModel);
-            
+            int modelId = projectModelApi.CreateProjectModel(hubId, projectId, modelName, pathToModel);
             
             // Now we can get its ID and create a revision for it
-            int modelId = __GetProjectModelRandom(hubId, projectId, "ModelForRevisionTest.ifc");
-
             string fileName = "Revision.ifc";
             string pathToRevision = "../../../Tests/NUnitTests/API/TestResources/Model.ifc";
             
@@ -39,7 +36,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int modelId = __GetProjectModelRandom(hubId, projectId, "ModelForRevisionTest.ifc");
             
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
-            List<Revision> revisions = projectModelRevisionApi.GetProjectModelRevisionList(hubId, projectId, modelId);
+            projectModelRevisionApi.GetProjectModelRevisionList(hubId, projectId, modelId);
         }
         
         [Test, Order(3)]
@@ -51,7 +48,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int revisionId = __GetProjectModelRevisionRandom(hubId, projectId, modelId, "Revision.ifc");
 
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
-            Revision revision = projectModelRevisionApi.GetProjectModelRevision(hubId, projectId, modelId, revisionId);
+            projectModelRevisionApi.GetProjectModelRevision(hubId, projectId, modelId, revisionId);
         }
 
         [Test, Order(4)]

@@ -14,15 +14,13 @@ namespace BimTrackTA.API
             return Perform_Get<List<Zone>>(connStr);
         }
 
-        public bool CreateHubProjectZone(int hubId, int projectId, Zone zone)
+        public int CreateHubProjectZone(int hubId, int projectId, Zone zone)
         {
             // Required fields for Zone object are: 
             //     - Name (string)
             //     - Color (hex format)
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/zones";
-            IRestResponse response =  Perform_Create(connStr, zone);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, zone);
         }
 
         public bool DeleteHubProjectZone(int hubId, int projectId, int zoneId)

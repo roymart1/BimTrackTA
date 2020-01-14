@@ -12,7 +12,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<Issue.Attachment>>(connStr);
         }
 
-        public bool CreateIssueAttachment(int hubId, int projectId, int issueId, string fileName, string pathToAttachment)
+        public void CreateIssueAttachment(int hubId, int projectId, int issueId, string fileName, string pathToAttachment)
         {
             // Since we are using Multipart, you need to provide a file name and a filepath.
             //
@@ -20,9 +20,7 @@ namespace BimTrackTA.API
             // hub first, as well as an issue for that project.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/attachments";
-            IRestResponse response =  Perform_Create_Multipart(connStr, fileName, pathToAttachment);
-            
-            return response.IsSuccessful;
+            Perform_Create_Multipart(connStr, fileName, pathToAttachment);
         }
         
         public bool DeleteIssueAttachment(int hubId, int projectId, int issueId, int attachmentId)

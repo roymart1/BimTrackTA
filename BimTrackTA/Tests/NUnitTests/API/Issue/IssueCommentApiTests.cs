@@ -23,11 +23,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 StatusId = __GetProjectStatusRandom(hubId, projectId)
             };
             IssueApi issueApi = new IssueApi();
-            issueApi.CreateIssue(hubId, projectId, issue);
+            int issueId = issueApi.CreateIssue(hubId, projectId, issue);
             
             // Now that the issue is created, we can create a comment for it
-            int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest");
-
             BimComment bimComment = new BimComment {Comment = "AutoIssueComment"};
 
             IssueCommentApi issueComment = new IssueCommentApi();
@@ -42,7 +40,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest");
             
             IssueCommentApi issueComment = new IssueCommentApi();
-            List<BimComment> listComment =  issueComment.GetIssueCommentList(hubId, projectId, issueId);
+            issueComment.GetIssueCommentList(hubId, projectId, issueId);
         }    
 
         [Test, Order(3)]

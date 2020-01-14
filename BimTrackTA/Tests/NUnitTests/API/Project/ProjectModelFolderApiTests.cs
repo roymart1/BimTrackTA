@@ -35,7 +35,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
-            List<Folder> folders = projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
+            projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
         }
 
         [Test, Order(3)]

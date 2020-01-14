@@ -13,16 +13,14 @@ namespace BimTrackTA.API
             return Perform_Get<List<Sheet>>(connStr);
         }
 
-        public bool CreateProjectSheet(int hubId, int projectId, string sheetName, string sheetPath)
+        public int CreateProjectSheet(int hubId, int projectId, string sheetName, string sheetPath)
         {
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .pdf
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets";
-            IRestResponse response =  Perform_Create_Multipart(connStr, sheetName, sheetPath);
-            
-            return response.IsSuccessful;
+            return Perform_Create_Multipart(connStr, sheetName, sheetPath);
         }
         
         public bool DeleteProjectSheet(int hubId, int projectId, int sheetId)

@@ -13,7 +13,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<ViewPoint>>(connStr);
         }
 
-        public bool CreateIssueViewPoint(int hubId, int projectId, int issueId, ViewPoint viewPoint, string imageName, string imagePath)
+        public int CreateIssueViewPoint(int hubId, int projectId, int issueId, ViewPoint viewPoint, string imageName, string imagePath)
         {
             // This is a special route, because you need both an image and a ViewPoint object. The image uses multipart
             // data, so you need to provide a filename and a filepath. The filename needs to end with .jpg, .jpeg or
@@ -28,9 +28,7 @@ namespace BimTrackTA.API
             // CTRL+Click on ViewPoint for further details about the object's attributes
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/viewpoints";
-            IRestResponse response =  Perform_Create_Multipart(connStr, imageName, imagePath,  viewPoint);
-        
-            return response.IsSuccessful;
+            return Perform_Create_Multipart(connStr, imageName, imagePath,  viewPoint);
         }
 
         public ViewPoint GetIssueViewPoint(int hubId, int projectId, int issueId, int viewPointId)

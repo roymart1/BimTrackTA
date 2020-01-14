@@ -15,7 +15,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<BimComment>>(connStr);
         }
 
-        public bool CreateIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId, BimComment comment)
+        public int CreateIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId, BimComment comment)
         {
             // Required fields for BimComment object are: 
             //     - Comment (string)
@@ -24,9 +24,7 @@ namespace BimTrackTA.API
             // project in that hub first, as well as an issue and a viewpoint for that issue.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
                              + "/viewpoints/" + viewPointId + "/comments";
-            IRestResponse response =  Perform_Create(connStr, comment);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, comment);
         }
         
         public bool DeleteIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId, 

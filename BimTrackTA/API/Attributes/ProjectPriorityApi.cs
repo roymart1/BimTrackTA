@@ -14,7 +14,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<Priority>>(connStr);
         }
 
-        public bool CreateHubProjectPriority(int hubId, int projectId, Priority priority)
+        public int CreateHubProjectPriority(int hubId, int projectId, Priority priority)
         {
             // Required fields for Priority object are: 
             //     - Name (string)
@@ -22,9 +22,7 @@ namespace BimTrackTA.API
             //
             // CTRL+Click on Priority for further details about the object's attributes
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities";
-            IRestResponse response =  Perform_Create(connStr, priority);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, priority);
         }
 
         public bool DeleteHubProjectPriority(int hubId, int projectId, int priorityId)

@@ -21,7 +21,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 PriorityId = __GetProjectPriorityRandom(hubId, projectId),
                 StatusId = __GetProjectStatusRandom(hubId, projectId)
             };
-
             IssueApi issueApi = new IssueApi();
             issueApi.CreateIssue(hubId, projectId, issue);
         }
@@ -33,7 +32,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             IssueApi issueApi = new IssueApi();
-            List<Issue> listIssue =  issueApi.GetIssueList(hubId, projectId);
+            issueApi.GetIssueList(hubId, projectId);
         }    
 
         [Test, Order(3)]
@@ -44,7 +43,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId);
             
             IssueApi issueApi = new IssueApi();
-            Issue issue = issueApi.GetIssue(hubId, projectId, issueId);
+            issueApi.GetIssue(hubId, projectId, issueId);
         }
 
         [Test, Order(4)]
@@ -79,7 +78,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 StatusId = __GetProjectStatusRandom(hubId, projectId),
                 PriorityId = __GetProjectPriorityRandom(hubId, projectId)
             };
-
             IssueApi issueApi = new IssueApi();
             issueApi.UpdateIssue(hubId, projectId, issueId, issue);
         }

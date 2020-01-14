@@ -25,7 +25,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
                 throw new BTException("API Test: No hubs were found");
             }
 
-            Hub hubObj = hubApiApi.GetHub(listHub[0].Id);
+            hubApiApi.GetHub(listHub[0].Id);
             Console.Out.WriteLine("------------------- TEST END -----------------------");
         }
         
@@ -34,7 +34,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             HubApi hubApiApi = new HubApi();
-            Hub hub = hubApiApi.GetHub(hubId);
+            hubApiApi.GetHub(hubId);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<PredefinedAttributeValue>>(connStr);
         }
         
-        public bool CreateHubProjectAttributeValue(int hubId, int projectId, int attrId, 
+        public int CreateHubProjectAttributeValue(int hubId, int projectId, int attrId, 
             PredefinedAttributeValue prjAttrVal)
         {
             // Required fields for PredefinedAttributeValue object are: 
@@ -24,9 +24,7 @@ namespace BimTrackTA.API
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + 
                              attrId + "/attributevalues";
 
-            IRestResponse response =  Perform_Create(connStr, prjAttrVal);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, prjAttrVal);
         }        
         
         public bool DeleteHubProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId)

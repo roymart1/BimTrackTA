@@ -14,14 +14,12 @@ namespace BimTrackTA.API
             return Perform_Get<List<Discipline>>(connStr);
         }
 
-        public bool CreateHubProjectDiscipline(int hubId, int projectId, Discipline discipline)
+        public int CreateHubProjectDiscipline(int hubId, int projectId, Discipline discipline)
         {
             // Required fields for Discipline object are: 
             //     - Name (string)
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/disciplines";
-            IRestResponse response =  Perform_Create(connStr, discipline);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, discipline);
         }
 
         public bool DeleteHubProjectDiscipline(int hubId, int projectId, int disciplineId)
@@ -30,7 +28,6 @@ namespace BimTrackTA.API
             
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
-            
         }
 
         public bool UpdateHubProjectDiscipline(int hubId, int projectId, int disciplineId, Discipline discipline)

@@ -46,7 +46,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             prjAttr.AddNewCustomAttributeValue("xzenblue", "#0000FF");
             
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
+            projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
         }
         
         [Test, Order(4)]
@@ -58,7 +58,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             var prjAttr = new ProjectAttribute {Name = "ZenCustom", Type = "Text"};
 
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
+            projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
         }
 
         [Test, Order(5)]

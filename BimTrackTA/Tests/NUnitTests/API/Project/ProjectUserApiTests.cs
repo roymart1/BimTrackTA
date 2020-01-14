@@ -33,8 +33,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectUserApi projectApi = new ProjectUserApi();
-            // Call the get users from a specific project
-            List<ProjectUser> prjUsers = projectApi.GetHubProjectUsers(hubId, projectId);
+            projectApi.GetHubProjectUsers(hubId, projectId);
         }
         
         [Test, Order(3)]
@@ -45,7 +44,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int userId = __GetUserRandom(hubId, projectId);
 
             ProjectUser user = new ProjectUser {Role = "Editor"};
-
 
             ProjectUserApi projectApi = new ProjectUserApi();
             projectApi.UpdateHubProjectUser(hubId, projectId, userId, user);
@@ -59,12 +57,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int userId = __GetUserRandom(hubId, projectId, "bimoneauto+ki1120_013436@gmail.com");
             
             ProjectUserApi projectApi = new ProjectUserApi();
-            IRestResponse resRet = projectApi.DeleteHubProjectUser(hubId, projectId, userId);
-            if (resRet.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                Console.Out.WriteLine("Failed to delete user " + userId + " from project " 
-                                      + projectId + " Reason == " + resRet.Content);
-            }
+            projectApi.DeleteHubProjectUser(hubId, projectId, userId);
         }
     }
 }

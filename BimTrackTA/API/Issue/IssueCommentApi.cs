@@ -13,7 +13,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<BimComment>>(connStr);
         }
 
-        public bool CreateIssueComment(int hubId, int projectId, int issueId, BimComment bimComment)
+        public int CreateIssueComment(int hubId, int projectId, int issueId, BimComment bimComment)
         {
             // Required fields for BimComment object are: 
             //     - Comment (string)
@@ -22,9 +22,7 @@ namespace BimTrackTA.API
             // hub first, as well as an issue for that project.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/comments";
-            IRestResponse response =  Perform_Create(connStr, bimComment);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, bimComment);
         }
         
         public bool DeleteIssueComment(int hubId, int projectId, int issueId, int commentId)

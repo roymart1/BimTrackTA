@@ -18,11 +18,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             string sheetName = "AutoSheetForRevisionTest.pdf";
             string sheetPath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, sheetPath);  
+            int sheetId = projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, sheetPath);  
             
             // Now we can bind it to our revision using its ID
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest.pdf");
-            
             string revisionName = "AutoRevisionTest.pdf";
             string revisionPath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";
             
@@ -38,7 +36,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest.pdf");
             
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
-            List<Revision> revisions = projectSheetRevisionApi.GetProjectSheetRevisionList(hubId, projectId, sheetId);
+            projectSheetRevisionApi.GetProjectSheetRevisionList(hubId, projectId, sheetId);
         }
 
         [Test, Order(3)]
@@ -50,7 +48,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoRevisionTest.pdf");
 
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
-            Revision revision = projectSheetRevisionApi.GetProjectSheetRevision(hubId, projectId, sheetId, revisionId);
+            projectSheetRevisionApi.GetProjectSheetRevision(hubId, projectId, sheetId, revisionId);
         }
         
         [Test, Order(4)]

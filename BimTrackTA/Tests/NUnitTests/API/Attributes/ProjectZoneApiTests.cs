@@ -15,7 +15,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
 
             Zone zone = new Zone {Name = "AutoProjectZoneTest", Color = "#FF0000"};
-
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
             projectZoneApi.CreateHubProjectZone(hubId, projectId, zone);
         }
@@ -26,8 +25,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
-
-            List<Zone> listPrjZones = projectZoneApi.GetHubProjectZoneList(hubId, projectId);
+            projectZoneApi.GetHubProjectZoneList(hubId, projectId);
         }  
         
         [Test, Order(3)]
@@ -38,7 +36,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int zoneId = __GetProjectZoneRandom(hubId, projectId, "AutoProjectZoneTest");
 
             Zone zone = new Zone {Name = "UpdatedProjectZoneTest", Color = "#FF0000"};
-
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
             projectZoneApi.UpdateHubProjectZone(hubId, projectId, zoneId, zone);
         }

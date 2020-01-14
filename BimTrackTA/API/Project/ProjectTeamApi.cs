@@ -16,14 +16,12 @@ namespace BimTrackTA.API
         }
         
         
-        public bool CreateHubProjectTeam(int hubId, int projectId, Team team)
+        public int CreateHubProjectTeam(int hubId, int projectId, Team team)
         {
             // Required fields for Team object are: 
             //     - Name (string)
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams";
-            IRestResponse response =  Perform_Create(connStr, team);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, team);
         }
         
         public IRestResponse DeleteHubProjectTeam(int hubId, int projectId, int teamId)

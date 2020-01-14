@@ -13,7 +13,7 @@ namespace BimTrackTA.API
             return Perform_Get<List<Revision>>(connStr);
         }
 
-        public bool CreateProjectSheetRevision(int hubId, int projectId, int sheetId, string revisionName, string revisionPath)
+        public int CreateProjectSheetRevision(int hubId, int projectId, int sheetId, string revisionName, string revisionPath)
         {
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .pdf. A revision is basically another sheet object, so it works the same
@@ -22,9 +22,7 @@ namespace BimTrackTA.API
             // Since you need a sheet id, that means that you need to have created a project in that hub first and
             // a sheet created in that project.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId + "/revisions";
-            IRestResponse response =  Perform_Create_Multipart(connStr, revisionName, revisionPath);
-            
-            return response.IsSuccessful;
+            return Perform_Create_Multipart(connStr, revisionName, revisionPath);
         }
         
         public bool DeleteProjectSheetRevision(int hubId, int projectId, int sheetId, int revisionId)

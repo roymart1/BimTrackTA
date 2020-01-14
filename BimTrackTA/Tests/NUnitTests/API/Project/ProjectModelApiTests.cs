@@ -28,7 +28,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            List<Model> models = projectModelApi.GetProjectModelList(hubId, projectId);
+            projectModelApi.GetProjectModelList(hubId, projectId);
         }
         
         [Test, Order(3)]
@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int modelId = __GetProjectModelRandom(hubId, projectId);
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            Model model = projectModelApi.GetProjectModel(hubId, projectId, modelId);
+            projectModelApi.GetProjectModel(hubId, projectId, modelId);
         }
 
         [Test, Order(4)]

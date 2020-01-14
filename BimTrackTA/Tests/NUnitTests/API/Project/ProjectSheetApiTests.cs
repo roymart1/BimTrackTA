@@ -28,7 +28,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            List<Sheet> sheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
+            projectSheetApi.GetProjectSheetList(hubId, projectId);
         }
 
         [Test, Order(3)]

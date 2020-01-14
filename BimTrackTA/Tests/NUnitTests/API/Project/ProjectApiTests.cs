@@ -25,7 +25,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             
             ProjectApi projectApi = new ProjectApi();
-            List<Project> listProject =  projectApi.GetHubProjectList(hubId);
+            projectApi.GetHubProjectList(hubId);
         } 
         
         [Test, Order(3)]
@@ -35,7 +35,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoNewPrjTest");
             
             ProjectApi projectApi = new ProjectApi();
-            Project project = projectApi.GetHubProjectDetails(hubId, projectId);
+            projectApi.GetHubProjectDetails(hubId, projectId);
         }
 
         [Test, Order(4)]

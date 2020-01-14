@@ -13,16 +13,14 @@ namespace BimTrackTA.API
             return Perform_Get<List<Folder>>(connStr);
         }
 
-        public bool CreateProjectModelFolder(int hubId, int projectId, Folder folder)
+        public int CreateProjectModelFolder(int hubId, int projectId, Folder folder)
         {
             // Required fields for Folder object are: 
             //     - Name (string)
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/folders";
-            IRestResponse response =  Perform_Create(connStr, folder);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, folder);
         }
         
         public bool DeleteProjectModelFolder(int hubId, int projectId, int projectModelFolderId)

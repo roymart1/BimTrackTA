@@ -18,15 +18,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             // We need to create the project attribute before we can give it a value...
             var prjAttr = new ProjectAttribute {Name = "ZenPredef", Type = "Predefined"};
-            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            bool bRet = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
-            
-            
-            // Now, we can create the attribute value with the newly created attribute
-            int attrValId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi(); 
+            int attrValId = projectAttributeApi.CreateHubProjectAttribute(hubId, projectId, prjAttr);
 
             PredefinedAttributeValue prjCst = new PredefinedAttributeValue {Name = "zenUnknown", Color = "#550088"};
-
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi.CreateHubProjectAttributeValue(hubId, projectId, attrValId, prjCst);
         }
@@ -39,9 +34,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int attrValId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
             
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
-
             List<PredefinedAttributeValue> listAttrVal;
-            listAttrVal = prjAttrValApi.GetHubProjectAttributeValueList(hubId, projectId, attrValId);
+            prjAttrValApi.GetHubProjectAttributeValueList(hubId, projectId, attrValId);
         }
 
         [Test, Order(3)]

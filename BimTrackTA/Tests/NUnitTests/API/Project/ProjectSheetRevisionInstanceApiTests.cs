@@ -20,16 +20,13 @@ namespace BimTrackTA.Tests.NUnitTests.API
             string filePath = "../../../Tests/NUnitTests/API/TestResources/Sheet.pdf";   
             
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
-            projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, filePath);
+            int sheetId = projectSheetApi.CreateProjectSheet(hubId, projectId, sheetName, filePath);
             
             // Now that the sheet is created, we can create the revision
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest.pdf");
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
-            projectSheetRevisionApi.CreateProjectSheetRevision(hubId, projectId, sheetId, revisionName, filePath);
+            int revisionId = projectSheetRevisionApi.CreateProjectSheetRevision(hubId, projectId, sheetId, revisionName, filePath);
             
             // We can finally create the instance for the newly created revision
-            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
-            
             Xyz xyz = new Xyz{ X = 0, Y = 0, Z = 0};
             Instance instance = new Instance
             {
@@ -55,8 +52,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
             
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
-            List<Instance> instances = projectSheetRevisionInstanceApi
-                .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
+            projectSheetRevisionInstanceApi.GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
         }
         
         [Test, Order(3)]
@@ -69,8 +65,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
 
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
-            Instance instance = projectSheetRevisionInstanceApi
-                .GetProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instanceId);
+            projectSheetRevisionInstanceApi.GetProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instanceId);
         }
 
         [Test, Order(4)]

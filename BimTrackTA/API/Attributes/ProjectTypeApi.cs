@@ -14,15 +14,13 @@ namespace BimTrackTA.API
             return Perform_Get<List<BimType>>(connStr);
         }
 
-        public bool CreateHubProjectType(int hubId, int projectId, BimType bimType)
+        public int CreateHubProjectType(int hubId, int projectId, BimType bimType)
         {
             // Required fields for BimType object are: 
             //     - Name (string)
             //     - Color (hex format)
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types";
-            IRestResponse response =  Perform_Create(connStr, bimType);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, bimType);
         }
 
         public bool DeleteHubProjectType(int hubId, int projectId, int typeId)

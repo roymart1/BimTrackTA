@@ -30,7 +30,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
             
             ProjectTeamApi projectApi = new ProjectTeamApi();
-            List<Team> prjUsers = projectApi.GetHubProjectTeams(hubId, projectId);
+            projectApi.GetHubProjectTeams(hubId, projectId);
         }
         
         [Test, Order(3)]
@@ -41,8 +41,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int teamId = __GetTeamRandom(hubId, projectId, "Ventilation3");
             
             ProjectTeamApi projectApi = new ProjectTeamApi();
-            List<User> listUser = projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
-            
+            projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
         }
 
         [Test, Order(4)]

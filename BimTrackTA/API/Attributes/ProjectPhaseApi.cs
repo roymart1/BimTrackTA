@@ -14,15 +14,13 @@ namespace BimTrackTA.API
             return Perform_Get<List<Phase>>(connStr);
         }
 
-        public bool CreateHubProjectPhase(int hubId, int projectId, Phase phase)
+        public int CreateHubProjectPhase(int hubId, int projectId, Phase phase)
         {
             // Required fields for Phase object are: 
             //     - Name (string)
             //     - Color (hex format)
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases";
-            IRestResponse response =  Perform_Create(connStr, phase);
-            
-            return response.IsSuccessful;
+            return Perform_Create(connStr, phase);
         }
 
         public bool DeleteHubProjectPhase(int hubId, int projectId, int phaseId)
