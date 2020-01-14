@@ -434,7 +434,7 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("No comment for that issue.");
         } 
         
-        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId, string viewName=null)
+        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId)
         {
             IssueViewPointApi issueViewPointApi = new IssueViewPointApi();
 
@@ -443,16 +443,6 @@ namespace BimTrackTA.Common.WebDriver
 
             if (listIssueViewPoints.Count > 0)
             {
-                if (viewName != null)
-                {
-                    foreach (var viewPoint in listIssueViewPoints)
-                    {
-                        if (viewPoint.ViewName.ToLower() == viewName.ToLower())
-                        {
-                            return viewPoint.Id;
-                        }
-                    }
-                }
                 return listIssueViewPoints[0].Id;
             }
             throw new Exception("No view point for that issue.");

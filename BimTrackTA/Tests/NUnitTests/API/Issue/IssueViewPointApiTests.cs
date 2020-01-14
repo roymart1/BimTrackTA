@@ -53,7 +53,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointTest");
-            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointTest");
+            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
             
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
             ViewPoint viewPoint =  issueViewPoint.GetIssueViewPoint(hubId, projectId, issueId, issueViewPointId);
@@ -65,7 +65,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointTest");
-            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointTest");
+            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
 
             ViewPoint viewPoint = new ViewPoint {ViewType = "ThreeD"};
             string path = "../../../Tests/NUnitTests/API/TestResources/Colors.jpg";
@@ -73,7 +73,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
             issueViewPoint.UpdateIssueViewPoint(hubId, projectId, issueId, issueViewPointId, 
-                viewPoint, path, fileName);
+                viewPoint, fileName, path);
         }
         
         [Test, Order(5)]
@@ -82,7 +82,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointTest");
-            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointTest");
+            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
 
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
             issueViewPoint.DeleteIssueViewPoint(hubId, projectId, issueId, issueViewPointId);

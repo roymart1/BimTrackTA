@@ -12,7 +12,7 @@ namespace SeleniumTest.BusinessObjects
         public class Operation
         {
             // The operation is always "replace"
-            private string op = "Replace";
+            private string op = "replace";
             // Possible values are '/AssignedToUserId', '/DueDate', '/Group', '/LabelIds', '/PriorityId', '/PhaseId',
             // '/StatusId', '/TeamIds', '/TypeId', '/ZoneId' and '/CustomAttributes'.
             public string path { get; set; }

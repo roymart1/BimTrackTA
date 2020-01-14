@@ -35,7 +35,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             issueViewPoint.CreateIssueViewPoint(hubId, projectId, issueId, viewPoint, fileName, path);
             
             // Finally, we can give it a comment.
-            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
+            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
 
             BimComment comment = new BimComment {Comment = "AutoIssueComment"};
 

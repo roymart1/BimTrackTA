@@ -1,4 +1,5 @@
 using System.IO;
+using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,57 +24,75 @@ namespace BimTrackTA.API
             _client.AddDefaultHeader("Authorization", $"Bearer {szKey}");
         }
         
-        private static void ProcessResponseError(IRestResponse response)
+        private void ProcessResponseError(IRestResponse response, IRestRequest request)
         {
             if (response.IsSuccessful != true)
             {
-                JObject json = JObject.Parse(response.Content);
-                JToken message = json["Message"];
-                throw new BTException("Exception - Error Message: " + message + "\nFull error: " + json);
+                // If we have the "too many requests" problem
+                if (response.StatusCode == HttpStatusCode.TooManyRequests)
+                {
+                    // Sleep for 2 seconds
+                    Thread.Sleep(2000);
+                    Perform_Request(request);
+                }
+                else
+                {
+                    JObject json = JObject.Parse(response.Content);
+                    JToken message = json["Message"];
+                    throw new BTException("Exception - Error Message: " + message + "\nFull error: " + json);
+                }
             }
         }
         
-        private IRestResponse Execute_Post_Patch_Put_Request(string connectionStr, string jsonToSend, Method method)
+        private IRestResponse Perform_Request(IRestRequest request)
+        {
+            var response = _client.Execute(request);
+            ProcessResponseError(response, request);
+            return response;
+        }
+        
+        private IRestResponse Perform_Request_Async(IRestRequest request)
+        {
+            var response = _client.ExecuteTaskAsync(request, CancellationToken.None).Result;
+            ProcessResponseError(response, request);
+            return response;
+        }
+
+        private IRestResponse Create_And_Execute_Post_Patch_Put_Request(string connectionStr, string jsonToSend, Method method)
         {
             RestRequest request = new RestRequest(connectionStr, method);
             request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
-            var response = _client.Execute(request);
-            ProcessResponseError(response);
-            return response;
+            return Perform_Request(request);
         }
 
         protected IRestResponse Perform_Delete(string connectionStr)
         {
-            var request = new RestRequest(connectionStr, Method.DELETE);
-            IRestResponse response = _client.Execute(request);
-            return response;
+            return Perform_Request(new RestRequest(connectionStr, Method.DELETE));
         }
 
         protected T Perform_Get<T>(string connectionStr)
         {
-            RestRequest request = new RestRequest(connectionStr, Method.GET);
-            IRestResponse response = _client.Execute(request);
-            T listTemplates = JsonConvert.DeserializeObject<T>(response.Content);
-            return listTemplates;
+            IRestResponse response = Perform_Request(new RestRequest(connectionStr, Method.GET));
+            return JsonConvert.DeserializeObject<T>(response.Content);
         }
 
         protected IRestResponse Perform_Create(string connectionStr, object objectToSend)
         {
             string jsonToSend = Create_Json_Payload(objectToSend);
-            return Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.POST);
+            return Create_And_Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.POST);
         }
         
         protected IRestResponse Perform_Update(string connectionStr, object objectToSend)
         {
             string jsonToSend = Create_Json_Payload(objectToSend);
-            return Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.PUT);
+            return Create_And_Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.PUT);
         }
 
         protected IRestResponse Perform_Patch(string connectionStr, object objectToSend)
         {
             string jsonToSend = Create_Json_Payload(objectToSend);
-            return Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.PATCH);
+            return Create_And_Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.PATCH);
         }
 
         protected IRestResponse Perform_Create_Multipart(string connectionStr, string fileName, string pathToFile,
@@ -89,9 +108,8 @@ namespace BimTrackTA.API
 
             Stream fs = File.OpenRead(pathToFile);
             request.AddFile(fileName, stream => fs.CopyTo(stream), fileName, fs.Length, "application/octet-stream");
-            var response = _client.ExecuteTaskAsync(request, CancellationToken.None).Result;
-            ProcessResponseError(response);
-            return response;
+
+            return Perform_Request_Async(request);
         }
 
         protected IRestResponse Perform_Update_Multipart(string connectionStr, string fileName, string pathToFile,

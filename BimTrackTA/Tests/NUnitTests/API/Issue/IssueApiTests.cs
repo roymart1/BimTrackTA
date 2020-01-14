@@ -75,6 +75,9 @@ namespace BimTrackTA.Tests.NUnitTests.API
             Issue issue = new Issue
             {
                 Title = "UpdatedNewIssue",
+                TypeId = __GetProjectTypeRandom(hubId, projectId),
+                StatusId = __GetProjectStatusRandom(hubId, projectId),
+                PriorityId = __GetProjectPriorityRandom(hubId, projectId)
             };
 
             IssueApi issueApi = new IssueApi();
