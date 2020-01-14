@@ -56,7 +56,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             int priorityId = __GetProjectPriorityRandom(hubId, projectId);
             
-            MultiUpdate.Operation operation = new MultiUpdate.Operation {path = "/PriorityId", value = priorityId};
+            MultiUpdate.Operation operation = new MultiUpdate.Operation {value = priorityId, path = "/PriorityId"};
             List<MultiUpdate.Operation> operations = new List<MultiUpdate.Operation> {operation};
             List<int> issueIds = new List<int> {issueId};
             MultiUpdate multiUpdate = new MultiUpdate {Operations = operations, IssueIds = issueIds};
