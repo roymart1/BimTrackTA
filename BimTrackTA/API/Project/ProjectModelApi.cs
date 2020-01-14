@@ -42,9 +42,8 @@ namespace BimTrackTA.API
         public bool UpdateProjectModel(int hubId, int projectId, int modelId, Model model)
         {
             // CTRL+Click on Model for further information about that object.
-            string jsonPayload = JsonConvert.SerializeObject(model);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, model);
 
             return response.IsSuccessful;
         }

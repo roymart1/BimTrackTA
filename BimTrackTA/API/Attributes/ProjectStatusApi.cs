@@ -21,9 +21,8 @@ namespace BimTrackTA.API
             //     - Color (hex format)
             //
             // CTRL+Click on Status for further details about the object's attributes
-            string jsonPayload = JsonConvert.SerializeObject(status);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, status);
             
             return response.IsSuccessful;
         }
@@ -39,10 +38,9 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectStatus(int hubId, int projectId, int statusId, Status status)
         {
-            string jsonPayload = JsonConvert.SerializeObject(status);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status/" + statusId;
             
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, status);
             return response.IsSuccessful;
         }
         

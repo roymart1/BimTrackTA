@@ -20,19 +20,26 @@ namespace BimTrackTA.API
         }
         
         public bool CreateIssue(int hubId, int projectId, Issue issue)
-        {
-            string jsonPayload = JsonConvert.SerializeObject(issue);
+        {            
+            // Required fields for Issue object are: 
+            //     - Title (string)
+            //     - TypeId (int: the id of a Type object present in the project)
+            //     - PriorityId (int: the id of a Priority object present in the project)
+            //     - StatusId (int: the id of a Status object present in the project)
+            //
+            // CTRL+Click on Issue for further details about the object's attributes
+            //
+            // Since you need a project id, that means that you need to have created a project in that hub first.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, issue);
             
             return response.IsSuccessful;
         }
 
         public bool UpdateIssue(int hubId, int projectId, int issueId, Issue issue)
         {
-            string jsonPayload = JsonConvert.SerializeObject(issue);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId;
-            IRestResponse response =  Perform_Update(connStr, jsonPayload);
+            IRestResponse response =  Perform_Update(connStr, issue);
             
             return response.IsSuccessful;
         }
@@ -54,9 +61,11 @@ namespace BimTrackTA.API
         
         public bool PatchIssues(int hubId, int projectId, MultiUpdate multiUpdate)
         {
-            string jsonPayload = JsonConvert.SerializeObject(multiUpdate);
+            // CTRL+Click on MultiUpdate for further details about the object's attributes. They are all required.
+            //
+            // Since you need a project id, that means that you need to have created a project in that hub first.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues";
-            IRestResponse response = Perform_Patch(connStr, jsonPayload);
+            IRestResponse response = Perform_Patch(connStr, multiUpdate);
 
             return response.IsSuccessful;
         }

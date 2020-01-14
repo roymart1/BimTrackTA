@@ -14,6 +14,10 @@ namespace BimTrackTA.API
 
         public bool CreateIssueAttachment(int hubId, int projectId, int issueId, string fileName, string pathToAttachment)
         {
+            // Since we are using Multipart, you need to provide a file name and a filepath.
+            //
+            // Since you need a project id and an issue id, that means that you need to have created a project in that
+            // hub first, as well as an issue for that project.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
                              + "/attachments";
             IRestResponse response =  Perform_Create_Multipart(connStr, fileName, pathToAttachment);

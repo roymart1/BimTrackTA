@@ -19,9 +19,8 @@ namespace BimTrackTA.API
            //     - Name (string)
            //
            // CTRL+Click on Project for further details about the object's attributes
-           string jsonPayload = JsonConvert.SerializeObject(project);
            string connStr = "v2/hubs/" + hubId + "/projects";
-           IRestResponse response =  Perform_Create(connStr, jsonPayload);
+           IRestResponse response =  Perform_Create(connStr, project);
             
            return response.IsSuccessful;
        }
@@ -34,9 +33,8 @@ namespace BimTrackTA.API
 
        public bool UpdateHubProject(int hubId, int projectId, Project project)
        {
-           string jsonPayload = JsonConvert.SerializeObject(project);
            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId;
-           IRestResponse response = Perform_Update(connStr, jsonPayload);
+           IRestResponse response = Perform_Update(connStr, project);
 
            return response.IsSuccessful;
        }

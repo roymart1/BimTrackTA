@@ -24,9 +24,8 @@ namespace BimTrackTA.API
             //     - Role ('Editor' or 'Reader')
             //
             // CTRL+Click on ProjectUser for further details about the object's attributes
-            string jsonPayload = JsonConvert.SerializeObject(user);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/users";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, user);
             
             return response.IsSuccessful;
         }
@@ -40,9 +39,8 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectUser(int hubId, int projectId, int userId, ProjectUser user)
         {
-            string jsonPayload = JsonConvert.SerializeObject(user);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/users/" + userId;
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, user);
 
             return response.IsSuccessful;
         }

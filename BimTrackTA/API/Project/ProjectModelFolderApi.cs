@@ -19,9 +19,8 @@ namespace BimTrackTA.API
             //     - Name (string)
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
-            string jsonPayload = JsonConvert.SerializeObject(folder);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/folders";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, folder);
             
             return response.IsSuccessful;
         }
@@ -36,9 +35,8 @@ namespace BimTrackTA.API
         
         public bool UpdateProjectModelFolder(int hubId, int projectId, int projectModelFolderId, Folder folder)
         {
-            string jsonPayload = JsonConvert.SerializeObject(folder);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/folders/" + projectModelFolderId;
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, folder);
 
             return response.IsSuccessful;
         }

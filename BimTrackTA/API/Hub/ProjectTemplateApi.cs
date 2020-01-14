@@ -25,9 +25,8 @@ namespace BimTrackTA.API
             // Since you need a project source, that means that you need to have created a project in that hub first.
             //
             // CTRL+Click on ProjectTemplate for further details about the object's attributes
-            string jsonPayload = JsonConvert.SerializeObject(template);
             string connStr = "/v2/hubs/"+ hubId +"/projecttemplates";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, template);
             
             return response.IsSuccessful;
         }

@@ -20,9 +20,8 @@ namespace BimTrackTA.API
         {
             // Required fields for Team object are: 
             //     - Name (string)
-            string jsonPayload = JsonConvert.SerializeObject(team);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, team);
             
             return response.IsSuccessful;
         }
@@ -42,10 +41,9 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectTeam(int hubId, int projectId, int teamId, Team team)
         {
-            string jsonPayload = JsonConvert.SerializeObject(team);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/teams/" + teamId;
             
-            IRestResponse response =  Perform_Update(connStr, jsonPayload);
+            IRestResponse response =  Perform_Update(connStr, team);
             return response.IsSuccessful;
         }
     }

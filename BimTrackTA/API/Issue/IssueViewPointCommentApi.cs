@@ -17,10 +17,14 @@ namespace BimTrackTA.API
 
         public bool CreateIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId, BimComment comment)
         {
-            string jsonPayload = JsonConvert.SerializeObject(comment);
+            // Required fields for BimComment object are: 
+            //     - Comment (string)
+            //
+            // Since you need a project id, an issue id and a view point id, that means that you need to have created a
+            // project in that hub first, as well as an issue and a viewpoint for that issue.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
                              + "/viewpoints/" + viewPointId + "/comments";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, comment);
             
             return response.IsSuccessful;
         }

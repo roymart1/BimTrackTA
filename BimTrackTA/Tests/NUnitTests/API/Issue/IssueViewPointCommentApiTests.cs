@@ -27,10 +27,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             // Now that we have created the issue, we can give it a viewpoint
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest");
-            ViewPoint viewPoint = new ViewPoint();
-            viewPoint.ViewType = "TwoD";
-            viewPoint.Source = "Web";
-            viewPoint.ViewName = "ViewPointCommentTest";
+            ViewPoint viewPoint = new ViewPoint {ViewType = "TwoD", Source = "Web", ViewName = "ViewPointCommentTest"};
             string path = "../../../Tests/NUnitTests/API/TestResources/Colors.jpg";
             string fileName = "Colors.jpg";
             

@@ -19,9 +19,8 @@ namespace BimTrackTA.API
             // Required fields for Zone object are: 
             //     - Name (string)
             //     - Color (hex format)
-            string jsonPayload = JsonConvert.SerializeObject(zone);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/zones";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, zone);
             
             return response.IsSuccessful;
         }
@@ -37,10 +36,9 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectZone(int hubId, int projectId, int zoneId, Zone zone)
         {
-            string jsonPayload = JsonConvert.SerializeObject(zone);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/zones/" + zoneId;
             
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, zone);
             return response.IsSuccessful;
         }
         

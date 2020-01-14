@@ -58,29 +58,33 @@ namespace BimTrackTA.API
             return listTemplates;
         }
 
-        protected IRestResponse Perform_Create(string connectionStr, string jsonToSend)
+        protected IRestResponse Perform_Create(string connectionStr, object objectToSend)
         {
+            string jsonToSend = Create_Json_Payload(objectToSend);
             return Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.POST);
         }
         
-        protected IRestResponse Perform_Update(string connectionStr, string jsonToSend)
+        protected IRestResponse Perform_Update(string connectionStr, object objectToSend)
         {
+            string jsonToSend = Create_Json_Payload(objectToSend);
             return Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.PUT);
         }
 
-        protected IRestResponse Perform_Patch(string connectionStr, string jsonToSend)
+        protected IRestResponse Perform_Patch(string connectionStr, object objectToSend)
         {
+            string jsonToSend = Create_Json_Payload(objectToSend);
             return Execute_Post_Patch_Put_Request(connectionStr, jsonToSend, Method.PATCH);
         }
 
         protected IRestResponse Perform_Create_Multipart(string connectionStr, string fileName, string pathToFile,
-            string metadata=null, Method method=Method.POST)
+            object metadata=null, Method method=Method.POST)
         {
             RestRequest request = new RestRequest(connectionStr, method);
             if (metadata != null)
             { 
+                string jsonToSend = Create_Json_Payload(metadata);
                 request.AlwaysMultipartFormData = true;
-                request.AddParameter("metadata", metadata, "application/json", ParameterType.RequestBody);
+                request.AddParameter("metadata", jsonToSend, "application/json", ParameterType.RequestBody);
             }
 
             Stream fs = File.OpenRead(pathToFile);
@@ -91,18 +95,24 @@ namespace BimTrackTA.API
         }
 
         protected IRestResponse Perform_Update_Multipart(string connectionStr, string fileName, string pathToFile,
-            string metadata = null)
+            object metadata = null)
         {
             return Perform_Create_Multipart(connectionStr, fileName, pathToFile, metadata, Method.PUT);
         }
-        
-        protected string Create_UpdateJsonString(string key, object value)
+
+        private string Create_Json_Payload(object obj)
         {
-            if (value is string || value is char)
+            if (obj is string s)
             {
-                return "{'" + key + "': '" + value + "'}";
+                return s;
             }
-            return "{'" + key + "': " + value + "}";
+            return JsonConvert.SerializeObject(obj, Formatting.None, new JsonSerializerSettings
+            {
+                // If the value is null, don't add the attribute. The reason is that otherwise, objects initialized
+                // with only a few attributes will always be "full of nulls" which is not considered to be a null
+                // value for the API. It is considered as an attribute that has deliberately been set to null.
+                NullValueHandling = NullValueHandling.Ignore
+            });
         }
     }
 }

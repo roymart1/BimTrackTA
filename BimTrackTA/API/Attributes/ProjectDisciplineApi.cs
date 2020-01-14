@@ -18,9 +18,8 @@ namespace BimTrackTA.API
         {
             // Required fields for Discipline object are: 
             //     - Name (string)
-            string jsonPayload = JsonConvert.SerializeObject(discipline);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/disciplines";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, discipline);
             
             return response.IsSuccessful;
         }
@@ -36,10 +35,9 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectDiscipline(int hubId, int projectId, int disciplineId, Discipline discipline)
         {
-            string jsonPayload = JsonConvert.SerializeObject(discipline);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/disciplines/" + disciplineId;
             
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, discipline);
             return response.IsSuccessful;
         }
         

@@ -21,9 +21,8 @@ namespace BimTrackTA.API
             //     - Color (hex format)
             //
             // CTRL+Click on Priority for further details about the object's attributes
-            string jsonPayload = JsonConvert.SerializeObject(priority);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, priority);
             
             return response.IsSuccessful;
         }
@@ -39,10 +38,9 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectPriority(int hubId, int projectId, int priorityId, Priority priority)
         {
-            string jsonPayload = JsonConvert.SerializeObject(priority);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities/" + priorityId;
             
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, priority);
             return response.IsSuccessful;
         }
         

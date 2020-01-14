@@ -21,11 +21,10 @@ namespace BimTrackTA.API
             // Required fields for PredefinedAttributeValue object are: 
             //     - Name (string)
             //     - Color (hex format)
-            string jsonPayload = JsonConvert.SerializeObject(prjAttrVal);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + 
                              attrId + "/attributevalues";
 
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, prjAttrVal);
             
             return response.IsSuccessful;
         }        
@@ -42,11 +41,10 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId, PredefinedAttributeValue attribute)
         {
-            string jsonPayload = JsonConvert.SerializeObject(attribute);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
                              attrId + "/attributevalues/" + attrValId;
             
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, attribute);
             return response.IsSuccessful;
         }
         

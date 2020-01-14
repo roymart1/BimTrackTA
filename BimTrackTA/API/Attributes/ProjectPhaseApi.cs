@@ -19,9 +19,8 @@ namespace BimTrackTA.API
             // Required fields for Phase object are: 
             //     - Name (string)
             //     - Color (hex format)
-            string jsonPayload = JsonConvert.SerializeObject(phase);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, phase);
             
             return response.IsSuccessful;
         }
@@ -37,10 +36,9 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectPhase(int hubId, int projectId, int phaseId, Phase phase)
         {
-            string jsonPayload = JsonConvert.SerializeObject(phase);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases/" + phaseId;
             
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, phase);
             return response.IsSuccessful;
         }
         

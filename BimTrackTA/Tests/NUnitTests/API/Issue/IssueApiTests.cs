@@ -55,12 +55,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
 
             int priorityId = __GetProjectPriorityRandom(hubId, projectId);
-            Operation operation = new Operation {path = "/PriorityId", value = priorityId};
-
-            List<Operation> operations = new List<Operation> {operation};
-
+            
+            MultiUpdate.Operation operation = new MultiUpdate.Operation {path = "/PriorityId", value = priorityId};
+            List<MultiUpdate.Operation> operations = new List<MultiUpdate.Operation> {operation};
             List<int> issueIds = new List<int> {issueId};
-
             MultiUpdate multiUpdate = new MultiUpdate {Operations = operations, IssueIds = issueIds};
 
             IssueApi issueApi = new IssueApi();
@@ -77,9 +75,6 @@ namespace BimTrackTA.Tests.NUnitTests.API
             Issue issue = new Issue
             {
                 Title = "UpdatedNewIssue",
-                TypeId = __GetProjectTypeRandom(hubId, projectId),
-                PriorityId = __GetProjectPriorityRandom(hubId, projectId),
-                StatusId = __GetProjectStatusRandom(hubId, projectId)
             };
 
             IssueApi issueApi = new IssueApi();

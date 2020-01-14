@@ -19,9 +19,8 @@ namespace BimTrackTA.API
             // Required fields for BimType object are: 
             //     - Name (string)
             //     - Color (hex format)
-            string jsonPayload = JsonConvert.SerializeObject(bimType);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, bimType);
             
             return response.IsSuccessful;
         }
@@ -37,10 +36,9 @@ namespace BimTrackTA.API
 
         public bool UpdateHubProjectType(int hubId, int projectId, int typeId, BimType bimType)
         {
-            string jsonPayload = JsonConvert.SerializeObject(bimType);
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types/" + typeId;
             
-            IRestResponse response = Perform_Update(connStr, jsonPayload);
+            IRestResponse response = Perform_Update(connStr, bimType);
             return response.IsSuccessful;
         }
         

@@ -30,10 +30,9 @@ namespace BimTrackTA.API
                                     "    - Position (Type: Xyz)\n" +
                                     "    - Rotation (Type: Xyz)\n");
             }
-            string jsonPayload = JsonConvert.SerializeObject(instance);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId  + "/instances";
-            IRestResponse response =  Perform_Create(connStr, jsonPayload);
+            IRestResponse response =  Perform_Create(connStr, instance);
             
             return response.IsSuccessful;
         }
@@ -59,10 +58,9 @@ namespace BimTrackTA.API
         public bool UpdateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId,
             int instanceId, Instance instance)
         {
-            string jsonPayload = JsonConvert.SerializeObject(instance);
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId + "/instances/" + instanceId;
-            IRestResponse response =  Perform_Update(connStr, jsonPayload);
+            IRestResponse response =  Perform_Update(connStr, instance);
 
             return response.IsSuccessful;
         }
