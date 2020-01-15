@@ -181,5 +181,11 @@ namespace BimTrackTA.API
                 NullValueHandling = NullValueHandling.Ignore
             });
         }
+
+        protected bool FileIsImage(string fileName)
+        {
+            return fileName.Contains(".jpg") || fileName.Contains(".jpeg") || fileName.Contains(".png") ||
+                    fileName.Contains(".gif");
+        }
     }
 }

@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -16,6 +17,9 @@ namespace BimTrackTA.API
 
         public int CreateProjectDiscipline(int hubId, int projectId, Discipline discipline)
         {
+            // Validate that the object is fine
+            ValidateOperation(discipline);
+            
             // Required fields for Discipline object are: 
             //     - Name (string)
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/disciplines";
@@ -38,5 +42,13 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
         
+        private void ValidateOperation(Discipline discipline)
+        {
+            if (discipline == null) throw new ArgumentNullException(nameof(discipline));
+            if (discipline.Name == null)
+            {
+                throw new CustomObjectAttributeException("a name","project discipline");
+            }
+        }
     }
 }

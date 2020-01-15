@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -16,11 +17,17 @@ namespace BimTrackTA.API
 
         public int CreateHubProjectUser(int hubId, int projectId, ProjectUser user)
         {
+            // Validate that the object is fine
+            ValidateOperation(user);
+            
             // Required fields for ProjectUser object are: 
             //     - UserId (int)
             //     - Role ('Editor' or 'Reader')
             //
             // CTRL+Click on ProjectUser for further details about the object's attributes
+            //
+            // N.B. : If you receive the message 'the requested resource was not found', it's because your userId does
+            // not correspond to a user that is present in your hub.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/users";
             return Perform_Create(connStr, user);
         }
@@ -38,6 +45,19 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Update(connStr, user);
 
             return response.IsSuccessful;
+        }
+
+        private void ValidateOperation(ProjectUser user)
+        {
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user.Role == null)
+            {
+                throw new CustomObjectAttributeException("a role", "project user");
+            }
+            if (user.Role.ToLower() != "editor" && user.Role.ToLower() != "reader")
+            {
+                throw new CustomObjectAttributeException("The role of your user needs to be 'Editor' or 'Reader'.");
+            }
         }
     }
 }

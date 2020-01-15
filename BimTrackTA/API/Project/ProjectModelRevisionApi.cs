@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -15,6 +16,9 @@ namespace BimTrackTA.API
 
         public int CreateProjectModelRevision(int hubId, int projectId, int modelId, string revisionName, string filePath)
         {
+            // Validate that the revision name is fine
+            ValidateOperation(revisionName);
+            
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .ifc or .ifczip. A revision is basically another model object, so it works the same
             // way as the ProjectModelApi.
@@ -39,6 +43,16 @@ namespace BimTrackTA.API
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId 
                              + "/revisions/" + revisionId;
             return Perform_Get<Revision>(connStr);
+        }
+
+        private void ValidateOperation(string revisionName)
+        {
+            if (revisionName == null) throw new ArgumentNullException(nameof(revisionName));
+            if (!revisionName.Contains(".ifc"))
+            {
+                throw new CustomObjectAttributeException(
+                    "Your model revision name must contain one of these extensions: '.ifc' or '.ifczip'.");
+            }
         }
     }
 }

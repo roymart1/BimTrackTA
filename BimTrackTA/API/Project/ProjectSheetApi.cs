@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -15,6 +16,9 @@ namespace BimTrackTA.API
 
         public int CreateProjectSheet(int hubId, int projectId, string sheetName, string sheetPath)
         {
+            // Validate that the revision name is fine
+            ValidateOperation(sheetName);
+            
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .pdf
             //
@@ -35,6 +39,16 @@ namespace BimTrackTA.API
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId;
             return Perform_Get<Sheet>(connStr);
+        }
+
+        private void ValidateOperation(string sheetName)
+        {
+            if (sheetName == null) throw new ArgumentNullException(nameof(sheetName));
+            if (!sheetName.Contains(".pdf"))
+            {
+                throw new CustomObjectAttributeException(
+                    "Your sheet name must be of the '.pdf' format.");
+            }
         }
     }
 }

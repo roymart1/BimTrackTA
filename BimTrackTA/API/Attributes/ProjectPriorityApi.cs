@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -16,6 +17,9 @@ namespace BimTrackTA.API
 
         public int CreateProjectPriority(int hubId, int projectId, Priority priority)
         {
+            // Validate that the object is fine
+            ValidateOperation(priority);
+            
             // Required fields for Priority object are: 
             //     - Name (string)
             //     - Color (hex format)
@@ -42,5 +46,17 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
         
+        private void ValidateOperation(Priority priority)
+        {
+            if (priority == null) throw new ArgumentNullException(nameof(priority));
+            if (priority.Name == null)
+            {
+                throw new CustomObjectAttributeException("a name","project priority");
+            }
+            if (priority.Color == null)
+            {
+                throw new CustomObjectAttributeException("a color in hex format", "project priority");
+            }
+        }
     }
 }

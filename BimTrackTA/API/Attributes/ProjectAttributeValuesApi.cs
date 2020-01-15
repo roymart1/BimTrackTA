@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -18,6 +19,9 @@ namespace BimTrackTA.API
         public int CreateProjectAttributeValue(int hubId, int projectId, int attrId, 
             AttributeValue prjAttrVal)
         {
+            // Validate that the object is fine
+            ValidateOperation(prjAttrVal);
+            
             // Required fields for PredefinedAttributeValue object are: 
             //     - Name (string)
             //     - Color (hex format)
@@ -34,7 +38,6 @@ namespace BimTrackTA.API
             
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
-            
         }
 
         public bool UpdateProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId, AttributeValue attribute)
@@ -45,6 +48,18 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Update(connStr, attribute);
             return response.IsSuccessful;
         }
-        
+
+        private void ValidateOperation(AttributeValue prjAttrVal)
+        {
+            if (prjAttrVal == null) throw new ArgumentNullException(nameof(prjAttrVal));
+            if (prjAttrVal.Name == null)
+            {
+                throw new CustomObjectAttributeException("a name", "project attribute value");
+            }
+            if (prjAttrVal.Color == null)
+            {
+                throw new CustomObjectAttributeException("a color in hex format", "project attribute value");
+            }
+        }
     }
 }

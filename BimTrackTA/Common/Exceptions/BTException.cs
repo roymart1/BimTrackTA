@@ -12,6 +12,5 @@ namespace SeleniumTest.Common.Exceptions
         {    
             
         }
-
     }
 }

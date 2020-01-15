@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -15,6 +16,9 @@ namespace BimTrackTA.API
 
        public int CreateHubProject(int hubId, Project project)
        {
+           // Validate that the object is fine
+           ValidateOperation(project);
+           
            // Required fields for Project object are: 
            //     - Name (string)
            //
@@ -35,6 +39,15 @@ namespace BimTrackTA.API
            IRestResponse response = Perform_Update(connStr, project);
 
            return response.IsSuccessful;
+       }
+       
+       private void ValidateOperation(Project project)
+       {
+           if (project == null) throw new ArgumentNullException(nameof(project));
+           if (project.Name == null)
+           {
+               throw new CustomObjectAttributeException("a name", "project");
+           }
        }
     }
 }

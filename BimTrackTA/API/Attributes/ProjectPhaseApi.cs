@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -16,6 +17,9 @@ namespace BimTrackTA.API
 
         public int CreateProjectPhase(int hubId, int projectId, Phase phase)
         {
+            // Validate the the object is fine
+            ValidateOperation(phase);
+
             // Required fields for Phase object are: 
             //     - Name (string)
             //     - Color (hex format)
@@ -40,5 +44,17 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
         
+        private void ValidateOperation(Phase phase)
+        {
+            if (phase == null) throw new ArgumentNullException(nameof(phase));
+            if (phase.Name == null)
+            {
+                throw new CustomObjectAttributeException("a name","project phase");
+            }
+            if (phase.Color == null)
+            {
+                throw new CustomObjectAttributeException("a color in hex format", "project phase");
+            }
+        }
     }
 }

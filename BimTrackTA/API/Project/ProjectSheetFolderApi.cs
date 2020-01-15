@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -15,6 +16,9 @@ namespace BimTrackTA.API
 
         public int CreateProjectSheetFolder(int hubId, int projectId, Folder folder)
         {
+            // Validate that the object is fine
+            ValidateOperation(folder);
+            
             // Required fields for Folder object are: 
             //     - Name (string)
             //
@@ -37,6 +41,15 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Update(connStr, folder);
 
             return response.IsSuccessful;
+        }
+        
+        private void ValidateOperation(Folder folder)
+        {
+            if (folder == null) throw new ArgumentNullException(nameof(folder));
+            if (folder.Name == null)
+            {
+                throw new CustomObjectAttributeException("a name", "project sheet folder");
+            }
         }
     }
 }

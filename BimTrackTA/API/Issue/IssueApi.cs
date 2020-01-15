@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -20,7 +21,10 @@ namespace BimTrackTA.API
         }
         
         public int CreateIssue(int hubId, int projectId, Issue issue)
-        {            
+        {                        
+            // Validate that the object is fine
+            ValidateOperation(issue);
+            
             // Required fields for Issue object are: 
             //     - Title (string)
             //     - TypeId (int: the id of a Type object present in the project)
@@ -30,12 +34,32 @@ namespace BimTrackTA.API
             // CTRL+Click on Issue for further details about the object's attributes
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
+            //
+            // N.B. : If you receive the message 'the requested resource was not found', it's because your typeId, your
+            //        priorityId or your statusId doesn't come from an existing type, priority or status in your project.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues";
             return Perform_Create(connStr, issue);
         }
 
         public bool UpdateIssue(int hubId, int projectId, int issueId, Issue issue)
         {
+            // Validate that the object is valid
+            ValidateOperation(issue);
+            
+            // Required fields for Issue object are: 
+            //     - Title (string)
+            //     - TypeId (int: the id of a Type object present in the project)
+            //     - PriorityId (int: the id of a Priority object present in the project)
+            //     - StatusId (int: the id of a Status object present in the project)
+            //
+            // So basically, it's the same thing as the creation.
+            //
+            // CTRL+Click on Issue for further details about the object's attributes
+            //
+            // Since you need a project id, that means that you need to have created a project in that hub first.
+            //
+            // N.B. : If you receive the message 'the requested resource was not found', it's because your typeId, your
+            //        priorityId or your statusId doesn't come from an existing type, priority or status in your project.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId;
             IRestResponse response =  Perform_Update(connStr, issue);
             
@@ -66,6 +90,15 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Patch(connStr, multiUpdate);
 
             return response.IsSuccessful;
+        }
+
+        private void ValidateOperation(Issue issue)
+        {
+            if (issue == null) throw new ArgumentNullException(nameof(issue));
+            if (issue.Title == null)
+            {
+                throw new CustomObjectAttributeException("a title", "project issue");
+            }
         }
     }
 }

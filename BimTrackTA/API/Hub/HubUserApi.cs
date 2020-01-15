@@ -38,7 +38,7 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
 
-        public bool UpdateUser(int hubId, int userId, UserType userType, bool resendHubInvite)
+        public bool UpdateUser(int hubId, int userId, UserType userType, bool resendHubInvite=false)
         {
             string jsonToSend = "{'Role': '" + userType +
                                 "', 'ResendHubInvite': " + resendHubInvite.ToString().ToLower() + "}";

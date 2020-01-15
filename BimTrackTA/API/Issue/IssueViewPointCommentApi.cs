@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -17,6 +18,9 @@ namespace BimTrackTA.API
 
         public int CreateIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId, BimComment comment)
         {
+            // Validate that the object is fine
+            ValidateOperation(comment);
+            
             // Required fields for BimComment object are: 
             //     - Comment (string)
             //
@@ -35,6 +39,15 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Delete(connStr);
 
             return response.IsSuccessful;
+        }
+
+        private void ValidateOperation(BimComment comment)
+        {
+            if (comment == null) throw new ArgumentNullException(nameof(comment));
+            if (comment.Comment == null)
+            {
+                throw new CustomObjectAttributeException("a comment value", "viewpoint comment");
+            }
         }
     }
 }

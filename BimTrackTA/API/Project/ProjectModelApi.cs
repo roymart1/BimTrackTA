@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -15,8 +16,14 @@ namespace BimTrackTA.API
 
         public int CreateProjectModel(int hubId, int projectId, string modelName, string filePath, Model model=null)
         {
+            // Validate that the object is fine
+            ValidateOperation(model, modelName);
+            
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .ifc or .ifczip.
+            //
+            // Required attributes for the model object are:
+            //    - Name (string)
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models";
@@ -45,6 +52,22 @@ namespace BimTrackTA.API
             IRestResponse response = Perform_Update(connStr, jsonToSend);
 
             return response.IsSuccessful;
+        }
+
+        private void ValidateOperation(Model model, string fileName)
+        {
+            if (model == null) throw new ArgumentNullException(nameof(model));
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
+            // This treats the .ifczip case
+            if (!fileName.Contains(".ifc"))
+            {
+                throw new CustomObjectAttributeException(
+                    "Your model name must contain one of these extensions: '.ifc' or '.ifczip'.");
+            }
+            if (model.Name == null)
+            {
+                throw new CustomObjectAttributeException("a name", "project model");
+            }
         }
     }
 }

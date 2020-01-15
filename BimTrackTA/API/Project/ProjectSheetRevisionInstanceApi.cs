@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -18,18 +18,17 @@ namespace BimTrackTA.API
         public int CreateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             Instance instance)
         {
-            // These are the elements you need to create an instance of a revision. CTRL+Click on Instance for
-            // more details on the attributes of the instance object.
-            if (instance.CropBoxCenter == null || instance.CropBoxRotation == null || instance.CropBoxSize == null ||
-                instance.Position == null || instance.Rotation == null)
-            {
-                throw new Exception("You need to provide these values:\n" +
-                                    "    - CropBoxCenter (Type: Xyz)\n" +
-                                    "    - CropBoxRotation (Type: Xyz)\n" +
-                                    "    - CropBoxSize (Type: Xyz)\n" +
-                                    "    - Position (Type: Xyz)\n" +
-                                    "    - Rotation (Type: Xyz)\n");
-            }
+            // Validate that the object is fine
+            ValidateOperation(instance);
+            
+            // Required fields for Instance object are: 
+            //     - CropBoxCenter (Xyz)
+            //     - CropBoxRotation (Xyz)
+            //     - CropBoxSize (Xyz)
+            //     - Position (Xyz)
+            //     - Rotation (Xyz)
+            //
+            // CTRL+Click on Instance for further details about the object's attributes
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId  + "/instances";
             return Perform_Create(connStr, instance);
@@ -61,6 +60,31 @@ namespace BimTrackTA.API
             IRestResponse response =  Perform_Update(connStr, instance);
 
             return response.IsSuccessful;
+        }
+        
+        private void ValidateOperation(Instance instance)
+        {
+            if (instance == null) throw new ArgumentNullException(nameof(instance));
+            if (instance.CropBoxCenter == null)
+            {
+                throw new CustomObjectAttributeException("a CropBoxCenter", "sheet's revision's instance");
+            }
+            if (instance.CropBoxRotation == null)
+            {
+                throw new CustomObjectAttributeException("a CropBoxRotation", "sheet's revision's instance");
+            }
+            if (instance.CropBoxSize == null)
+            {
+                throw new CustomObjectAttributeException("a CropBoxSize", "sheet's revision's instance");
+            }
+            if (instance.Position == null)
+            {
+                throw new CustomObjectAttributeException("a Position", "sheet's revision's instance");
+            }
+            if (instance.Rotation == null)
+            {
+                throw new CustomObjectAttributeException("a Rotation", "sheet's revision's instance");
+            }
         }
     }
 }

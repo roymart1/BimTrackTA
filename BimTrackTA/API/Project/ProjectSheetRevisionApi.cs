@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.API
 {
@@ -15,6 +16,9 @@ namespace BimTrackTA.API
 
         public int CreateProjectSheetRevision(int hubId, int projectId, int sheetId, string revisionName, string revisionPath)
         {
+            // Validate that the revision name is fine
+            ValidateOperation(revisionName);
+            
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .pdf. A revision is basically another sheet object, so it works the same
             // way as the ProjectSheetApi.
@@ -39,6 +43,16 @@ namespace BimTrackTA.API
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId;
             return Perform_Get<Revision>(connStr);
+        }
+        
+        private void ValidateOperation(string revisionName)
+        {
+            if (revisionName == null) throw new ArgumentNullException(nameof(revisionName));
+            if (!revisionName.Contains(".pdf"))
+            {
+                throw new CustomObjectAttributeException(
+                    "Your sheet revision name must be of the '.pdf' format.");
+            }
         }
     }
 }
