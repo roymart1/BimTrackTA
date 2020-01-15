@@ -25,16 +25,16 @@ namespace BimTrackTA.API
             // Required fields for PredefinedAttributeValue object are: 
             //     - Name (string)
             //     - Color (hex format)
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + 
-                             attrId + "/attributevalues";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ATTR_ROUTE + "/" +
+                             attrId + ATTR__VAL_ROUTE;
 
             return Perform_Create(connStr, prjAttrVal);
         }        
         
         public bool DeleteProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
-                             attrId + "/attributevalues/" + attrValId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ATTR_ROUTE + "/" +
+                             attrId + ATTR__VAL_ROUTE + "/" + attrValId;
             
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
@@ -42,8 +42,8 @@ namespace BimTrackTA.API
 
         public bool UpdateProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId, AttributeValue attribute)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
-                             attrId + "/attributevalues/" + attrValId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ATTR_ROUTE + "/" +
+                             attrId + ATTR__VAL_ROUTE + "/" + attrValId;
             
             IRestResponse response = Perform_Update(connStr, attribute);
             return response.IsSuccessful;

@@ -10,7 +10,8 @@ namespace BimTrackTA.API
     {
         public List<BimComment> GetIssueCommentList(int hubId, int projectId, int issueId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId + "/comments";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" +
+                             issueId + COMMENT_ROUTE;
             return Perform_Get<List<BimComment>>(connStr);
         }
 
@@ -24,15 +25,15 @@ namespace BimTrackTA.API
             //
             // Since you need a project id and an issue id, that means that you need to have created a project in that
             // hub first, as well as an issue for that project.
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
-                             + "/comments";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" +
+                             issueId + COMMENT_ROUTE;
             return Perform_Create(connStr, comment);
         }
         
         public bool DeleteIssueComment(int hubId, int projectId, int issueId, int commentId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
-                             + "/comments/" + commentId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" +
+                             issueId + COMMENT_ROUTE + "/" + commentId;
             IRestResponse response = Perform_Delete(connStr);
 
             return response.IsSuccessful;

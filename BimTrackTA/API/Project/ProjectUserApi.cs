@@ -11,7 +11,7 @@ namespace BimTrackTA.API
     {
         public List<ProjectUser> GetHubProjectUsers(int hubId, int projectId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/users";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + USER_ROUTE;
             return Perform_Get<List<ProjectUser>>(connStr);
         }
 
@@ -28,20 +28,20 @@ namespace BimTrackTA.API
             //
             // N.B. : If you receive the message 'the requested resource was not found', it's because your userId does
             // not correspond to a user that is present in your hub.
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/users";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + USER_ROUTE;
             return Perform_Create(connStr, user);
         }
         
                
         public IRestResponse DeleteHubProjectUser(int hubId, int projectId, int userId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/users/" + userId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + USER_ROUTE + "/" + userId;
             return Perform_Delete(connStr);
         }
 
         public bool UpdateHubProjectUser(int hubId, int projectId, int userId, ProjectUser user)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/users/" + userId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + USER_ROUTE + "/" + userId;
             IRestResponse response = Perform_Update(connStr, user);
 
             return response.IsSuccessful;

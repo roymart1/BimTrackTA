@@ -10,7 +10,8 @@ namespace BimTrackTA.API
     {
         public List<ViewPoint> GetIssueViewPointList(int hubId, int projectId, int issueId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId + "/viewpoints";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + 
+                             ISSUE_ROUTE + "/" + issueId + VIEWPOINT_ROUTE;
             return Perform_Get<List<ViewPoint>>(connStr);
         }
 
@@ -31,22 +32,22 @@ namespace BimTrackTA.API
             //     - ViewName (string)
             //
             // CTRL+Click on ViewPoint for further details about the object's attributes
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
-                             + "/viewpoints";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" + issueId
+                             + VIEWPOINT_ROUTE;
             return Perform_Create_Multipart(connStr, imageName, imagePath, viewPoint);
         }
 
         public ViewPoint GetIssueViewPoint(int hubId, int projectId, int issueId, int viewPointId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
-                             + "/viewpoints/" + viewPointId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" + issueId
+                             + VIEWPOINT_ROUTE + "/" + viewPointId;
             return Perform_Get<ViewPoint>(connStr);
         }
 
         public bool DeleteIssueViewPoint(int hubId, int projectId, int issueId, int viewPointId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
-                             + "/viewpoints/" + viewPointId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" + issueId
+                             + VIEWPOINT_ROUTE + "/" + viewPointId;
             IRestResponse response = Perform_Delete(connStr);
 
             return response.IsSuccessful;
@@ -61,8 +62,8 @@ namespace BimTrackTA.API
             // This is weird too: even if we want to update the viewpoint object, we absolutely need to update the
             // picture as well. So you need to do the same thing as in create object. This could be changed in the
             // future since it doesn't appear to be a desired behavior.
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId
-                             + "/viewpoints/" + viewPointId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" + issueId
+                             + VIEWPOINT_ROUTE + "/" + viewPointId;
             IRestResponse response = Perform_Update_Multipart(connStr, imageName, imagePath, viewPoint);
 
             return response.IsSuccessful;

@@ -8,13 +8,13 @@ namespace BimTrackTA.API
     {
         public List<Issue> GetIssueArchivedList(int hubId, int projectId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/archivedissues";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ARCH_ROUTE;
             return Perform_Get<List<Issue>>(connStr);
         }
 
         public Issue GetIssueArchived(int hubId, int projectId, int issueId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/archivedissues/" + issueId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ARCH_ROUTE + "/" + issueId;
             return Perform_Get<Issue>(connStr);
         }
 
@@ -29,7 +29,7 @@ namespace BimTrackTA.API
             //
             // Be aware that the statusId needs to be from a real status object present in the project.
             string jsonToSend = "{'ArchiveIssue': false, 'StatusId': " + statusId + "}";
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/archivedissues/" + issueId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ARCH_ROUTE + "/" + issueId;
             IRestResponse response = Perform_Patch(connStr, jsonToSend);
 
             return response.IsSuccessful;
@@ -37,7 +37,7 @@ namespace BimTrackTA.API
 
         public bool DeleteArchivedIssue(int hubId, int projectId, int issueId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/archivedissues/" + issueId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ARCH_ROUTE + "/" + issueId;
             IRestResponse response = Perform_Delete(connStr);
 
             return response.IsSuccessful;

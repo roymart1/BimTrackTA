@@ -10,7 +10,8 @@ namespace BimTrackTA.API
     {
         public List<Folder> GetProjectModelFolderList(int hubId, int projectId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/folders";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE +
+                             FOLDER_ROUTE;     
             return Perform_Get<List<Folder>>(connStr);
         }
 
@@ -23,13 +24,15 @@ namespace BimTrackTA.API
             //     - Name (string)
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/folders";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE +
+                             FOLDER_ROUTE;            
             return Perform_Create(connStr, folder);
         }
         
         public bool DeleteProjectModelFolder(int hubId, int projectId, int projectModelFolderId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/folders/" + projectModelFolderId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE +
+                             FOLDER_ROUTE + "/" + projectModelFolderId;
             IRestResponse response =  Perform_Delete(connStr);
             
             return response.IsSuccessful;
@@ -37,7 +40,8 @@ namespace BimTrackTA.API
         
         public bool UpdateProjectModelFolder(int hubId, int projectId, int projectModelFolderId, Folder folder)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/folders/" + projectModelFolderId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE +
+                             FOLDER_ROUTE + "/" + projectModelFolderId;
             IRestResponse response = Perform_Update(connStr, folder);
 
             return response.IsSuccessful;

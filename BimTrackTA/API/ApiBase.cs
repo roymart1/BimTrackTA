@@ -15,7 +15,39 @@ namespace BimTrackTA.API
         private readonly RestClient _client;
 
         protected const string API_VERSION = "v2";
-
+        protected const string HUB_ROUTE = "/hubs";
+        protected const string PROJ_ROUTE = "/projects";
+        
+        // Attributes
+        protected const string ATTR_ROUTE = "/attributes";
+        protected const string ATTR__VAL_ROUTE = "/attributevalues";
+        protected const string DISCI_ROUTE = "/disciplines";
+        protected const string PHASE_ROUTE = "/phases";
+        protected const string PRIO_ROUTE = "/priorities";
+        protected const string STATUS_ROUTE = "/status";
+        protected const string TYPE_ROUTE = "/types";
+        protected const string ZONE_ROUTE = "/zones";
+        
+        // Hub
+        protected const string USER_ROUTE = "/users";
+        protected const string PROJ_TEMP_ROUTE = "/projecttemplates";
+        
+        // Issue
+        protected const string ISSUE_ROUTE = "/issues";
+        protected const string ISSUE_ARCH_ROUTE = "/archivedissues";
+        protected const string ATTACH_ROUTE = "/attachments";
+        protected const string COMMENT_ROUTE = "/comments";
+        protected const string VIEWPOINT_ROUTE = "/viewpoints";
+        
+        // Project
+        protected const string IMG_ROUTE = "/image";
+        protected const string MODEL_ROUTE = "/models";
+        protected const string SHEET_ROUTE = "/sheets";
+        protected const string FOLDER_ROUTE = "/folders";
+        protected const string REVISION_ROUTE = "/revisions";
+        protected const string INSTANCE_ROUTE = "/instances";
+        protected const string TEAM_ROUTE = "/teams";
+        
         protected ApiBase()
         {
             string szKey = CTX.keyChain.ApiKey;

@@ -12,7 +12,7 @@ namespace BimTrackTA.API
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .png, .jpg or .jpeg. Also, there is currently a problem: the image needs to be extremely
             // small, otherwise the graphical interface will load indefinitely. 
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/image";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + IMG_ROUTE;
             return Perform_Create_Multipart(connStr, fileName, filePath);
         }
 

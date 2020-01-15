@@ -11,7 +11,7 @@ namespace BimTrackTA.API
     {
         public List<Zone> GetProjectZones(int hubId, int projectId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/zones";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ZONE_ROUTE;
             return Perform_Get<List<Zone>>(connStr);
         }
 
@@ -23,13 +23,13 @@ namespace BimTrackTA.API
             // Required fields for Zone object are: 
             //     - Name (string)
             //     - Color (hex format)
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/zones";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ZONE_ROUTE;
             return Perform_Create(connStr, zone);
         }
 
         public bool DeleteProjectZone(int hubId, int projectId, int zoneId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/zones/" + zoneId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ZONE_ROUTE + "/" + zoneId;
             
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
@@ -38,7 +38,7 @@ namespace BimTrackTA.API
 
         public bool UpdateProjectZone(int hubId, int projectId, int zoneId, Zone zone)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/zones/" + zoneId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ZONE_ROUTE + "/" + zoneId;
             
             IRestResponse response = Perform_Update(connStr, zone);
             return response.IsSuccessful;

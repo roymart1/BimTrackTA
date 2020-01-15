@@ -51,7 +51,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointTest");
-            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
+            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointTest");
             
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
             issueViewPoint.GetIssueViewPoint(hubId, projectId, issueId, issueViewPointId);
@@ -63,7 +63,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointTest");
-            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
+            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointTest");
 
             ViewPoint viewPoint = new ViewPoint {ViewType = "ThreeD"};
             string path = "../../../Tests/NUnitTests/API/TestResources/Colors.jpg";
@@ -80,7 +80,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointTest");
-            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId);
+            int issueViewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointTest");
 
             IssueViewPointApi issueViewPoint = new IssueViewPointApi();
             issueViewPoint.DeleteIssueViewPoint(hubId, projectId, issueId, issueViewPointId);

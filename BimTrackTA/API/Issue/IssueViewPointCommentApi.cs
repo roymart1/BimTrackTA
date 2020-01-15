@@ -11,8 +11,8 @@ namespace BimTrackTA.API
         // This type of comment is the same as the ones you can have directly in the issue
         public List<BimComment> GetIssueViewPointCommentList(int hubId, int projectId, int issueId, int viewPointId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
-                             + "/viewpoints/" + viewPointId + "/comments";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" + issueId
+                             + VIEWPOINT_ROUTE + "/" + viewPointId + COMMENT_ROUTE;
             return Perform_Get<List<BimComment>>(connStr);
         }
 
@@ -26,16 +26,16 @@ namespace BimTrackTA.API
             //
             // Since you need a project id, an issue id and a view point id, that means that you need to have created a
             // project in that hub first, as well as an issue and a viewpoint for that issue.
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
-                             + "/viewpoints/" + viewPointId + "/comments";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" + issueId
+                             + VIEWPOINT_ROUTE + "/" + viewPointId + COMMENT_ROUTE;
             return Perform_Create(connStr, comment);
         }
         
         public bool DeleteIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId, 
             int viewPointCommentId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId 
-                             + "/viewpoints/" + viewPointId + "/comments/" + viewPointCommentId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + ISSUE_ROUTE + "/" + issueId
+                             + VIEWPOINT_ROUTE + "/" + viewPointId + COMMENT_ROUTE + "/" + viewPointCommentId;
             IRestResponse response = Perform_Delete(connStr);
 
             return response.IsSuccessful;

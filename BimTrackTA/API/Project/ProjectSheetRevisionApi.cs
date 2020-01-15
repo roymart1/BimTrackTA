@@ -10,7 +10,8 @@ namespace BimTrackTA.API
     {
         public List<Revision> GetProjectSheetRevisionList(int hubId, int projectId, int sheetId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId + "/revisions";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE;
             return Perform_Get<List<Revision>>(connStr);
         }
 
@@ -25,14 +26,15 @@ namespace BimTrackTA.API
             //
             // Since you need a sheet id, that means that you need to have created a project in that hub first and
             // a sheet created in that project.
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId + "/revisions";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE;
             return Perform_Create_Multipart(connStr, revisionName, revisionPath);
         }
         
         public bool DeleteProjectSheetRevision(int hubId, int projectId, int sheetId, int revisionId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId  
-                             + "/revisions/" + revisionId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE + "/" + revisionId;
             IRestResponse response =  Perform_Delete(connStr);
             
             return response.IsSuccessful;
@@ -40,8 +42,8 @@ namespace BimTrackTA.API
 
         public Revision GetProjectSheetRevision(int hubId, int projectId, int sheetId, int revisionId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
-                             + "/revisions/" + revisionId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE + "/" + revisionId;
             return Perform_Get<Revision>(connStr);
         }
         

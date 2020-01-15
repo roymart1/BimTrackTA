@@ -10,8 +10,8 @@ namespace BimTrackTA.API
     {
         public List<Instance> GetProjectSheetRevisionInstanceList(int hubId, int projectId, int sheetId, int revisionId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
-                             + "/revisions/" + revisionId + "/instances";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE + "/" + revisionId + INSTANCE_ROUTE;
             return Perform_Get<List<Instance>>(connStr);
         }
 
@@ -29,16 +29,16 @@ namespace BimTrackTA.API
             //     - Rotation (Xyz)
             //
             // CTRL+Click on Instance for further details about the object's attributes
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
-                             + "/revisions/" + revisionId  + "/instances";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE + "/" + revisionId + INSTANCE_ROUTE;
             return Perform_Create(connStr, instance);
         }
         
         public bool DeleteProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             int instanceId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId  
-                             + "/revisions/" + revisionId + "/instances/" + instanceId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE + "/" + revisionId + INSTANCE_ROUTE + "/" + instanceId;
             IRestResponse response =  Perform_Delete(connStr);
             
             return response.IsSuccessful;
@@ -47,16 +47,16 @@ namespace BimTrackTA.API
         public Instance GetProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             int instanceId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
-                             + "/revisions/" + revisionId + "/instances/" + instanceId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE + "/" + revisionId + INSTANCE_ROUTE + "/" + instanceId;
             return Perform_Get<Instance>(connStr);
         }
 
         public bool UpdateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId,
             int instanceId, Instance instance)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
-                             + "/revisions/" + revisionId + "/instances/" + instanceId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
+                             sheetId + REVISION_ROUTE + "/" + revisionId + INSTANCE_ROUTE + "/" + instanceId;
             IRestResponse response =  Perform_Update(connStr, instance);
 
             return response.IsSuccessful;

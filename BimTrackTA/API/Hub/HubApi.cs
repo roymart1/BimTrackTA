@@ -7,13 +7,13 @@ namespace BimTrackTA.API
     {
         public List<Hub> GetHubList()
         {
-            string connStr = API_VERSION + "/hubs/";
+            string connStr = API_VERSION + HUB_ROUTE;
             return Perform_Get<List<Hub>>(connStr);
         }
 
         public Hub GetHub(int hubId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId;
             return Perform_Get<Hub>(connStr);
         }
     }

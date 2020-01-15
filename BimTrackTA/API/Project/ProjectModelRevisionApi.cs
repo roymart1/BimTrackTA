@@ -10,7 +10,8 @@ namespace BimTrackTA.API
     {
         public List<Revision> GetProjectModelRevisionList(int hubId, int projectId, int modelId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId + "/revisions";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE + "/" +
+                             modelId + REVISION_ROUTE;
             return Perform_Get<List<Revision>>(connStr);
         }
 
@@ -25,14 +26,15 @@ namespace BimTrackTA.API
             //
             // Since you need a model id, that means that you need to have created a project in that hub first and
             // a model created in that project.
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId + "/revisions";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE + "/" +
+                             modelId + REVISION_ROUTE;
             return Perform_Create_Multipart(connStr, revisionName, filePath);
         }
         
         public bool DeleteProjectModelRevision(int hubId, int projectId, int modelId, int revisionId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId  
-                             + "/revisions/" + revisionId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE + "/" +
+                             modelId + REVISION_ROUTE + "/" + revisionId;
             IRestResponse response =  Perform_Delete(connStr);
             
             return response.IsSuccessful;
@@ -40,8 +42,8 @@ namespace BimTrackTA.API
 
         public Revision GetProjectModelRevision(int hubId, int projectId, int modelId, int revisionId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId 
-                             + "/revisions/" + revisionId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE + "/" +
+                             modelId + REVISION_ROUTE + "/" + revisionId;
             return Perform_Get<Revision>(connStr);
         }
 

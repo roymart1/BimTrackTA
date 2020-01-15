@@ -12,7 +12,7 @@ namespace BimTrackTA.API
                 
         public List<ProjectTemplate> GetHubProjectTemplates(int hubId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projecttemplates";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_TEMP_ROUTE;
             return Perform_Get<List<ProjectTemplate>>(connStr);
         }
 
@@ -32,13 +32,13 @@ namespace BimTrackTA.API
             //
             // N.B. : If you receive the message 'the requested resource was not found', it's because your sourceProjectId
             //        is not valid, meaning that it doesn't come from an existing project in your hub.
-            string connStr = API_VERSION + "/hubs/"+ hubId +"/projecttemplates";
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_TEMP_ROUTE;
             return Perform_Create(connStr, template);
         }
         
         public bool DeleteHubProjectTemplate(int hubId, int hubProjectTemplateId)
         {
-            string connStr = API_VERSION + "/hubs/" + hubId + "/projecttemplates/" + hubProjectTemplateId;
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_TEMP_ROUTE + "/" + hubProjectTemplateId;
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
         }

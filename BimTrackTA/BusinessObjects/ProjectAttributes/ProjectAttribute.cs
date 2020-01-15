@@ -9,7 +9,7 @@ namespace SeleniumTest.BusinessObjects
         public List<AttributeValue> ProjectCustomAttributeValues { get; set; }
         public List<string> ProjectCustomAttributeTextValues { get; set; }
         public int Id { get; set; }
-        // Values can be 'predefined' or 'custom'
+        // Values can be 'predefined' or 'text'
         public string Type { get; set; }
         public string Name { get; set; }
 
