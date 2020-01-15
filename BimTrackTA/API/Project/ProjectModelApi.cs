@@ -10,7 +10,7 @@ namespace BimTrackTA.API
     {
         public List<Model> GetProjectModelList(int hubId, int projectId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models";
             return Perform_Get<List<Model>>(connStr);
         }
 
@@ -26,13 +26,13 @@ namespace BimTrackTA.API
             //    - Name (string)
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models";
             return Perform_Create_Multipart(connStr, modelName, filePath, model);
         }
         
         public bool DeleteProjectModel(int hubId, int projectId, int modelId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
             IRestResponse response =  Perform_Delete(connStr);
             
             return response.IsSuccessful;
@@ -40,7 +40,7 @@ namespace BimTrackTA.API
 
         public Model GetProjectModel(int hubId, int projectId, int modelId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
             return Perform_Get<Model>(connStr);
         }
 
@@ -48,7 +48,7 @@ namespace BimTrackTA.API
         {
             string jsonToSend = "{'FolderId': " + folderId + "}";
             // CTRL+Click on Model for further information about that object.
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
             IRestResponse response = Perform_Update(connStr, jsonToSend);
 
             return response.IsSuccessful;

@@ -11,7 +11,7 @@ namespace BimTrackTA.API
     {
         public List<Status> GetProjectStatuses(int hubId, int projectId)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/status";
             return Perform_Get<List<Status>>(connStr);
         }
 
@@ -25,13 +25,13 @@ namespace BimTrackTA.API
             //     - Color (hex format)
             //
             // CTRL+Click on Status for further details about the object's attributes
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/status";
             return Perform_Create(connStr, status);
         }
 
         public bool DeleteProjectStatus(int hubId, int projectId, int statusId)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status/" + statusId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/status/" + statusId;
             
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
@@ -40,7 +40,7 @@ namespace BimTrackTA.API
 
         public bool UpdateProjectStatus(int hubId, int projectId, int statusId, Status status)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status/" + statusId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/status/" + statusId;
             
             IRestResponse response = Perform_Update(connStr, status);
             return response.IsSuccessful;

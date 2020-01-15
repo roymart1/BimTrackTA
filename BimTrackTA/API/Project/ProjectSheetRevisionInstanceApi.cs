@@ -10,7 +10,7 @@ namespace BimTrackTA.API
     {
         public List<Instance> GetProjectSheetRevisionInstanceList(int hubId, int projectId, int sheetId, int revisionId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId + "/instances";
             return Perform_Get<List<Instance>>(connStr);
         }
@@ -29,7 +29,7 @@ namespace BimTrackTA.API
             //     - Rotation (Xyz)
             //
             // CTRL+Click on Instance for further details about the object's attributes
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId  + "/instances";
             return Perform_Create(connStr, instance);
         }
@@ -37,7 +37,7 @@ namespace BimTrackTA.API
         public bool DeleteProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             int instanceId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId  
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId  
                              + "/revisions/" + revisionId + "/instances/" + instanceId;
             IRestResponse response =  Perform_Delete(connStr);
             
@@ -47,7 +47,7 @@ namespace BimTrackTA.API
         public Instance GetProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId, 
             int instanceId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId + "/instances/" + instanceId;
             return Perform_Get<Instance>(connStr);
         }
@@ -55,7 +55,7 @@ namespace BimTrackTA.API
         public bool UpdateProjectSheetRevisionInstance(int hubId, int projectId, int sheetId, int revisionId,
             int instanceId, Instance instance)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId + "/instances/" + instanceId;
             IRestResponse response =  Perform_Update(connStr, instance);
 

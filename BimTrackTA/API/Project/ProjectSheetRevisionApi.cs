@@ -10,7 +10,7 @@ namespace BimTrackTA.API
     {
         public List<Revision> GetProjectSheetRevisionList(int hubId, int projectId, int sheetId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId + "/revisions";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId + "/revisions";
             return Perform_Get<List<Revision>>(connStr);
         }
 
@@ -25,13 +25,13 @@ namespace BimTrackTA.API
             //
             // Since you need a sheet id, that means that you need to have created a project in that hub first and
             // a sheet created in that project.
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId + "/revisions";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId + "/revisions";
             return Perform_Create_Multipart(connStr, revisionName, revisionPath);
         }
         
         public bool DeleteProjectSheetRevision(int hubId, int projectId, int sheetId, int revisionId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId  
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId  
                              + "/revisions/" + revisionId;
             IRestResponse response =  Perform_Delete(connStr);
             
@@ -40,7 +40,7 @@ namespace BimTrackTA.API
 
         public Revision GetProjectSheetRevision(int hubId, int projectId, int sheetId, int revisionId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/sheets/" + sheetId 
                              + "/revisions/" + revisionId;
             return Perform_Get<Revision>(connStr);
         }

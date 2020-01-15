@@ -17,7 +17,7 @@ namespace BimTrackTA.API
 
         public List<HubUser> GetHubUsers(int hubId)
         {
-            string connStr = "v2/hubs/" + hubId + "/users";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/users";
             return Perform_Get<List<HubUser>>(connStr);
         }
 
@@ -25,14 +25,14 @@ namespace BimTrackTA.API
         {
             // Pretty straightforward: send an email and a user type. The framework manages the rest.
             string jsonToSend = "{'Email': '" + email + "', 'Role': '" + userType + "'}";
-            string connStr = "v2/hubs/" + hubId + "/users/";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/users/";
             
             return Perform_Create(connStr, jsonToSend);
         }
 
         public bool DeleteHubUser(int hubId, int userId)
         {
-            string connStr = "v2/hubs/" + hubId + "/users/" + userId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/users/" + userId;
             IRestResponse response =  Perform_Delete(connStr);
             
             return response.IsSuccessful;
@@ -42,7 +42,7 @@ namespace BimTrackTA.API
         {
             string jsonToSend = "{'Role': '" + userType +
                                 "', 'ResendHubInvite': " + resendHubInvite.ToString().ToLower() + "}";
-            string connStr = "v2/hubs/" + hubId + "/users/" + userId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/users/" + userId;
             IRestResponse response = Perform_Update(connStr, jsonToSend);
 
             return response.IsSuccessful;

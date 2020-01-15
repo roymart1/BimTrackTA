@@ -14,6 +14,7 @@ namespace BimTrackTA.API
     {
         private readonly RestClient _client;
 
+        protected const string API_VERSION = "v2";
 
         protected ApiBase()
         {

@@ -10,7 +10,7 @@ namespace BimTrackTA.API
     {
         public List<Revision> GetProjectModelRevisionList(int hubId, int projectId, int modelId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId + "/revisions";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId + "/revisions";
             return Perform_Get<List<Revision>>(connStr);
         }
 
@@ -25,13 +25,13 @@ namespace BimTrackTA.API
             //
             // Since you need a model id, that means that you need to have created a project in that hub first and
             // a model created in that project.
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId + "/revisions";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId + "/revisions";
             return Perform_Create_Multipart(connStr, revisionName, filePath);
         }
         
         public bool DeleteProjectModelRevision(int hubId, int projectId, int modelId, int revisionId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId  
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId  
                              + "/revisions/" + revisionId;
             IRestResponse response =  Perform_Delete(connStr);
             
@@ -40,7 +40,7 @@ namespace BimTrackTA.API
 
         public Revision GetProjectModelRevision(int hubId, int projectId, int modelId, int revisionId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId 
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId 
                              + "/revisions/" + revisionId;
             return Perform_Get<Revision>(connStr);
         }

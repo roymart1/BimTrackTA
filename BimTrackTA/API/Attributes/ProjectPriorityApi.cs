@@ -11,7 +11,7 @@ namespace BimTrackTA.API
     {
         public List<Priority> GetProjectPriorities(int hubId, int projectId)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/priorities";
             return Perform_Get<List<Priority>>(connStr);
         }
 
@@ -25,13 +25,13 @@ namespace BimTrackTA.API
             //     - Color (hex format)
             //
             // CTRL+Click on Priority for further details about the object's attributes
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/priorities";
             return Perform_Create(connStr, priority);
         }
 
         public bool DeleteProjectPriority(int hubId, int projectId, int priorityId)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities/" + priorityId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/priorities/" + priorityId;
             
             IRestResponse response = Perform_Delete(connStr);
             return response.IsSuccessful;
@@ -40,7 +40,7 @@ namespace BimTrackTA.API
 
         public bool UpdateProjectPriority(int hubId, int projectId, int priorityId, Priority priority)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities/" + priorityId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/priorities/" + priorityId;
             
             IRestResponse response = Perform_Update(connStr, priority);
             return response.IsSuccessful;

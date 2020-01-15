@@ -11,7 +11,7 @@ namespace BimTrackTA.API
     {
         public List<AttributeValue> GetProjectAttributeValues(int hubId, int projectId, int attId)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
                              attId + "/attributevalues";
             return Perform_Get<List<AttributeValue>>(connStr);
         }
@@ -25,7 +25,7 @@ namespace BimTrackTA.API
             // Required fields for PredefinedAttributeValue object are: 
             //     - Name (string)
             //     - Color (hex format)
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + 
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/attributes/" + 
                              attrId + "/attributevalues";
 
             return Perform_Create(connStr, prjAttrVal);
@@ -33,7 +33,7 @@ namespace BimTrackTA.API
         
         public bool DeleteProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
                              attrId + "/attributevalues/" + attrValId;
             
             IRestResponse response = Perform_Delete(connStr);
@@ -42,7 +42,7 @@ namespace BimTrackTA.API
 
         public bool UpdateProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId, AttributeValue attribute)
         {
-            string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
                              attrId + "/attributevalues/" + attrValId;
             
             IRestResponse response = Perform_Update(connStr, attribute);

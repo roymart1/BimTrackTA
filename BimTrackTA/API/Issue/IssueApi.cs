@@ -10,13 +10,13 @@ namespace BimTrackTA.API
     {
         public List<Issue> GetIssueList(int hubId, int projectId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues";
             return Perform_Get<List<Issue>>(connStr);
         }
 
         public Issue GetIssue(int hubId, int projectId, int issueId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId;
             return Perform_Get<Issue>(connStr);
         }
         
@@ -37,7 +37,7 @@ namespace BimTrackTA.API
             //
             // N.B. : If you receive the message 'the requested resource was not found', it's because your typeId, your
             //        priorityId or your statusId doesn't come from an existing type, priority or status in your project.
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues";
             return Perform_Create(connStr, issue);
         }
 
@@ -60,7 +60,7 @@ namespace BimTrackTA.API
             //
             // N.B. : If you receive the message 'the requested resource was not found', it's because your typeId, your
             //        priorityId or your statusId doesn't come from an existing type, priority or status in your project.
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId;
             IRestResponse response =  Perform_Update(connStr, issue);
             
             return response.IsSuccessful;
@@ -68,14 +68,14 @@ namespace BimTrackTA.API
 
         public Issue.IssueHistory GetIssueHistory(int hubId, int projectId, int issueId)
         {
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId + "/history";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId + "/history";
             return Perform_Get<Issue.IssueHistory>(connStr);
         }
 
         public bool ArchiveIssue(int hubId, int projectId, int issueId)
         {
             string jsonToSend = "{'ArchiveIssue': true}";
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId;
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues/" + issueId;
             IRestResponse response = Perform_Patch(connStr, jsonToSend);
 
             return response.IsSuccessful;
@@ -86,7 +86,7 @@ namespace BimTrackTA.API
             // CTRL+Click on MultiUpdate for further details about the object's attributes. They are all required.
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
-            string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/issues";
+            string connStr = API_VERSION + "/hubs/" + hubId + "/projects/" + projectId + "/issues";
             IRestResponse response = Perform_Patch(connStr, multiUpdate);
 
             return response.IsSuccessful;
