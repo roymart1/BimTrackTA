@@ -14,7 +14,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
-            string imageName = "AutoImageTest";
+            string imageName = "AutoImageTest.jpg";
             string filePath = "../../../Tests/NUnitTests/API/TestResources/Colors.jpg";
             
             ProjectImageApi projectImageApi = new ProjectImageApi();

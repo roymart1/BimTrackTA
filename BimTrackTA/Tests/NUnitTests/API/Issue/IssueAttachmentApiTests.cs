@@ -28,7 +28,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int issueId = issueApi.CreateIssue(hubId, projectId, issue);
             
             // Now that it's created, we can create its attachment 
-            string fileName = "AutoAttachment";
+            string fileName = "AutoAttachment.txt";
             string pathToAttachment = "../../../Tests/NUnitTests/API/TestResources/Attachment.txt";
 
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
@@ -52,7 +52,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int issueId = __GetIssueRandom(hubId, projectId, "IssueAttachmentTest");
-            int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId, "AutoAttachment");
+            int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId, "AutoAttachment.txt");
 
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
             issueAttachment.DeleteIssueAttachment(hubId, projectId, issueId, attachmentId);
