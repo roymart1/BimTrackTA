@@ -8,15 +8,15 @@ namespace BimTrackTA.API
 
     public class ProjectAttributeValuesApi : ApiBase
     {
-        public List<PredefinedAttributeValue> GetHubProjectAttributeValueList(int hubId, int projectId, int attrVal)
+        public List<AttributeValue> GetProjectAttributeValues(int hubId, int projectId, int attId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
-                             attrVal + "/attributevalues";
-            return Perform_Get<List<PredefinedAttributeValue>>(connStr);
+                             attId + "/attributevalues";
+            return Perform_Get<List<AttributeValue>>(connStr);
         }
         
-        public int CreateHubProjectAttributeValue(int hubId, int projectId, int attrId, 
-            PredefinedAttributeValue prjAttrVal)
+        public int CreateProjectAttributeValue(int hubId, int projectId, int attrId, 
+            AttributeValue prjAttrVal)
         {
             // Required fields for PredefinedAttributeValue object are: 
             //     - Name (string)
@@ -27,7 +27,7 @@ namespace BimTrackTA.API
             return Perform_Create(connStr, prjAttrVal);
         }        
         
-        public bool DeleteHubProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId)
+        public bool DeleteProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
                              attrId + "/attributevalues/" + attrValId;
@@ -37,7 +37,7 @@ namespace BimTrackTA.API
             
         }
 
-        public bool UpdateHubProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId, PredefinedAttributeValue attribute)
+        public bool UpdateProjectAttributeValue(int hubId, int projectId, int attrId, int attrValId, AttributeValue attribute)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/attributes/" +
                              attrId + "/attributevalues/" + attrValId;

@@ -7,7 +7,7 @@ namespace BimTrackTA.API
 {
     public class ProjectApi : ApiBase
     {
-       public List<Project>  GetHubProjectList(int hubId)
+       public List<Project> GetHubProjectList(int hubId)
        {
            string connStr = "v2/hubs/" + hubId + "/projects";
            return Perform_Get<List<Project>>(connStr);

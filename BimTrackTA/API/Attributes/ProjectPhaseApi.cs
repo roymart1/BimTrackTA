@@ -8,13 +8,13 @@ namespace BimTrackTA.API
 
     public class ProjectPhaseApi : ApiBase
     {
-        public List<Phase> GetHubProjectPhaseList(int hubId, int projectId)
+        public List<Phase> GetProjectPhases(int hubId, int projectId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases";
             return Perform_Get<List<Phase>>(connStr);
         }
 
-        public int CreateHubProjectPhase(int hubId, int projectId, Phase phase)
+        public int CreateProjectPhase(int hubId, int projectId, Phase phase)
         {
             // Required fields for Phase object are: 
             //     - Name (string)
@@ -23,7 +23,7 @@ namespace BimTrackTA.API
             return Perform_Create(connStr, phase);
         }
 
-        public bool DeleteHubProjectPhase(int hubId, int projectId, int phaseId)
+        public bool DeleteProjectPhase(int hubId, int projectId, int phaseId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases/" + phaseId;
             
@@ -32,7 +32,7 @@ namespace BimTrackTA.API
             
         }
 
-        public bool UpdateHubProjectPhase(int hubId, int projectId, int phaseId, Phase phase)
+        public bool UpdateProjectPhase(int hubId, int projectId, int phaseId, Phase phase)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/phases/" + phaseId;
             

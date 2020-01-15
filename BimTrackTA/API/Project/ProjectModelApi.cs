@@ -13,14 +13,14 @@ namespace BimTrackTA.API
             return Perform_Get<List<Model>>(connStr);
         }
 
-        public int CreateProjectModel(int hubId, int projectId, string modelName, string filePath)
+        public int CreateProjectModel(int hubId, int projectId, string modelName, string filePath, Model model=null)
         {
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .ifc or .ifczip.
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models";
-            return Perform_Create_Multipart(connStr, modelName, filePath);
+            return Perform_Create_Multipart(connStr, modelName, filePath, model);
         }
         
         public bool DeleteProjectModel(int hubId, int projectId, int modelId)
@@ -37,11 +37,12 @@ namespace BimTrackTA.API
             return Perform_Get<Model>(connStr);
         }
 
-        public bool UpdateProjectModel(int hubId, int projectId, int modelId, Model model)
+        public bool UpdateProjectModel(int hubId, int projectId, int modelId, int folderId)
         {
+            string jsonToSend = "{'FolderId': " + folderId + "}";
             // CTRL+Click on Model for further information about that object.
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/models/" + modelId;
-            IRestResponse response = Perform_Update(connStr, model);
+            IRestResponse response = Perform_Update(connStr, jsonToSend);
 
             return response.IsSuccessful;
         }

@@ -8,13 +8,13 @@ namespace BimTrackTA.API
 
     public class ProjectTypeApi : ApiBase
     {
-        public List<BimType> GetHubProjectTypeList(int hubId, int projectId)
+        public List<BimType> GetProjectTypes(int hubId, int projectId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types";
             return Perform_Get<List<BimType>>(connStr);
         }
 
-        public int CreateHubProjectType(int hubId, int projectId, BimType bimType)
+        public int CreateProjectType(int hubId, int projectId, BimType bimType)
         {
             // Required fields for BimType object are: 
             //     - Name (string)
@@ -23,7 +23,7 @@ namespace BimTrackTA.API
             return Perform_Create(connStr, bimType);
         }
 
-        public bool DeleteHubProjectType(int hubId, int projectId, int typeId)
+        public bool DeleteProjectType(int hubId, int projectId, int typeId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types/" + typeId;
             
@@ -32,7 +32,7 @@ namespace BimTrackTA.API
             
         }
 
-        public bool UpdateHubProjectType(int hubId, int projectId, int typeId, BimType bimType)
+        public bool UpdateProjectType(int hubId, int projectId, int typeId, BimType bimType)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/types/" + typeId;
             

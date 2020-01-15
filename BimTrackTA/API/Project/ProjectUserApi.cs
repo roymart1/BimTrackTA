@@ -8,9 +8,6 @@ namespace BimTrackTA.API
 
     public class ProjectUserApi : ApiBase
     {
-        
-        
-        
         public List<ProjectUser> GetHubProjectUsers(int hubId, int projectId)
         {
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/users";
@@ -20,7 +17,7 @@ namespace BimTrackTA.API
         public int CreateHubProjectUser(int hubId, int projectId, ProjectUser user)
         {
             // Required fields for ProjectUser object are: 
-            //     - Name (string)
+            //     - UserId (int)
             //     - Role ('Editor' or 'Reader')
             //
             // CTRL+Click on ProjectUser for further details about the object's attributes

@@ -27,7 +27,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int revisionId = projectSheetRevisionApi.CreateProjectSheetRevision(hubId, projectId, sheetId, revisionName, filePath);
             
             // We can finally create the instance for the newly created revision
-            Xyz xyz = new Xyz{ X = 0, Y = 0, Z = 0};
+            Xyz xyz = new Xyz{ X = 0.0f, Y = 0.0f, Z = 0.0f};
             Instance instance = new Instance
             {
                 ViewName = "AutoRevisionInstance",
@@ -62,7 +62,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest.pdf");
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
-            int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
+            int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId, "AutoRevisionInstance");
 
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             projectSheetRevisionInstanceApi.GetProjectSheetRevisionInstance(hubId, projectId, sheetId, revisionId, instanceId);
@@ -91,7 +91,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest.pdf");
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf");
-            int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
+            int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId, "UpdatedRevisionInstance");
             
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             projectSheetRevisionInstanceApi

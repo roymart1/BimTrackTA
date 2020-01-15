@@ -17,7 +17,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             Phase phase = new Phase {Name = "AutoPhase", Color = "#FF0000"};
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
-            projectPhaseApi.CreateHubProjectPhase(hubId, projectId, phase);
+            projectPhaseApi.CreateProjectPhase(hubId, projectId, phase);
         }
         
         [Test, Order(2)]
@@ -27,7 +27,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
-            projectPhaseApi.GetHubProjectPhaseList(hubId, projectId);
+            projectPhaseApi.GetProjectPhases(hubId, projectId);
         }  
         
         [Test, Order(3)]
@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             Phase phase = new Phase {Name = "UpdatedPhase", Color = "#FF0000"};
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
-            projectPhaseApi.UpdateHubProjectPhase(hubId, projectId, phaseId, phase);
+            projectPhaseApi.UpdateProjectPhase(hubId, projectId, phaseId, phase);
         }
         
         [Test, Order(4)]
@@ -50,7 +50,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int phaseId = __GetProjectPhaseRandom(hubId, projectId, "UpdatedPhase");
                         
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
-            projectPhaseApi.DeleteHubProjectPhase(hubId, projectId, phaseId);
+            projectPhaseApi.DeleteProjectPhase(hubId, projectId, phaseId);
         }
 
     }

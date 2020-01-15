@@ -8,13 +8,13 @@ namespace BimTrackTA.API
 
     public class ProjectPriorityApi : ApiBase
     {
-        public List<Priority> GetHubProjectPriorityList(int hubId, int projectId)
+        public List<Priority> GetProjectPriorities(int hubId, int projectId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities";
             return Perform_Get<List<Priority>>(connStr);
         }
 
-        public int CreateHubProjectPriority(int hubId, int projectId, Priority priority)
+        public int CreateProjectPriority(int hubId, int projectId, Priority priority)
         {
             // Required fields for Priority object are: 
             //     - Name (string)
@@ -25,7 +25,7 @@ namespace BimTrackTA.API
             return Perform_Create(connStr, priority);
         }
 
-        public bool DeleteHubProjectPriority(int hubId, int projectId, int priorityId)
+        public bool DeleteProjectPriority(int hubId, int projectId, int priorityId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities/" + priorityId;
             
@@ -34,7 +34,7 @@ namespace BimTrackTA.API
             
         }
 
-        public bool UpdateHubProjectPriority(int hubId, int projectId, int priorityId, Priority priority)
+        public bool UpdateProjectPriority(int hubId, int projectId, int priorityId, Priority priority)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/priorities/" + priorityId;
             

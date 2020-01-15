@@ -36,7 +36,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int modelId = __GetProjectModelRandom(hubId, projectId);
+            int modelId = __GetProjectModelRandom(hubId, projectId, "AutoModelTest.ifc");
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
             projectModelApi.GetProjectModel(hubId, projectId, modelId);
@@ -47,12 +47,15 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int modelId = __GetProjectModelRandom(hubId, projectId);
-
-            Model model = new Model {Name = "UpdatedAutoModelTest"};
+            int modelId = __GetProjectModelRandom(hubId, projectId, "AutoModelTest.ifc");
+        
+            // We need to create a folder to update the model folder id
+            Folder folder = new Folder { Name = "ModelFolderTest"};
+            ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
+            int folderId = projectModelFolderApi.CreateProjectModelFolder(hubId, projectId, folder);
 
             ProjectModelApi projectModelApi = new ProjectModelApi();
-            projectModelApi.UpdateProjectModel(hubId, projectId, modelId, model);
+            projectModelApi.UpdateProjectModel(hubId, projectId, modelId, folderId);
         }
 
         [Test, Order(5)]
@@ -60,10 +63,15 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int modelId = __GetProjectModelRandom(hubId, projectId);
+            int modelId = __GetProjectModelRandom(hubId, projectId, "AutoModelTest.ifc");
             
             ProjectModelApi projectModelApi = new ProjectModelApi();
             projectModelApi.DeleteProjectModel(hubId, projectId, modelId);
+            
+            // Delete the created folder in the update method to clean-up the test
+            int folderId = __GetProjectModelFolderRandom(hubId, projectId, "ModelFolderTest");
+            ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
+            projectModelFolderApi.DeleteProjectModelFolder(hubId, projectId, folderId);
         }
     }
 }

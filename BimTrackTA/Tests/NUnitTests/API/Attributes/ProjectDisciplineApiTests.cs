@@ -17,7 +17,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             Discipline discipline = new Discipline {Name = "AutoProjectDisciplineTest"};
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
-            projectDisciplineApi.CreateHubProjectDiscipline(hubId, projectId, discipline);
+            projectDisciplineApi.CreateProjectDiscipline(hubId, projectId, discipline);
         }
         
         [Test, Order(2)]
@@ -27,7 +27,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
-            projectDisciplineApi.GetHubProjectDisciplineList(hubId, projectId);
+            projectDisciplineApi.GetProjectDisciplines(hubId, projectId);
         }  
 
         [Test, Order(3)]
@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             Discipline discipline = new Discipline {Name = "UpdatedProjectDisciplineTest"};
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
-            projectDisciplineApi.UpdateHubProjectDiscipline(hubId, projectId, disciplineId, discipline);
+            projectDisciplineApi.UpdateProjectDiscipline(hubId, projectId, disciplineId, discipline);
         }
 
         [Test, Order(4)]
@@ -50,7 +50,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int disciplineId = __GetProjectDisciplineRandom(hubId, projectId, "UpdatedProjectDisciplineTest");
                         
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
-            projectDisciplineApi.DeleteHubProjectDiscipline(hubId, projectId, disciplineId);
+            projectDisciplineApi.DeleteProjectDiscipline(hubId, projectId, disciplineId);
         }
     }
 }

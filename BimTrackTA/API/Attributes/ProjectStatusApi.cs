@@ -8,13 +8,13 @@ namespace BimTrackTA.API
 
     public class ProjectStatusApi : ApiBase
     {
-        public List<Status> GetHubProjectStatusList(int hubId, int projectId)
+        public List<Status> GetProjectStatuses(int hubId, int projectId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status";
             return Perform_Get<List<Status>>(connStr);
         }
 
-        public int CreateHubProjectStatus(int hubId, int projectId, Status status)
+        public int CreateProjectStatus(int hubId, int projectId, Status status)
         {
             // Required fields for Status object are: 
             //     - Name (string)
@@ -25,7 +25,7 @@ namespace BimTrackTA.API
             return Perform_Create(connStr, status);
         }
 
-        public bool DeleteHubProjectStatus(int hubId, int projectId, int statusId)
+        public bool DeleteProjectStatus(int hubId, int projectId, int statusId)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status/" + statusId;
             
@@ -34,7 +34,7 @@ namespace BimTrackTA.API
             
         }
 
-        public bool UpdateHubProjectStatus(int hubId, int projectId, int statusId, Status status)
+        public bool UpdateProjectStatus(int hubId, int projectId, int statusId, Status status)
         {
             string connStr = "/v2/hubs/" + hubId + "/projects/" + projectId + "/status/" + statusId;
             

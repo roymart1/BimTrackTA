@@ -17,7 +17,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             Status status = new Status {Name = "AutoStatus", Color = "#FF0000"};
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
-            projectStatusApi.CreateHubProjectStatus(hubId, projectId, status);
+            projectStatusApi.CreateProjectStatus(hubId, projectId, status);
         }
         
         [Test, Order(2)]
@@ -27,7 +27,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
             
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
-            projectStatusApi.GetHubProjectStatusList(hubId, projectId);
+            projectStatusApi.GetProjectStatuses(hubId, projectId);
         }
 
         [Test, Order(3)]
@@ -39,7 +39,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             Status status = new Status {Name = "UpdatedStatus", Color = "#FF0000"};
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
-            projectStatusApi.UpdateHubProjectStatus(hubId, projectId, statusId,status);
+            projectStatusApi.UpdateProjectStatus(hubId, projectId, statusId,status);
         }
 
         [Test, Order(4)]
@@ -50,7 +50,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int statusId = __GetProjectStatusRandom(hubId, projectId, "UpdatedStatus");
                         
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
-            projectStatusApi.DeleteHubProjectStatus(hubId, projectId, statusId);
+            projectStatusApi.DeleteProjectStatus(hubId, projectId, statusId);
         }
     }
 }

@@ -328,13 +328,23 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("There is no revision for that sheet.");
         }
         
-        protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId)
+        protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId, string viewName=null)
         {
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             List<Instance> listInstance = projectSheetRevisionInstanceApi
                 .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
             if (listInstance.Count > 0)
             {
+                if (viewName != null)
+                {
+                    foreach (var instance in listInstance)
+                    {
+                        if (instance?.ViewName != null)
+                        {
+                            return instance.Id;
+                        }
+                    }
+                }
                 return listInstance[0].Id;
             }
             throw new Exception("There is no instance for that revision.");
@@ -397,11 +407,11 @@ namespace BimTrackTA.Common.WebDriver
             {
                 if (attachmentName != null)
                 {
-                    foreach (var issue in listIssueAttachments)
+                    foreach (var attachment in listIssueAttachments)
                     {
-                        if (issue.Name.ToLower() == attachmentName.ToLower())
+                        if (attachment.Name.ToLower() == attachmentName.ToLower())
                         {
-                            return issue.Id;
+                            return attachment.Id;
                         }
                     }
                 }
@@ -485,7 +495,7 @@ namespace BimTrackTA.Common.WebDriver
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
 
             List<Discipline> listProjectDisciplines = projectDisciplineApi
-                .GetHubProjectDisciplineList(hubId, projectId);
+                .GetProjectDisciplines(hubId, projectId);
 
             if (listProjectDisciplines.Count > 0)
             {
@@ -509,7 +519,7 @@ namespace BimTrackTA.Common.WebDriver
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
 
             List<Phase> listProjectPhases = projectPhaseApi
-                .GetHubProjectPhaseList(hubId, projectId);
+                .GetProjectPhases(hubId, projectId);
 
             if (listProjectPhases.Count > 0)
             {
@@ -533,7 +543,7 @@ namespace BimTrackTA.Common.WebDriver
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
 
             List<Priority> listProjectPriorities = projectPriorityApi
-                .GetHubProjectPriorityList(hubId, projectId);
+                .GetProjectPriorities(hubId, projectId);
 
             if (listProjectPriorities.Count > 0)
             {
@@ -557,7 +567,7 @@ namespace BimTrackTA.Common.WebDriver
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
 
             List<Status> listProjectStatuses = projectStatusApi
-                .GetHubProjectStatusList(hubId, projectId);
+                .GetProjectStatuses(hubId, projectId);
 
             if (listProjectStatuses.Count > 0)
             {
@@ -581,7 +591,7 @@ namespace BimTrackTA.Common.WebDriver
             ProjectTypeApi projectTypeApi = new ProjectTypeApi();
 
             List<BimType> listProjectTypes = projectTypeApi
-                .GetHubProjectTypeList(hubId, projectId);
+                .GetProjectTypes(hubId, projectId);
 
             if (listProjectTypes.Count > 0)
             {
@@ -605,7 +615,7 @@ namespace BimTrackTA.Common.WebDriver
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
 
             List<Zone> listProjectZones = projectZoneApi
-                .GetHubProjectZoneList(hubId, projectId);
+                .GetProjectZones(hubId, projectId);
 
             if (listProjectZones.Count > 0)
             {

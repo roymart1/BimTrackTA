@@ -15,7 +15,7 @@ namespace SeleniumTest.BusinessObjects
             public string op = "replace";
             // Possible values are '/AssignedToUserId', '/DueDate', '/Group', '/LabelIds', '/PriorityId', '/PhaseId',
             // '/StatusId', '/TeamIds', '/TypeId', '/ZoneId' and '/CustomAttributes'.
-            public string path { get; set; }
+            public string path { get; set; } // TODO: Define the set method
             // The type of the value needs to be (in the same order as the path): int, string, string, List<int>, int
             // int, int, List<int>, int, int, List<CustomAttribute>.
             public object value { get; set; }

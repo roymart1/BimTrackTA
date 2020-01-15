@@ -26,6 +26,8 @@ namespace BimTrackTA.API
             //    1- Create an issue with the IssueApi
             //    2- Archive the issue with the IssueApi
             //    3- Restore, delete or get the archived issues with the IssueArchivedApi
+            //
+            // Be aware that the statusId needs to be from a real status object present in the project.
             string jsonToSend = "{'ArchiveIssue': false, 'StatusId': " + statusId + "}";
             string connStr = "v2/hubs/" + hubId + "/projects/" + projectId + "/archivedissues/" + issueId;
             IRestResponse response = Perform_Patch(connStr, jsonToSend);
