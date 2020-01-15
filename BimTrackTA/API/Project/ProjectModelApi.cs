@@ -22,7 +22,7 @@ namespace BimTrackTA.API
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .ifc or .ifczip.
             //
-            // Required attributes for the model object are:
+            // Required attributes for the model object are (if you are using it):
             //    - Name (string)
             //
             // Since you need a project id, that means that you need to have created a project in that hub first.
@@ -56,7 +56,6 @@ namespace BimTrackTA.API
 
         private void ValidateOperation(Model model, string fileName)
         {
-            if (model == null) throw new ArgumentNullException(nameof(model));
             if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             // This treats the .ifczip case
             if (!fileName.Contains(".ifc"))
@@ -64,9 +63,13 @@ namespace BimTrackTA.API
                 throw new CustomObjectAttributeException(
                     "Your model name must contain one of these extensions: '.ifc' or '.ifczip'.");
             }
-            if (model.Name == null)
+
+            if (model != null)
             {
-                throw new CustomObjectAttributeException("a name", "project model");
+                if (model.Name == null)
+                {
+                    throw new CustomObjectAttributeException("a name", "project model");
+                }
             }
         }
     }

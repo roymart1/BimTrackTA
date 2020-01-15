@@ -198,6 +198,7 @@ namespace BimTrackTA.Common.WebDriver
 
         protected int __GetProjectModelRandom(int hubId, int projectId, string modelName=null)
         {
+            // IMPORTANT: The model name is the name of the file that has been sent, not the name of the model object.
             ProjectModelApi projectModelApi = new ProjectModelApi();
             List<Model> listModels = projectModelApi.GetProjectModelList(hubId, projectId);
             if (listModels.Count > 0)
