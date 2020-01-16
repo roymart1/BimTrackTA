@@ -30,8 +30,8 @@ namespace BimTrackTA.Common.WebDriver
                 {
                     foreach (dynamic obj in objectList)
                     {
-                        string valueOfRemoteObject = obj.GetType().GetProperty(usedProperty).GetValue(obj, null)?.ToLower();
-                        if (valueOfRemoteObject != null && valueOfRemoteObject == valueToCompareTo.ToLower())
+                        var valueOfRemoteObject = obj.GetType().GetProperty(usedProperty).GetValue(obj, null);
+                        if (valueOfRemoteObject != null && valueOfRemoteObject.ToLower() == valueToCompareTo.ToLower())
                         {
                             if (obj.Id != null)
                             {
@@ -104,7 +104,7 @@ namespace BimTrackTA.Common.WebDriver
                 {
                     foreach (ProjectUser user in listUsers)
                     {
-                        if (user.User.Email == userEmail.ToLower())
+                        if (user.User.Email.ToLower() == userEmail.ToLower())
                         {
                             if (user.User.Id != null)
                             {
@@ -118,7 +118,7 @@ namespace BimTrackTA.Common.WebDriver
                     Console.Write("The specified user was not found: " + userEmail);
                 }
 
-                var userId = listUsers[0].User.Id;
+                var userId = listUsers[0].UserId;
                 if (userId != null) return (int) userId;
             }
             throw new Exception("No user found for that project: " + projectId);
@@ -135,7 +135,7 @@ namespace BimTrackTA.Common.WebDriver
                 {
                     foreach (HubUser user in listUsers)
                     {
-                        if (user.User.Email == userEmail.ToLower())
+                        if (user.User.Email.ToLower() == userEmail.ToLower())
                         {
                             if (user.User.Id != null)
                             {

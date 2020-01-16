@@ -13,21 +13,20 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class ProjectUserApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateProjectUser()
+        public void Test1_CreateProjectUser()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             int userId = __GetHubUserRandom(hubId, "bimoneauto+ki1120_013436@gmail.com", true);
 
-            User user = new User { Id = userId};
-            ProjectUser projectUser = new ProjectUser {User = user, Role = "Reader"};
+            ProjectUser projectUser = new ProjectUser {UserId = userId, Role = "Reader"};
 
             ProjectUserApi projectUserApi = new ProjectUserApi();
             projectUserApi.CreateHubProjectUser(hubId, projectId, projectUser);
         }
 
         [Test, Order(2)]
-        public void Test_GetProjectUsers()
+        public void Test2_GetProjectUsers()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
@@ -37,7 +36,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(3)]
-        public void Test_UpdateProjectUser()
+        public void Test3_UpdateProjectUser()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
@@ -45,12 +44,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             ProjectUser user = new ProjectUser {Role = "Editor"};
 
-            ProjectUserApi projectApi = new ProjectUserApi();
-            projectApi.UpdateHubProjectUser(hubId, projectId, userId, user);
+            ProjectUserApi projectUserApi = new ProjectUserApi();
+            projectUserApi.UpdateHubProjectUser(hubId, projectId, userId, user);
         }
         
         [Test, Order(4)]
-        public void Test_DeleteProjectUser()
+        public void Test4_DeleteProjectUser()
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);

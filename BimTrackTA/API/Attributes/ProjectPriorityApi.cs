@@ -22,6 +22,7 @@ namespace BimTrackTA.API
             
             // Required fields for Priority object are: 
             //     - Name (string)
+            //     - Order (int)
             //     - Color (hex format)
             //
             // CTRL+Click on Priority for further details about the object's attributes
@@ -40,6 +41,8 @@ namespace BimTrackTA.API
 
         public bool UpdateProjectPriority(int hubId, int projectId, int priorityId, Priority priority)
         {
+            ValidateOperation(priority);
+            // You need the same attributes as the "CreateProjectPriority" method
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + PRIO_ROUTE + "/" + priorityId;
             
             IRestResponse response = Perform_Update(connStr, priority);
@@ -56,6 +59,11 @@ namespace BimTrackTA.API
             if (priority.Color == null)
             {
                 throw new CustomObjectAttributeException("a color in hex format", "project priority");
+            }
+
+            if (priority.Order == null)
+            {
+                throw new CustomObjectAttributeException("a priority (int)", "project priority");
             }
         }
     }
