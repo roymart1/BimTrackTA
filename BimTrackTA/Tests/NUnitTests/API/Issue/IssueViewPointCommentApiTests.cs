@@ -9,10 +9,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class IssueViewPointCommentApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateIssueViewPointComment()
+        public void Test1_CreateIssueViewPointComment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             // To be able to create a comment for the viewpoint, we first need to create the issue and the viewpoint
             Issue issue = new Issue
@@ -42,25 +42,25 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetIssueViewPointCommentList()
+        public void Test2_GetIssueViewPointCommentList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest");
-            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest", true);
+            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest", true);
             
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
             issueViewPointComment.GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
         }   
 
         [Test, Order(3)]
-        public void Test_DeleteIssueViewPointComment()
+        public void Test3_DeleteIssueViewPointComment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest");
-            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest");
-            int viewPointCommentId = __GetIssueViewPointCommentRandom(hubId, projectId, issueId, viewPointId, "AutoIssueComment");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueViewPointCommentTest", true);
+            int viewPointId = __GetIssueViewPointRandom(hubId, projectId, issueId, "ViewPointCommentTest", true);
+            int viewPointCommentId = __GetIssueViewPointCommentRandom(hubId, projectId, issueId, viewPointId, "AutoIssueComment", true);
             
             IssueViewPointCommentApi issueViewPointComment = new IssueViewPointCommentApi();
             issueViewPointComment.DeleteIssueViewPointComment(hubId, projectId, issueId, viewPointId, viewPointCommentId);

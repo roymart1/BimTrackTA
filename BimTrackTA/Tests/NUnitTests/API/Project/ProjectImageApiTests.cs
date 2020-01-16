@@ -9,10 +9,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     {
         
         [Test]
-        public void Test_UpdateImage()
+        public void Test1_UpdateImage()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             string imageName = "AutoImageTest.jpg";
             string filePath = "../../../Tests/NUnitTests/API/TestResources/Colors.jpg";

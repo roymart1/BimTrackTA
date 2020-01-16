@@ -11,10 +11,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class IssueAttachmentApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateIssueAttachment()
+        public void Test1_CreateIssueAttachment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             // We need to create an issue for us to be able to create its attachment
             Issue issue = new Issue
@@ -36,23 +36,23 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
 
         [Test, Order(2)]
-        public void Test_GetIssueAttachmentList()
+        public void Test2_GetIssueAttachmentList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "IssueAttachmentTest");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueAttachmentTest", true);
             
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
             issueAttachment.GetIssueAttachmentList(hubId, projectId, issueId);
         }  
         
         [Test, Order(3)]
-        public void Test_DeleteIssueAttachment()
+        public void Test3_DeleteIssueAttachment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "IssueAttachmentTest");
-            int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId, "AutoAttachment.txt");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueAttachmentTest", true);
+            int attachmentId = __GetIssueAttachmentRandom(hubId, projectId, issueId, "AutoAttachment.txt", true);
 
             IssueAttachmentApi issueAttachment = new IssueAttachmentApi();
             issueAttachment.DeleteIssueAttachment(hubId, projectId, issueId, attachmentId);

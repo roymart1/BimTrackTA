@@ -8,17 +8,22 @@ namespace BimTrackTA.API
 {
     public class ProjectModelRevisionApi : ApiBase
     {
-        public List<Revision> GetProjectModelRevisionList(int hubId, int projectId, int modelId)
+        public List<ModelRevision> GetProjectModelRevisionList(int hubId, int projectId, int modelId)
         {
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE + "/" +
                              modelId + REVISION_ROUTE;
-            return Perform_Get<List<Revision>>(connStr);
+            return Perform_Get<List<ModelRevision>>(connStr);
         }
 
         public int CreateProjectModelRevision(int hubId, int projectId, int modelId, string revisionName, string filePath)
         {
             // Validate that the revision name is fine
             ValidateOperation(revisionName);
+            
+            // IMPORTANT NOTICE: When we create a revision for a model, the initial model will disappear because
+            // it will be replaced by its revision (the latest version). That means that when you want to use the
+            // get model random method, you need to put the name of the latest revision for that initial model, not
+            // the filename of the initial model.
             
             // Since we are using Multipart, you need to provide a file name and a filepath. The file name needs
             // to end with .ifc or .ifczip. A revision is basically another model object, so it works the same
@@ -40,11 +45,11 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
 
-        public Revision GetProjectModelRevision(int hubId, int projectId, int modelId, int revisionId)
+        public ModelRevision GetProjectModelRevision(int hubId, int projectId, int modelId, int revisionId)
         {
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + MODEL_ROUTE + "/" +
                              modelId + REVISION_ROUTE + "/" + revisionId;
-            return Perform_Get<Revision>(connStr);
+            return Perform_Get<ModelRevision>(connStr);
         }
 
         private void ValidateOperation(string revisionName)

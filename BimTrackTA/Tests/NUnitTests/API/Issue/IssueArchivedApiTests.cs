@@ -9,10 +9,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class IssueArchivedApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void CreateAndArchiveIssue()
+        public void Test1_CreateAndArchiveIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
 
             Issue issue = new Issue
             {
@@ -28,32 +28,32 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetIssueArchivedList()
+        public void Test2_GetIssueArchivedList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
             issueArchivedApi.GetIssueArchivedList(hubId, projectId);
         }    
         
         [Test, Order(3)]
-        public void Test_GetIssueArchived()
+        public void Test3_GetIssueArchived()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId, "AutoNewIssueToArchive");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId, "AutoNewIssueToArchive", true);
             
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
             issueArchivedApi.GetIssueArchived(hubId, projectId, issueArchivedId);
         }
         
         [Test, Order(4)]
-        public void Test_RestoreArchivedIssue()
+        public void Test4_RestoreArchivedIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId, "AutoNewIssueToArchive");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueArchivedId = __GetArchivedIssueRandom(hubId, projectId, "AutoNewIssueToArchive", true);
             int statusId = __GetProjectStatusRandom(hubId, projectId);
             
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
@@ -61,11 +61,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
 
         [Test, Order(5)]
-        public void Test_RearchiveAndDeleteArchivedIssue()
+        public void Test5_RearchiveAndDeleteArchivedIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssueToArchive");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssueToArchive", true);
             
             // Re-archive the issue since we restored it in test #4
             IssueApi issueApi = new IssueApi();

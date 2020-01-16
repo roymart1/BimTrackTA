@@ -33,9 +33,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified hub was not found.");
+                        Assert.True(false, "The specified hub was not found: " + hubName);
                     }
-                    Console.Write("The specified hub was not found.");
+                    Console.Write("The specified hub was not found: " + hubName);
                 }
                 // if none found the first one will be
                 return listHub[0].Id;
@@ -62,9 +62,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project was not found.");
+                        Assert.True(false, "The specified project was not found: " + projectName);
                     }
-                    Console.Write("The specified project was not found.");
+                    Console.Write("The specified project was not found: " + projectName);
                 }
                 // if none found the first one will be
                 return listProject[0].Id;
@@ -90,9 +90,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project team was not found.");
+                        Assert.True(false, "The specified project team was not found: " + teamName);
                     }
-                    Console.Write("The specified project team was not found.");
+                    Console.Write("The specified project team was not found: " + teamName);
                 }            
             
                 return listTeam[0].Id;
@@ -118,9 +118,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified user was not found.");
+                        Assert.True(false, "The specified user was not found: " + userEmail);
                     }
-                    Console.Write("The specified user was not found.");
+                    Console.Write("The specified user was not found: " + userEmail);
                 }            
             
                 return listUsers[0].user.Id;
@@ -145,9 +145,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified hub user was not found.");
+                        Assert.True(false, "The specified hub user was not found: " + userEmail);
                     }
-                    Console.Write("The specified hub user was not found.");
+                    Console.Write("The specified hub user was not found: " + userEmail);
                 }
                 return listUsers[0].User.Id;
             }
@@ -172,9 +172,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project template was not found.");
+                        Assert.True(false, "The specified project template was not found: " + tmplName);
                     }
-                    Console.Write("The specified project template was not found.");
+                    Console.Write("The specified project template was not found: " + tmplName);
                 }
                 return listPrjTemplates[0].Id;
             }
@@ -200,16 +200,16 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project attribute was not found.");
+                        Assert.True(false, "The specified project attribute was not found: " + attrName);
                     }
-                    Console.Write("The specified project attribute was not found.");
+                    Console.Write("The specified project attribute was not found: " + attrName);
                 }
                 return listPrjAttributes[0].Id;
             }
             throw new Exception("No attribute for that project.");
         }   
         
-        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId, string attrName=null, bool needToFind = false)
+        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId, string attrValName=null, bool needToFind = false)
         {
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
 
@@ -218,20 +218,20 @@ namespace BimTrackTA.Common.WebDriver
             
             if (prjAttribute != null)
             {
-                if (attrName != null)
+                if (attrValName != null)
                 {
                     foreach (var attrVal in prjAttribute.ProjectCustomAttributeValues)
                     {
-                        if (attrVal.Name.ToLower() == attrName.ToLower())
+                        if (attrVal.Name.ToLower() == attrValName.ToLower())
                         {
                             return attrVal.Id;
                         }
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project attribute value was not found.");
+                        Assert.True(false, "The specified project attribute value was not found: " + attrValName);
                     }
-                    Console.Write("The specified project attribute value was not found.");
+                    Console.Write("The specified project attribute value was not found: " + attrValName);
                 }
                 return prjAttribute.ProjectCustomAttributeValues[0].Id;
             }
@@ -256,9 +256,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project model was not found.");
+                        Assert.True(false, "The specified project model was not found: " + modelName);
                     }
-                    Console.Write("The specified project model was not found.");
+                    Console.Write("The specified project model was not found: " + modelName);
                 }
                 return listModels[0].Id;
             }
@@ -282,9 +282,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified model folder was not found.");
+                        Assert.True(false, "The specified model folder was not found: " + modelFolderName);
                     }
-                    Console.Write("The specified model folder was not found.");
+                    Console.Write("The specified model folder was not found: " + modelFolderName);
                 }
                 return listFolders[0].Id;
             }
@@ -294,7 +294,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectModelRevisionRandom(int hubId, int projectId, int modelId, string fileName=null, bool needToFind = false)
         {
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
-            List<Revision> listRevisions = projectModelRevisionApi
+            List<ModelRevision> listRevisions = projectModelRevisionApi
                 .GetProjectModelRevisionList(hubId, projectId, modelId);
             if (listRevisions.Count > 0)
             {
@@ -302,19 +302,16 @@ namespace BimTrackTA.Common.WebDriver
                 {
                     foreach (var revision in listRevisions)
                     {
-                        if (revision.FileInfo != null)
+                        if (revision.Name.ToLower() == fileName.ToLower())
                         {
-                            if (revision.FileInfo.Name.ToLower() == fileName.ToLower())
-                            {
-                                return revision.Id;
-                            }
+                            return revision.Id;
                         }
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified model revision was not found.");
+                        Assert.True(false, "The specified model revision was not found: " + fileName);
                     }
-                    Console.Write("The specified model revision was not found.");
+                    Console.Write("The specified model revision was not found: " + fileName);
                 }
                 return listRevisions[0].Id;
             }
@@ -338,9 +335,9 @@ namespace BimTrackTA.Common.WebDriver
                     } 
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project sheet was not found.");
+                        Assert.True(false, "The specified project sheet was not found: " + sheetName);
                     }
-                    Console.Write("The specified project sheet was not found.");
+                    Console.Write("The specified project sheet was not found: " + sheetName);
                 }
                 return listSheets[0].Id;
             }
@@ -365,9 +362,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified sheet folder was not found.");
+                        Assert.True(false, "The specified sheet folder was not found: " + sheetFolderName);
                     }
-                    Console.Write("The specified sheet folder was not found.");
+                    Console.Write("The specified sheet folder was not found: " + sheetFolderName);
                 }
                 return listFolders[0].Id;
             }
@@ -377,7 +374,7 @@ namespace BimTrackTA.Common.WebDriver
         protected int __GetProjectSheetRevisionRandom(int hubId, int projectId, int sheetId, string fileName=null, bool needToFind = false)
         {
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
-            List<Revision> listRevisions = projectSheetRevisionApi
+            List<SheetRevision> listRevisions = projectSheetRevisionApi
                 .GetProjectSheetRevisionList(hubId, projectId, sheetId);
             if (listRevisions.Count > 0)
             {
@@ -395,9 +392,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified sheet revision was not found.");
+                        Assert.True(false, "The specified sheet revision was not found: " + fileName);
                     }
-                    Console.Write("The specified sheet revision was not found.");
+                    Console.Write("The specified sheet revision was not found: " + fileName);
                 }
                 return listRevisions[0].Id;
             }
@@ -422,9 +419,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified sheet revision instance was not found.");
+                        Assert.True(false, "The specified sheet revision instance was not found: " + viewName);
                     }
-                    Console.Write("The specified sheet revision instance was not found.");
+                    Console.Write("The specified sheet revision instance was not found: " + viewName);
                 }
                 return listInstance[0].Id;
             }
@@ -450,9 +447,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified issue was not found.");
+                        Assert.True(false, "The specified issue was not found: " + issueTitle);
                     }
-                    Console.Write("The specified issue was not found.");
+                    Console.Write("The specified issue was not found: " + issueTitle);
                 }
                 return listIssues[0].Id;
             }
@@ -478,9 +475,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified archived issue was not found.");
+                        Assert.True(false, "The specified archived issue was not found: " + issueTitle);
                     }
-                    Console.Write("The specified archived issue was not found.");
+                    Console.Write("The specified archived issue was not found: " + issueTitle);
                 }
                 return listArchivedIssues[0].Id;
             }
@@ -507,9 +504,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified issue attachment was not found.");
+                        Assert.True(false, "The specified issue attachment was not found: " + attachmentName);
                     }
-                    Console.Write("The specified issue attachment was not found.");
+                    Console.Write("The specified issue attachment was not found: " + attachmentName);
                 }
                 return listIssueAttachments[0].Id;
             }
@@ -535,9 +532,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified issue comment was not found.");
+                        Assert.True(false, "The specified issue comment was not found: " + commentValue);
                     }
-                    Console.Write("The specified issue comment was not found.");
+                    Console.Write("The specified issue comment was not found: " + commentValue);
                 }
                 return listIssueComments[0].Id;
             }
@@ -557,16 +554,20 @@ namespace BimTrackTA.Common.WebDriver
                 {
                     foreach (ViewPoint viewPoint in listIssueViewPoints)
                     {
-                        if (viewPoint.ViewName != null && viewPoint.ViewName.ToLower() == viewName)
+                        if (viewPoint.ViewName == null)
+                        {
+                            throw new BTException("The viewpoint has been deleted for some reason. See the bug in the IssueViewPoint API.");
+                        }
+                        if (viewPoint.ViewName.ToLower() == viewName.ToLower())
                         {
                             return viewPoint.Id;
                         }
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified issue viewpoint was not found.");
+                        Assert.True(false, "The specified issue viewpoint was not found: " + viewName);
                     }
-                    Console.Write("The specified issue viewpoint was not found.");
+                    Console.Write("The specified issue viewpoint was not found: " + viewName);
                 }
                 return listIssueViewPoints[0].Id;
             }
@@ -592,9 +593,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified viewpoint comment was not found.");
+                        Assert.True(false, "The specified viewpoint comment was not found: " + commentValue);
                     }
-                    Console.Write("The specified viewpoint comment was not found.");
+                    Console.Write("The specified viewpoint comment was not found: " + commentValue);
                 }
                 return listIssueViewPointComments[0].Id;
             }
@@ -621,9 +622,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project discipline was not found.");
+                        Assert.True(false, "The specified project discipline was not found: " + name);
                     }
-                    Console.Write("The specified project discipline was not found.");
+                    Console.Write("The specified project discipline was not found: " + name);
                 }
                 return listProjectDisciplines[0].Id;
             }
@@ -650,9 +651,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project phase was not found.");
+                        Assert.True(false, "The specified project phase was not found: " + name);
                     }
-                    Console.Write("The specified project phase was not found.");
+                    Console.Write("The specified project phase was not found: " + name);
                 }
                 return listProjectPhases[0].Id;
             }
@@ -679,9 +680,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project priority was not found.");
+                        Assert.True(false, "The specified project priority was not found: " + name);
                     }
-                    Console.Write("The specified project priority was not found.");
+                    Console.Write("The specified project priority was not found: " + name);
                 }
                 return listProjectPriorities[0].Id;
             }
@@ -708,9 +709,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project status was not found.");
+                        Assert.True(false, "The specified project status was not found: " + name);
                     }
-                    Console.Write("The specified project status was not found.");
+                    Console.Write("The specified project status was not found: " + name);
                 }
                 return listProjectStatuses[0].Id;
             }
@@ -737,9 +738,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project type was not found.");
+                        Assert.True(false, "The specified project type was not found: " + name);
                     }
-                    Console.Write("The specified project type was not found.");
+                    Console.Write("The specified project type was not found: " + name);
                 }
                 return listProjectTypes[0].Id;
             }
@@ -766,9 +767,9 @@ namespace BimTrackTA.Common.WebDriver
                     }
                     if (needToFind)
                     {
-                        Assert.True(true, "The specified project zone was not found.");
+                        Assert.True(false, "The specified project zone was not found: " + name);
                     }
-                    Console.Write("The specified project zone was not found.");
+                    Console.Write("The specified project zone was not found: " + name);
                 }
                 return listProjectZones[0].Id;
             }

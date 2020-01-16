@@ -9,10 +9,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class IssueCommentApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateIssueComment()
+        public void Test1_CreateIssueComment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             // We need to create an issue for us to be able to create its attachment
             Issue issue = new Issue
@@ -33,23 +33,23 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetIssueCommentList()
+        public void Test2_GetIssueCommentList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest", true);
             
             IssueCommentApi issueComment = new IssueCommentApi();
             issueComment.GetIssueCommentList(hubId, projectId, issueId);
         }    
 
         [Test, Order(3)]
-        public void Test_DeleteIssueComment()
+        public void Test3_DeleteIssueComment()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest");
-            int commentId = __GetIssueCommentRandom(hubId, projectId, issueId, "AutoIssueComment");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "IssueCommentTest", true);
+            int commentId = __GetIssueCommentRandom(hubId, projectId, issueId, "AutoIssueComment", true);
 
             IssueCommentApi issueComment = new IssueCommentApi();
             issueComment.DeleteIssueComment(hubId, projectId, issueId, commentId);

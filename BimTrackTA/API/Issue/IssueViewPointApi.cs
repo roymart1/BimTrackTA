@@ -59,6 +59,8 @@ namespace BimTrackTA.API
             // Validate that the image name is valid
             ValidateOperation(imageName);
             
+            // Bug: When I update an issue's viewpoint, the viewpoint disappears and only the picture updates.
+            //
             // This is weird too: even if we want to update the viewpoint object, we absolutely need to update the
             // picture as well. So you need to do the same thing as in create object. This could be changed in the
             // future since it doesn't appear to be a desired behavior.

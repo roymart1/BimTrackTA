@@ -9,10 +9,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class ProjectModelFolderApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateProjectModelFolder()
+        public void Test1_CreateProjectModelFolder()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             Folder folder = new Folder {Name = "AutoModelFolderTest"};
 
@@ -21,21 +21,21 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetProjectModelFolders()
+        public void Test2_GetProjectModelFolders()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
             projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
         }
 
         [Test, Order(3)]
-        public void Test_UpdateProjectModelFolder()
+        public void Test3_UpdateProjectModelFolder()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int folderId = __GetProjectModelFolderRandom(hubId, projectId, "AutoModelFolderTest");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int folderId = __GetProjectModelFolderRandom(hubId, projectId, "AutoModelFolderTest", true);
 
             Folder folder = new Folder {Name = "UpdatedModelFolderTest"};
 
@@ -44,11 +44,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(4)]
-        public void Test_DeleteProjectModelFolder()
+        public void Test4_DeleteProjectModelFolder()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int folderId = __GetProjectModelFolderRandom(hubId, projectId, "AutoModelFolderTest");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int folderId = __GetProjectModelFolderRandom(hubId, projectId, "UpdatedModelFolderTest", true);
             
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
             projectModelFolderApi.DeleteProjectModelFolder(hubId, projectId, folderId);

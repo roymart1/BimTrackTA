@@ -16,8 +16,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_CreateProjectUser()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int userId = __GetHubUserRandom(hubId, "bimoneauto+ki1120_013436@gmail.com");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int userId = __GetHubUserRandom(hubId, "bimoneauto+ki1120_013436@gmail.com", true);
 
 
             ProjectUser user = new ProjectUser {UserId = userId, Role = "Reader"};
@@ -30,7 +30,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_GetProjectUsers()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             ProjectUserApi projectApi = new ProjectUserApi();
             projectApi.GetHubProjectUsers(hubId, projectId);
@@ -40,8 +40,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_UpdateProjectUser()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int userId = __GetUserRandom(hubId, projectId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int userId = __GetUserRandom(hubId, projectId, "bimoneauto+ki1120_013436@gmail.com", true);
 
             ProjectUser user = new ProjectUser {Role = "Editor"};
 
@@ -53,8 +53,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
         public void Test_DeleteProjectUser()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int userId = __GetUserRandom(hubId, projectId, "bimoneauto+ki1120_013436@gmail.com");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int userId = __GetUserRandom(hubId, projectId, "bimoneauto+ki1120_013436@gmail.com", true);
             
             ProjectUserApi projectApi = new ProjectUserApi();
             projectApi.DeleteHubProjectUser(hubId, projectId, userId);

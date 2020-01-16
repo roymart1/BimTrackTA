@@ -9,10 +9,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class ProjectSheetRevisionApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateProjectSheetRevision()
+        public void Test1_CreateProjectSheetRevision()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             // We need to create the sheet before creating its revision
             string sheetName = "AutoSheetForRevisionTest.pdf";
@@ -29,35 +29,35 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetProjectSheetRevisions()
+        public void Test2_GetProjectSheetRevisions()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest.pdf");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest", true);
             
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             projectSheetRevisionApi.GetProjectSheetRevisionList(hubId, projectId, sheetId);
         }
 
         [Test, Order(3)]
-        public void Test_GetProjectSheetRevision()
+        public void Test3_GetProjectSheetRevision()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest.pdf");
-            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoRevisionTest.pdf");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest", true);
+            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoRevisionTest.pdf", true);
 
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             projectSheetRevisionApi.GetProjectSheetRevision(hubId, projectId, sheetId, revisionId);
         }
         
         [Test, Order(4)]
-        public void Test_DeleteProjectSheetRevision()
+        public void Test4_DeleteProjectSheetRevision()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest.pdf");
-            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoRevisionTest.pdf");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForRevisionTest", true);
+            int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoRevisionTest.pdf", true);
             
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             projectSheetRevisionApi.DeleteProjectSheetRevision(hubId, projectId, sheetId, revisionId);

@@ -8,11 +8,11 @@ namespace BimTrackTA.API
 {
     public class ProjectSheetRevisionApi : ApiBase
     {
-        public List<Revision> GetProjectSheetRevisionList(int hubId, int projectId, int sheetId)
+        public List<SheetRevision> GetProjectSheetRevisionList(int hubId, int projectId, int sheetId)
         {
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
                              sheetId + REVISION_ROUTE;
-            return Perform_Get<List<Revision>>(connStr);
+            return Perform_Get<List<SheetRevision>>(connStr);
         }
 
         public int CreateProjectSheetRevision(int hubId, int projectId, int sheetId, string revisionName, string revisionPath)
@@ -40,11 +40,11 @@ namespace BimTrackTA.API
             return response.IsSuccessful;
         }
 
-        public Revision GetProjectSheetRevision(int hubId, int projectId, int sheetId, int revisionId)
+        public SheetRevision GetProjectSheetRevision(int hubId, int projectId, int sheetId, int revisionId)
         {
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + SHEET_ROUTE + "/" +
                              sheetId + REVISION_ROUTE + "/" + revisionId;
-            return Perform_Get<Revision>(connStr);
+            return Perform_Get<SheetRevision>(connStr);
         }
         
         private void ValidateOperation(string revisionName)

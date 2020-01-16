@@ -13,7 +13,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
     {
         
         [Test, Order(1)]
-        public void Test_GetHubList()
+        public void Test1_GetHubList()
         {
             
             Console.Out.WriteLine("------------------- TEST START -----------------------");
@@ -30,7 +30,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetHubInfo()
+        public void Test2_GetHubInfo()
         {
             int hubId = __GetHubRandom();
             HubApi hubApiApi = new HubApi();

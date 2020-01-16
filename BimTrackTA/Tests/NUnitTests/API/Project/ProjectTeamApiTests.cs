@@ -12,10 +12,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class ProjectTeamApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateProjectTeam()
+        public void Test1_CreateProjectTeam()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
 
             Team team = new Team {Name = "Ventilation3"};
 
@@ -24,32 +24,32 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetProjectTeams()
+        public void Test2_GetProjectTeams()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             ProjectTeamApi projectApi = new ProjectTeamApi();
             projectApi.GetHubProjectTeams(hubId, projectId);
         }
         
         [Test, Order(3)]
-        public void Test_GetProjectTeamUsers()
+        public void Test3_GetProjectTeamUsers()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
-            int teamId = __GetTeamRandom(hubId, projectId, "Ventilation3");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int teamId = __GetTeamRandom(hubId, projectId, "Ventilation3", true);
             
             ProjectTeamApi projectApi = new ProjectTeamApi();
             projectApi.GetHubProjectTeamUsers(hubId, projectId, teamId);
         }
 
         [Test, Order(4)]
-        public void Test_UpdateProjectTeam()
+        public void Test4_UpdateProjectTeam()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
-            int teamId = __GetTeamRandom(hubId, projectId, "Ventilation3");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int teamId = __GetTeamRandom(hubId, projectId, "Ventilation3", true);
 
             Team team = new Team {Name = "UpdatedVentilation3"};
 
@@ -58,11 +58,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(5)]
-        public void Test_DeleteProjectTeam()
+        public void Test5_DeleteProjectTeam()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoNewPrj");
-            int teamId = __GetTeamRandom(hubId, projectId, "UpdatedVentilation3");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int teamId = __GetTeamRandom(hubId, projectId, "UpdatedVentilation3", true);
             
             ProjectTeamApi projectTeamApi = new ProjectTeamApi();
             projectTeamApi.DeleteHubProjectTeam(hubId, projectId, teamId);

@@ -9,10 +9,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class ProjectModelRevisionApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateProjectModelRevision()
+        public void Test1_CreateProjectModelRevision()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             // We need to create the model before we can create a revision
             string modelName = "ModelForRevisionTest.ifc";
@@ -29,40 +29,40 @@ namespace BimTrackTA.Tests.NUnitTests.API
         } 
         
         [Test, Order(2)]
-        public void Test_GetProjectModelRevisions()
+        public void Test2_GetProjectModelRevisions()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int modelId = __GetProjectModelRandom(hubId, projectId, "ModelForRevisionTest.ifc");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int modelId = __GetProjectModelRandom(hubId, projectId, "Revision.ifc", true);
             
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             projectModelRevisionApi.GetProjectModelRevisionList(hubId, projectId, modelId);
         }
         
         [Test, Order(3)]
-        public void Test_GetProjectModelRevision()
+        public void Test3_GetProjectModelRevision()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int modelId = __GetProjectModelRandom(hubId, projectId, "ModelForRevisionTest.ifc");
-            int revisionId = __GetProjectModelRevisionRandom(hubId, projectId, modelId, "Revision.ifc");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int modelId = __GetProjectModelRandom(hubId, projectId, "Revision.ifc", true);
+            int revisionId = __GetProjectModelRevisionRandom(hubId, projectId, modelId, "Revision.ifc", true);
 
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             projectModelRevisionApi.GetProjectModelRevision(hubId, projectId, modelId, revisionId);
         }
 
         [Test, Order(4)]
-        public void Test_DeleteProjectModelRevision()
+        public void Test4_DeleteProjectModelRevision()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int modelId = __GetProjectModelRandom(hubId, projectId, "ModelForRevisionTest.ifc");
-            int revisionId = __GetProjectModelRevisionRandom(hubId, projectId, modelId, "Revision.ifc");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int modelId = __GetProjectModelRandom(hubId, projectId, "Revision.ifc", true);
+            int revisionId = __GetProjectModelRevisionRandom(hubId, projectId, modelId, "Revision.ifc", true);
             
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             projectModelRevisionApi.DeleteProjectModelRevision(hubId, projectId, modelId, revisionId);
-            
-            // Delete the model we used to create the revision to clean up the test
+
+            // Delete the model we used to create the revision to clean up the test.
             ProjectModelApi projectModelApi = new ProjectModelApi();
             projectModelApi.DeleteProjectModel(hubId, projectId, modelId);
         }

@@ -10,7 +10,7 @@ namespace SeleniumTest.BusinessObjects
         public string UniqueId { get; set; }
         
         public Folder Folder { get; set; }
-        public List<Revision> Revisions { get; set; }
+        public List<SheetRevision> Revisions { get; set; }
     
     }
 }

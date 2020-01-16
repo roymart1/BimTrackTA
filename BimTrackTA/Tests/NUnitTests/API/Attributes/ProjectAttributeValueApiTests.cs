@@ -11,10 +11,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class ProjectAttributeValueApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateProjectAttributeValue()
+        public void Test1_CreateProjectAttributeValue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             // We need to create the project attribute before we can give it a value...
             var prjAttr = new ProjectAttribute {Name = "ZenPredef", Type = "Predefined"};
@@ -27,11 +27,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetProjectAttributeValueList()
+        public void Test2_GetProjectAttributeValueList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int attrValId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int attrValId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef", true);
             
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             List<AttributeValue> listAttrVal;
@@ -39,12 +39,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
 
         [Test, Order(3)]
-        public void Test_UpdateProjectAttributeValue()
+        public void Test3_UpdateProjectAttributeValue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
-            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "zenUnknown");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef", true);
+            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "zenUnknown", true);
 
             AttributeValue attributeValue = new AttributeValue
             {
@@ -57,12 +57,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(4)]
-        public void Test_DeleteProjectAttributeValue()
+        public void Test4_DeleteProjectAttributeValue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef");
-            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "zenUnknown");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef", true);
+            int attrValId = __GetHubProjectAttributeValueRandom(hubId, projectId, attrId, "UpdatedZenUnknown", true);
             
             ProjectAttributeValuesApi prjAttrValApi = new ProjectAttributeValuesApi();
             prjAttrValApi.DeleteProjectAttributeValue(hubId, projectId, attrId, attrValId);

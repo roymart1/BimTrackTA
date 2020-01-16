@@ -9,10 +9,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
     public class IssueApiTests : GeneralTestBase
     {
         [Test, Order(1)]
-        public void Test_CreateIssue()
+        public void Test1_CreateIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
 
             Issue issue = new Issue
             {
@@ -26,32 +26,32 @@ namespace BimTrackTA.Tests.NUnitTests.API
         }
         
         [Test, Order(2)]
-        public void Test_GetIssueList()
+        public void Test2_GetIssueList()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             IssueApi issueApi = new IssueApi();
             issueApi.GetIssueList(hubId, projectId);
         }    
 
         [Test, Order(3)]
-        public void Test_GetIssueDetails()
+        public void Test3_GetIssueDetails()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId);
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue", true);
             
             IssueApi issueApi = new IssueApi();
             issueApi.GetIssue(hubId, projectId, issueId);
         }
 
         [Test, Order(4)]
-        public void Test_PatchIssues()
+        public void Test4_PatchIssues()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue", true);
 
             int priorityId = __GetProjectPriorityRandom(hubId, projectId);
             
@@ -63,13 +63,24 @@ namespace BimTrackTA.Tests.NUnitTests.API
             IssueApi issueApi = new IssueApi();
             issueApi.PatchIssues(hubId, projectId, multiUpdate);
         }
-        
+
         [Test, Order(5)]
-        public void Test_UpdateIssue()
+        public void Test5_GetIssueHistory()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue", true);
+            
+            IssueApi issueApi = new IssueApi();
+            issueApi.GetIssueHistory(hubId, projectId, issueId);
+        }
+        
+        [Test, Order(6)]
+        public void Test6_UpdateIssue()
+        {
+            int hubId = __GetHubRandom();
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue", true);
 
             Issue issue = new Issue
             {
@@ -82,23 +93,12 @@ namespace BimTrackTA.Tests.NUnitTests.API
             issueApi.UpdateIssue(hubId, projectId, issueId, issue);
         }
 
-        [Test, Order(6)]
-        public void Test_GetIssueHistory()
-        {
-            int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
-            
-            IssueApi issueApi = new IssueApi();
-            issueApi.GetIssueHistory(hubId, projectId, issueId);
-        }
-
         [Test, Order(7)]
-        public void Test_ArchiveAndDeleteIssue()
+        public void Test7_ArchiveAndDeleteIssue()
         {
             int hubId = __GetHubRandom();
-            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj");
-            int issueId = __GetIssueRandom(hubId, projectId, "AutoNewIssue");
+            int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
+            int issueId = __GetIssueRandom(hubId, projectId, "UpdatedNewIssue", true);
             
             IssueApi issueApi = new IssueApi();
             issueApi.ArchiveIssue(hubId, projectId, issueId);
