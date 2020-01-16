@@ -187,7 +187,6 @@ namespace BimTrackTA.API
                 }
                 catch (Exception)
                 {
-                    // TODO: Attachment doesn't have one. Maybe create another method...
                     Console.Write("The object created doesn't have an id.");
                 }
             }

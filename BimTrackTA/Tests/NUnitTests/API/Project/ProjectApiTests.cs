@@ -16,7 +16,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
             Project project = new Project {Name = "AutoNewPrjTest"};
 
             ProjectApi projectApi = new ProjectApi();
-            projectApi.CreateHubProject(hubId, project);
+            int projectId = projectApi.CreateHubProject(hubId, project);
+
+            // Make an assertion
+            Project remoteProject = projectApi.GetHubProjectDetails(hubId, projectId);
+            Assert.True(remoteProject.Name == project.Name, "Invalid project name after creation.");
         }
         
         [Test, Order(2)]
@@ -25,7 +29,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             
             ProjectApi projectApi = new ProjectApi();
-            projectApi.GetHubProjectList(hubId);
+            List<Project> projects = projectApi.GetHubProjectList(hubId);
+            
+            // Make an assertion
+            Assert.True(projects.Count > 0, "No project in the hub.");
         } 
         
         [Test, Order(3)]
@@ -35,7 +42,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoNewPrjTest", true);
             
             ProjectApi projectApi = new ProjectApi();
-            projectApi.GetHubProjectDetails(hubId, projectId);
+            Project project = projectApi.GetHubProjectDetails(hubId, projectId);
+            
+            // Make an assertion
+            Assert.True(project.Name == "AutoNewPrjTest", "The project name is invalid. Expected 'AutoNewPrjTest', got '" + project.Name + "'.");
         }
 
         [Test, Order(4)]
@@ -48,6 +58,11 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             ProjectApi projectApi = new ProjectApi();
             projectApi.UpdateHubProject(hubId, projectId, project);
+
+            // Make an assertion
+            Project updatedRemoteProject = projectApi.GetHubProjectDetails(hubId, projectId);
+            Assert.True(updatedRemoteProject.Name == project.Name, "Invalid project name after update.");
+
         }
     }
 }

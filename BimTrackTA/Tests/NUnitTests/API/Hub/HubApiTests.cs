@@ -27,7 +27,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             HubApi hubApiApi = new HubApi();
-            hubApiApi.GetHub(hubId);
+            Hub hub = hubApiApi.GetHub(hubId);
+            Assert.True(hub.Name == "zenytest", "Invalid hub name. Expected 'zenytest', got '" + hub.Name + "'.");
         }
     }
 }
