@@ -4,8 +4,8 @@ namespace SeleniumTest.BusinessObjects
 {
     public class ViewPoint
     {
-        public int Id { get; set; }
-        public int IssueId { get; set; }
+        public int? Id { get; set; }
+        public int? IssueId { get; set; }
         public string ViewType { get; set; }
         public Image Image { get; set; }
         public List<BimComment> Comments { get; set; }
@@ -13,7 +13,7 @@ namespace SeleniumTest.BusinessObjects
         public string ViewName { get; set; }
         public string ModelName { get; set; }
         public string ViewUniqueId { get; set; }
-        public bool WasCreatedFromSheetInstance { get; set; }
+        public bool? WasCreatedFromSheetInstance { get; set; }
 
         public ViewPointViewStateSummary ViewStateSummary { get; set; }
         public ViewPointViewState ViewState { get; set; }

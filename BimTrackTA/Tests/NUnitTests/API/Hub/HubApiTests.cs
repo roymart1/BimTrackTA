@@ -4,8 +4,6 @@ using BimTrackTA.API;
 using BimTrackTA.Common.WebDriver;
 using NUnit.Framework;
 using SeleniumTest.BusinessObjects;
-using SeleniumTest.Common;
-using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.Tests.NUnitTests.API
 {
@@ -20,12 +18,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             
             HubApi hubApiApi = new HubApi();
             List<Hub> listHub = hubApiApi.GetHubList();
-            if (listHub.Count == 0) 
-            { 
-                throw new BTException("API Test: No hubs were found");
-            }
-
-            hubApiApi.GetHub(listHub[0].Id);
+            Assert.True(listHub.Count > 0, "No hub were found!");
             Console.Out.WriteLine("------------------- TEST END -----------------------");
         }
         

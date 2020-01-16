@@ -11,8 +11,8 @@ namespace SeleniumTest.Common.Exceptions
             
         }
         
-        public CustomObjectAttributeException(string missingAttribute, string objectMissingAttribute) : 
-            base("You must provide " + missingAttribute + " for your " + objectMissingAttribute + ".")
+        public CustomObjectAttributeException(string youMustProvide, string forYour) : 
+            base("You must provide " + youMustProvide + " for your " + forYour + ".")
         {
         }
     }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BimTrackTA.API;
 using BimTrackTA.Common.WebDriver;
 using NUnit.Framework;
@@ -41,12 +40,10 @@ namespace BimTrackTA.Tests.NUnitTests.API
         {
             int hubId = __GetHubRandom();
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
-            
-            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
+            int projectAttributeId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenCustom", true);
 
-            ProjectAttribute PrjAttributes = projectAttributeApi.GetHubProjectAttributeDetail(hubId, 
-                projectId, listPrjAttributes[0].Id);
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            projectAttributeApi.GetHubProjectAttributeDetail(hubId, projectId, projectAttributeId);
         }    
         
         [Test, Order(4)]
@@ -56,8 +53,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-
-            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
+            projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
         }    
 
         
@@ -69,7 +65,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenCustom", true);
 
             ProjectAttribute projectAttribute = new ProjectAttribute {Name = "UpdatedZenCustom", Type = "Text"};
-
+            
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
             projectAttributeApi.UpdateHubProjectAttribute(hubId, projectId, attrId, projectAttribute);
         }
@@ -82,7 +78,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "ZenPredef", true);
                         
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            bool bRet = projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
+            projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
         }
 
         [Test, Order(7)]
@@ -93,7 +89,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int attrId = __GetHubProjectAttributeRandom(hubId, projectId, "UpdatedZenCustom", true);
                         
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-            bool bRet = projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
+            projectAttributeApi.DeleteHubProjectAttribute(hubId, projectId, attrId);
         }
     }
 }

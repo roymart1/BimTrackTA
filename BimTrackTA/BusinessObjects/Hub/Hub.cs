@@ -5,11 +5,11 @@ namespace SeleniumTest.BusinessObjects
 {
     public class Hub
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public Author Author { get; set; }
         public Image Image { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
         public List<HubUser> Users { get; set; }
     }
 }

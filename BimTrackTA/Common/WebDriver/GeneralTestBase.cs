@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BimTrackTA.API;
 using NUnit.Framework;
 using SeleniumTest.BusinessObjects;
 using SeleniumTest.Common;
-using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.Common.WebDriver
 {
@@ -14,93 +14,86 @@ namespace BimTrackTA.Common.WebDriver
         {
             CTX.SetKeyChainId();
         }
-        
+
+        // This is a real ballsy meta-programming function that uses dynamics types and a bunch of other
+        // shenanigans. Be aware that although I've manged to make it work when we need to compare objects
+        // that have depth (user.User.Email) for example, I've decided to remove this functionality because
+        // it is starting to be hard to manage for no real plus-value.
+        private int __findSpecificObject<T>(List<T> objectList, string usedProperty = null, 
+            string valueToCompareTo = null, bool needToFind = false)
+        {
+            // Get the string value of the object inside the list and remove Bim to change BimComment to Comment.
+            string objectName = objectList.GetType().GenericTypeArguments.Single().Name.Replace("Bim", "");
+            if (objectList.Count > 0)
+            {
+                if (valueToCompareTo != null)
+                {
+                    foreach (dynamic obj in objectList)
+                    {
+                        string valueOfRemoteObject = obj.GetType().GetProperty(usedProperty).GetValue(obj, null)?.ToLower();
+                        if (valueOfRemoteObject != null && valueOfRemoteObject == valueToCompareTo.ToLower())
+                        {
+                            if (obj.Id != null)
+                            {
+                                return obj.Id;
+                            }
+                        }
+                    }
+                    // We did not find the specified object. If we want to make an error, the assertion
+                    // will raise if needToFind is true. Otherwise, it will simply print the warning message.
+                    Assert.False(needToFind, "The specified " + objectName + " was not found: " + valueToCompareTo);
+                    Console.Write("The specified " + objectName + " was not found: " + valueToCompareTo);
+                }
+                if (((dynamic) objectList[0]).Id != null)
+                {
+                    return ((dynamic) objectList[0]).Id;
+                }
+            }
+            throw new Exception("No " + objectName + " found in the specified context.");
+        }
+
+
         protected int __GetHubRandom(string hubName = null, bool needToFind = false)
         {
             HubApi hubApiApi = new HubApi();
             List<Hub> listHub = hubApiApi.GetHubList();
-
-            if (listHub.Count > 0)
-            {
-                if (hubName != null)
-                {
-                    foreach (var hub in listHub)
-                    {
-                        if (hub.Name.ToLower() == hubName.ToLower())
-                        {
-                            return hub.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified hub was not found: " + hubName);
-                    }
-                    Console.Write("The specified hub was not found: " + hubName);
-                }
-                // if none found the first one will be
-                return listHub[0].Id;
-            }
-            throw new Exception("No hub found.");
+            
+            return __findSpecificObject(
+                listHub,
+                "Name",
+                hubName,
+                needToFind
+            );
         }
 
         protected int __GetProjectRandom(int hubId, string projectName = null, bool needToFind = false)
         {
             // Go on with the retrieval of the project list 
             ProjectApi projectApi = new ProjectApi();
-            List<Project> listProject =  projectApi.GetHubProjectList(hubId);
+            List<Project> listProject = projectApi.GetHubProjectList(hubId);
 
-            if (listProject.Count > 0)
-            {
-                if (projectName != null)
-                {
-                    foreach (var project in listProject)
-                    {
-                        if (project.Name.ToLower() == projectName.ToLower())
-                        {
-                            return project.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project was not found: " + projectName);
-                    }
-                    Console.Write("The specified project was not found: " + projectName);
-                }
-                // if none found the first one will be
-                return listProject[0].Id;
-            }
-            throw new Exception("No project for that hub.");
+            return __findSpecificObject(
+                listProject,
+                "Name",
+                projectName,
+                needToFind
+            );
         }
 
-        protected int __GetTeamRandom(int hubId, int projectId, string teamName=null, bool needToFind = false)
+        protected int __GetTeamRandom(int hubId, int projectId, string teamName = null, bool needToFind = false)
         {
             ProjectTeamApi projectApi = new ProjectTeamApi();
             List<Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
-            
-            if (listTeam.Count > 0)
-            {
-                if (teamName != null)
-                {
-                    foreach (var team in listTeam)
-                    {
-                        if (team.Name.ToLower() == teamName.ToLower())
-                        {
-                            return team.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project team was not found: " + teamName);
-                    }
-                    Console.Write("The specified project team was not found: " + teamName);
-                }            
-            
-                return listTeam[0].Id;
-            }
-            throw new Exception("No team for that project.");
+
+            return __findSpecificObject(
+                listTeam,
+                "Name",
+                teamName,
+                needToFind
+            );
         }
-        
-        protected int __GetUserRandom(int hubId, int projectId, string userEmail=null, bool needToFind = false)
+
+        protected int __GetHubProjectUserRandom(int hubId, int projectId, string userEmail = null, bool needToFind = false)
         {
             ProjectUserApi projectApi = new ProjectUserApi();
             List<ProjectUser> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
@@ -109,671 +102,393 @@ namespace BimTrackTA.Common.WebDriver
             {
                 if (userEmail != null)
                 {
-                    foreach (var user in listUsers)
+                    foreach (ProjectUser user in listUsers)
                     {
-                        if (user.user.Email.ToLower() == userEmail.ToLower())
+                        if (user.User.Email == userEmail.ToLower())
                         {
-                            return user.user.Id;
+                            if (user.User.Id != null)
+                            {
+                                return (int) user.User.Id;
+                            }
                         }
                     }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified user was not found: " + userEmail);
-                    }
+                    // We did not find the specified user. If we want to make an error, the assertion
+                    // will raise if needToFind is true. Otherwise, it will simply print the warning message.
+                    Assert.False(needToFind, "The specified project user was not found: " + userEmail);
                     Console.Write("The specified user was not found: " + userEmail);
-                }            
-            
-                return listUsers[0].user.Id;
+                }
+
+                var userId = listUsers[0].User.Id;
+                if (userId != null) return (int) userId;
             }
-            throw new Exception("No user for that project.");
-        }   
-       
-        protected int __GetHubUserRandom(int hubId, string userEmail=null, bool needToFind = false)
+            throw new Exception("No user found for that project: " + projectId);
+        }
+
+        protected int __GetHubUserRandom(int hubId, string userEmail = null, bool needToFind = false)
         {
             HubUserApi hubUserApi = new HubUserApi();
             List<HubUser> listUsers = hubUserApi.GetHubUsers(hubId);
+            
             if (listUsers.Count > 0)
             {
                 if (userEmail != null)
                 {
-                    foreach (var user in listUsers)
+                    foreach (HubUser user in listUsers)
                     {
-                        if (user.User.Email.ToLower() == userEmail.ToLower())
+                        if (user.User.Email == userEmail.ToLower())
                         {
-                            return user.User.Id;
+                            if (user.User.Id != null)
+                            {
+                                return (int) user.User.Id;
+                            }
                         }
                     }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified hub user was not found: " + userEmail);
-                    }
-                    Console.Write("The specified hub user was not found: " + userEmail);
+                    // We did not find the specified user. If we want to make an error, the assertion
+                    // will raise if needToFind is true. Otherwise, it will simply print the warning message.
+                    Assert.False(needToFind, "The specified project user was not found: " + userEmail);
+                    Console.Write("The specified project user was not found: " + userEmail);
                 }
-                return listUsers[0].User.Id;
+
+                var userId = listUsers[0].User.Id;
+                if (userId != null) return (int) userId;
             }
-            throw new Exception("No user for that hub.");
+            throw new Exception("No user found in that hub: " + hubId);
         }
 
-        protected int __GetHubProjectTemplateRandom(int hubId, string tmplName=null, bool needToFind = false)
+        protected int __GetHubProjectTemplateRandom(int hubId, string tmplName = null, bool needToFind = false)
         {
             ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
             List<ProjectTemplate> listPrjTemplates = projectTemplateApi.GetHubProjectTemplates(hubId);
 
-            if (listPrjTemplates.Count > 0)
-            {
-                if (tmplName != null)
-                {
-                    foreach (var tmpl in listPrjTemplates)
-                    {
-                        if (tmpl.Name.ToLower() == tmplName.ToLower())
-                        {
-                            return tmpl.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project template was not found: " + tmplName);
-                    }
-                    Console.Write("The specified project template was not found: " + tmplName);
-                }
-                return listPrjTemplates[0].Id;
-            }
-            throw new Exception("No project template for that hub.");
-        }   
-
-        protected int __GetHubProjectAttributeRandom(int hubId, int projectId, string attrName=null, bool needToFind = false)
-        {
-            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-
-            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
-
-            if (listPrjAttributes.Count > 0)
-            {
-                if (attrName != null)
-                {
-                    foreach (var tmpl in listPrjAttributes)
-                    {
-                        if (tmpl.Name.ToLower() == attrName.ToLower())
-                        {
-                            return tmpl.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project attribute was not found: " + attrName);
-                    }
-                    Console.Write("The specified project attribute was not found: " + attrName);
-                }
-                return listPrjAttributes[0].Id;
-            }
-            throw new Exception("No attribute for that project.");
-        }   
-        
-        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId, string attrValName=null, bool needToFind = false)
-        {
-            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
-
-            ProjectAttribute prjAttribute = 
-                projectAttributeApi.GetHubProjectAttributeDetail(hubId, projectId, attrId);
-            
-            if (prjAttribute != null)
-            {
-                if (attrValName != null)
-                {
-                    foreach (var attrVal in prjAttribute.ProjectCustomAttributeValues)
-                    {
-                        if (attrVal.Name.ToLower() == attrValName.ToLower())
-                        {
-                            return attrVal.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project attribute value was not found: " + attrValName);
-                    }
-                    Console.Write("The specified project attribute value was not found: " + attrValName);
-                }
-                return prjAttribute.ProjectCustomAttributeValues[0].Id;
-            }
-            throw new Exception("Attribute value not found.");
+            return __findSpecificObject(
+                listPrjTemplates,
+                "Name",
+                tmplName,
+                needToFind
+            );
         }
 
-        protected int __GetProjectModelRandom(int hubId, int projectId, string modelName=null, bool needToFind = false)
+        protected int __GetHubProjectAttributeRandom(int hubId, int projectId, string attrName = null,
+            bool needToFind = false)
+        {
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            List<ProjectAttribute> listPrjAttributes = projectAttributeApi.GetHubProjectAttributeList(hubId, projectId);
+
+            return __findSpecificObject(
+                listPrjAttributes,
+                "Name",
+                attrName,
+                needToFind
+            );
+        }
+
+        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId,
+            string attrValName = null, bool needToFind = false)
+        {
+            ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
+            ProjectAttribute prjAttribute =
+                projectAttributeApi.GetHubProjectAttributeDetail(hubId, projectId, attrId);
+            
+            return __findSpecificObject(
+                prjAttribute.ProjectCustomAttributeValues,
+                "Name",
+                attrValName,
+                needToFind
+            );
+        }
+
+        protected int __GetProjectModelRandom(int hubId, int projectId, string modelName = null,
+            bool needToFind = false)
         {
             // IMPORTANT: The model name is the name of the file that has been sent, not the name of the model object.
             ProjectModelApi projectModelApi = new ProjectModelApi();
             List<Model> listModels = projectModelApi.GetProjectModelList(hubId, projectId);
-            if (listModels.Count > 0)
-            {
-                if (modelName != null)
-                {
-                    foreach (var model in listModels)
-                    {
-                        if (model.Name.ToLower() == modelName.ToLower())
-                        {
-                            return model.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project model was not found: " + modelName);
-                    }
-                    Console.Write("The specified project model was not found: " + modelName);
-                }
-                return listModels[0].Id;
-            }
-            throw new Exception("There is no model in that project.");
+            
+            return __findSpecificObject(
+                listModels,
+                "Name",
+                modelName,
+                needToFind
+            );
         }
-        
-        protected int __GetProjectModelFolderRandom(int hubId, int projectId, string modelFolderName=null, bool needToFind = false)
+
+        protected int __GetProjectModelFolderRandom(int hubId, int projectId, string modelFolderName = null,
+            bool needToFind = false)
         {
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
             List<Folder> listFolders = projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
-            if (listFolders.Count > 0)
-            {
-                if (modelFolderName != null)
-                {
-                    foreach (var folder in listFolders)
-                    {
-                        if (folder.Name.ToLower() == modelFolderName.ToLower())
-                        {
-                            return folder.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified model folder was not found: " + modelFolderName);
-                    }
-                    Console.Write("The specified model folder was not found: " + modelFolderName);
-                }
-                return listFolders[0].Id;
-            }
-            throw new Exception("There is no model folder in that project.");
+            
+            return __findSpecificObject(
+                listFolders,
+                "Name",
+                modelFolderName,
+                needToFind
+            );
         }
-        
-        protected int __GetProjectModelRevisionRandom(int hubId, int projectId, int modelId, string fileName=null, bool needToFind = false)
+
+        protected int __GetProjectModelRevisionRandom(int hubId, int projectId, int modelId, string fileName = null,
+            bool needToFind = false)
         {
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             List<ModelRevision> listRevisions = projectModelRevisionApi
                 .GetProjectModelRevisionList(hubId, projectId, modelId);
-            if (listRevisions.Count > 0)
-            {
-                if (fileName != null)
-                {
-                    foreach (var revision in listRevisions)
-                    {
-                        if (revision.Name.ToLower() == fileName.ToLower())
-                        {
-                            return revision.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified model revision was not found: " + fileName);
-                    }
-                    Console.Write("The specified model revision was not found: " + fileName);
-                }
-                return listRevisions[0].Id;
-            }
-            throw new Exception("There is no revision for that model.");
+            
+            return __findSpecificObject(
+                listRevisions,
+                "Name",
+                fileName,
+                needToFind
+            );
         }
-        
-        protected int __GetProjectSheetRandom(int hubId, int projectId, string sheetName=null, bool needToFind = false)
+
+        protected int __GetProjectSheetRandom(int hubId, int projectId, string sheetName = null,
+            bool needToFind = false)
         {
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             List<Sheet> listSheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
-            if (listSheets.Count > 0)
-            {
-                if (sheetName != null)
-                {
-                    foreach (var sheet in listSheets)
-                    {
-                        if (sheet.Name.ToLower() == sheetName.ToLower())
-                        {
-                            return sheet.Id;
-                        }
-                    } 
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project sheet was not found: " + sheetName);
-                    }
-                    Console.Write("The specified project sheet was not found: " + sheetName);
-                }
-                return listSheets[0].Id;
-            }
-            throw new Exception("There is no sheet in that project.");
+                    
+            return __findSpecificObject(
+                listSheets,
+                "Name",
+                sheetName,
+                needToFind
+            );
         }
-        
-        protected int __GetProjectSheetFolderRandom(int hubId, int projectId, string sheetFolderName=null, bool needToFind = false)
+
+        protected int __GetProjectSheetFolderRandom(int hubId, int projectId, string sheetFolderName = null,
+            bool needToFind = false)
         {
             ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
             List<Folder> listFolders = projectSheetFolderApi.GetProjectSheetFolderList(hubId, projectId);
-            
-            if (listFolders.Count > 0)
-            {
-                if (sheetFolderName != null)
-                {
-                    foreach (var folder in listFolders)
-                    {
-                        if (folder.Name.ToLower() == sheetFolderName.ToLower())
-                        {
-                            return folder.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified sheet folder was not found: " + sheetFolderName);
-                    }
-                    Console.Write("The specified sheet folder was not found: " + sheetFolderName);
-                }
-                return listFolders[0].Id;
-            }
-            throw new Exception("There is no sheet folder in that project.");
+
+            return __findSpecificObject(
+                listFolders,
+                "Name",
+                sheetFolderName,
+                needToFind
+            );
         }
-        
-        protected int __GetProjectSheetRevisionRandom(int hubId, int projectId, int sheetId, string fileName=null, bool needToFind = false)
+
+        protected int __GetProjectSheetRevisionRandom(int hubId, int projectId, int sheetId, string fileName = null,
+            bool needToFind = false)
         {
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             List<SheetRevision> listRevisions = projectSheetRevisionApi
                 .GetProjectSheetRevisionList(hubId, projectId, sheetId);
+
             if (listRevisions.Count > 0)
             {
                 if (fileName != null)
                 {
                     foreach (var revision in listRevisions)
                     {
-                        if (revision.FileInfo != null)
+                        if (revision.FileInfo.Name.ToLower() == fileName.ToLower())
                         {
-                            if (revision.FileInfo.Name.ToLower() == fileName.ToLower())
+                            if (revision.Id != null)
                             {
-                                return revision.Id;
+                                return (int) revision.Id;
                             }
                         }
                     }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified sheet revision was not found: " + fileName);
-                    }
-                    Console.Write("The specified sheet revision was not found: " + fileName);
+                    // We did not find the specified revision. If we want to make an error, the assertion
+                    // will raise if needToFind is true. Otherwise, it will simply print the warning message.
+                    Assert.False(needToFind, "Error: the specified sheet revision was not found: " + fileName);
+                    Console.WriteLine("Warning: the specified sheet revision was not found: " + fileName);
                 }
-                return listRevisions[0].Id;
+
+                var id = listRevisions[0].Id;
+                if (id != null) return (int) id;
             }
-            throw new Exception("There is no revision for that sheet.");
+            throw new Exception("There is no revision for that sheet: " + sheetId);
         }
-        
-        protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId, string viewName=null, bool needToFind = false)
+
+        protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId,
+            string viewName = null, bool needToFind = false)
         {
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             List<Instance> listInstance = projectSheetRevisionInstanceApi
                 .GetProjectSheetRevisionInstanceList(hubId, projectId, sheetId, revisionId);
-            if (listInstance.Count > 0)
-            {
-                if (viewName != null)
-                {
-                    foreach (var instance in listInstance)
-                    {
-                        if (instance?.ViewName != null)
-                        {
-                            return instance.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified sheet revision instance was not found: " + viewName);
-                    }
-                    Console.Write("The specified sheet revision instance was not found: " + viewName);
-                }
-                return listInstance[0].Id;
-            }
-            throw new Exception("There is no instance for that revision.");
+       
+            return __findSpecificObject(
+                listInstance,
+                "ViewName",
+                viewName,
+                needToFind
+            );
         }
-        
-        protected int __GetIssueRandom(int hubId, int projectId, string issueTitle=null, bool needToFind = false)
+
+        protected int __GetIssueRandom(int hubId, int projectId, string issueTitle = null, bool needToFind = false)
         {
             IssueApi issueApi = new IssueApi();
-
             List<Issue> listIssues = issueApi.GetIssueList(hubId, projectId);
 
-            if (listIssues.Count > 0)
-            {
-                if (issueTitle != null)
-                {
-                    foreach (var issue in listIssues)
-                    {
-                        if (issue.Title.ToLower() == issueTitle.ToLower())
-                        {
-                            return issue.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified issue was not found: " + issueTitle);
-                    }
-                    Console.Write("The specified issue was not found: " + issueTitle);
-                }
-                return listIssues[0].Id;
-            }
-            throw new Exception("No issue for that project.");
-        }   
-        
-        protected int __GetArchivedIssueRandom(int hubId, int projectId, string issueTitle=null, bool needToFind = false)
+            return __findSpecificObject(
+                listIssues,
+                "Title",
+                issueTitle,
+                needToFind
+            );
+        }
+
+        protected int __GetArchivedIssueRandom(int hubId, int projectId, string issueTitle = null,
+            bool needToFind = false)
         {
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
-
             List<Issue> listArchivedIssues = issueArchivedApi.GetIssueArchivedList(hubId, projectId);
 
-            if (listArchivedIssues.Count > 0)
-            {
-                if (issueTitle != null)
-                {
-                    foreach (var archivedIssue in listArchivedIssues)
-                    {
-                        if (archivedIssue.Title.ToLower() == issueTitle.ToLower())
-                        {
-                            return archivedIssue.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified archived issue was not found: " + issueTitle);
-                    }
-                    Console.Write("The specified archived issue was not found: " + issueTitle);
-                }
-                return listArchivedIssues[0].Id;
-            }
-            throw new Exception("No archived issue for that project.");
+            return __findSpecificObject(
+                listArchivedIssues,
+                "Title",
+                issueTitle,
+                needToFind
+            );
         }
-        
-        protected int __GetIssueAttachmentRandom(int hubId, int projectId, int issueId, string attachmentName=null, bool needToFind = false)
+
+        protected int __GetIssueAttachmentRandom(int hubId, int projectId, int issueId, string attachmentName = null,
+            bool needToFind = false)
         {
             IssueAttachmentApi issueAttachmentApi = new IssueAttachmentApi();
 
             List<Issue.Attachment> listIssueAttachments = issueAttachmentApi
                 .GetIssueAttachmentList(hubId, projectId, issueId);
 
-            if (listIssueAttachments.Count > 0)
-            {
-                if (attachmentName != null)
-                {
-                    foreach (var attachment in listIssueAttachments)
-                    {
-                        if (attachment.Name.ToLower() == attachmentName.ToLower())
-                        {
-                            return attachment.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified issue attachment was not found: " + attachmentName);
-                    }
-                    Console.Write("The specified issue attachment was not found: " + attachmentName);
-                }
-                return listIssueAttachments[0].Id;
-            }
-            throw new Exception("No attachment for that issue.");
-        }  
-        
-        protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId, string commentValue=null, bool needToFind = false)
+            return __findSpecificObject(
+                listIssueAttachments,
+                "Name",
+                attachmentName,
+                needToFind
+            );
+        }
+
+        protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId, string commentValue = null,
+            bool needToFind = false)
         {
             IssueCommentApi issueCommentApi = new IssueCommentApi();
             List<BimComment> listIssueComments = issueCommentApi
                 .GetIssueCommentList(hubId, projectId, issueId);
 
-            if (listIssueComments.Count > 0)
-            {
-                if (commentValue != null)
-                {
-                    foreach (var comment in listIssueComments)
-                    {
-                        if (comment.Comment.ToLower() == commentValue.ToLower())
-                        {
-                            return comment.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified issue comment was not found: " + commentValue);
-                    }
-                    Console.Write("The specified issue comment was not found: " + commentValue);
-                }
-                return listIssueComments[0].Id;
-            }
-            throw new Exception("No comment for that issue.");
-        } 
-        
-        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId, string viewName=null, bool needToFind = false)
+            return __findSpecificObject(
+                listIssueComments,
+                "Comment",
+                commentValue,
+                needToFind
+            );
+        }
+
+        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId, string viewName = null,
+            bool needToFind = false)
         {
             IssueViewPointApi issueViewPointApi = new IssueViewPointApi();
 
             List<ViewPoint> listIssueViewPoints = issueViewPointApi
                 .GetIssueViewPointList(hubId, projectId, issueId);
 
-            if (listIssueViewPoints.Count > 0)
-            {
-                if (viewName != null)
-                {
-                    foreach (ViewPoint viewPoint in listIssueViewPoints)
-                    {
-                        if (viewPoint.ViewName == null)
-                        {
-                            throw new BTException("The viewpoint has been deleted for some reason. See the bug in the IssueViewPoint API.");
-                        }
-                        if (viewPoint.ViewName.ToLower() == viewName.ToLower())
-                        {
-                            return viewPoint.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified issue viewpoint was not found: " + viewName);
-                    }
-                    Console.Write("The specified issue viewpoint was not found: " + viewName);
-                }
-                return listIssueViewPoints[0].Id;
-            }
-            throw new Exception("No view point for that issue.");
-        } 
-        
-        protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId, string commentValue=null, bool needToFind = false)
+            return __findSpecificObject(
+                listIssueViewPoints,
+                "ViewName",
+                viewName,
+                needToFind
+            );
+        }
+
+        protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId,
+            string commentValue = null, bool needToFind = false)
         {
             IssueViewPointCommentApi issueViewPointCommentApi = new IssueViewPointCommentApi();
             List<BimComment> listIssueViewPointComments = issueViewPointCommentApi
                 .GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
+            
+            return __findSpecificObject(
+                listIssueViewPointComments,
+                "Comment",
+                commentValue,
+                needToFind
+            );
+        }
 
-            if (listIssueViewPointComments.Count > 0)
-            {
-                if (commentValue != null)
-                {
-                    foreach (var comment in listIssueViewPointComments)
-                    {
-                        if (comment.Comment.ToLower() == commentValue.ToLower())
-                        {
-                            return comment.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified viewpoint comment was not found: " + commentValue);
-                    }
-                    Console.Write("The specified viewpoint comment was not found: " + commentValue);
-                }
-                return listIssueViewPointComments[0].Id;
-            }
-            throw new Exception("No comment for that viewpoint.");
-        } 
-        
-        protected int __GetProjectDisciplineRandom(int hubId, int projectId, string name=null, bool needToFind = false)
+        protected int __GetProjectDisciplineRandom(int hubId, int projectId, string name = null,
+            bool needToFind = false)
         {
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
-
             List<Discipline> listProjectDisciplines = projectDisciplineApi
                 .GetProjectDisciplines(hubId, projectId);
 
-            if (listProjectDisciplines.Count > 0)
-            {
-                if (name != null)
-                {
-                    foreach (var discipline in listProjectDisciplines)
-                    {
-                        if (discipline.Name.ToLower() == name.ToLower())
-                        {
-                            return discipline.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project discipline was not found: " + name);
-                    }
-                    Console.Write("The specified project discipline was not found: " + name);
-                }
-                return listProjectDisciplines[0].Id;
-            }
-            throw new Exception("No discipline for that project.");
-        } 
-        
-        protected int __GetProjectPhaseRandom(int hubId, int projectId, string name=null, bool needToFind = false)
+            return __findSpecificObject(
+                listProjectDisciplines,
+                "Name",
+                name,
+                needToFind
+            );
+        }
+
+        protected int __GetProjectPhaseRandom(int hubId, int projectId, string name = null, bool needToFind = false)
         {
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
-
             List<Phase> listProjectPhases = projectPhaseApi
                 .GetProjectPhases(hubId, projectId);
 
-            if (listProjectPhases.Count > 0)
-            {
-                if (name != null)
-                {
-                    foreach (var phase in listProjectPhases)
-                    {
-                        if (phase.Name.ToLower() == name.ToLower())
-                        {
-                            return phase.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project phase was not found: " + name);
-                    }
-                    Console.Write("The specified project phase was not found: " + name);
-                }
-                return listProjectPhases[0].Id;
-            }
-            throw new Exception("No phase for that project.");
-        } 
-        
-        protected int __GetProjectPriorityRandom(int hubId, int projectId, string name=null, bool needToFind = false)
+            return __findSpecificObject(
+                listProjectPhases,
+                "Name",
+                name,
+                needToFind
+            );
+        }
+
+        protected int __GetProjectPriorityRandom(int hubId, int projectId, string name = null, bool needToFind = false)
         {
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
-
             List<Priority> listProjectPriorities = projectPriorityApi
                 .GetProjectPriorities(hubId, projectId);
 
-            if (listProjectPriorities.Count > 0)
-            {
-                if (name != null)
-                {
-                    foreach (var priority in listProjectPriorities)
-                    {
-                        if (priority.Name.ToLower() == name.ToLower())
-                        {
-                            return priority.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project priority was not found: " + name);
-                    }
-                    Console.Write("The specified project priority was not found: " + name);
-                }
-                return listProjectPriorities[0].Id;
-            }
-            throw new Exception("No priority for that project.");
-        } 
-        
-        protected int __GetProjectStatusRandom(int hubId, int projectId, string name=null, bool needToFind = false)
+            return __findSpecificObject(
+                listProjectPriorities,
+                "Name",
+                name,
+                needToFind
+            );
+        }
+
+        protected int __GetProjectStatusRandom(int hubId, int projectId, string name = null, bool needToFind = false)
         {
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
-
             List<Status> listProjectStatuses = projectStatusApi
                 .GetProjectStatuses(hubId, projectId);
+            
+            return __findSpecificObject(
+                listProjectStatuses,
+                "Name",
+                name,
+                needToFind
+            );
+        }
 
-            if (listProjectStatuses.Count > 0)
-            {
-                if (name != null)
-                {
-                    foreach (var status in listProjectStatuses)
-                    {
-                        if (status.Name.ToLower() == name.ToLower())
-                        {
-                            return status.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project status was not found: " + name);
-                    }
-                    Console.Write("The specified project status was not found: " + name);
-                }
-                return listProjectStatuses[0].Id;
-            }
-           throw new Exception("No status for that project.");
-        } 
-        
-        protected int __GetProjectTypeRandom(int hubId, int projectId, string name=null, bool needToFind = false)
+        protected int __GetProjectTypeRandom(int hubId, int projectId, string name = null, bool needToFind = false)
         {
             ProjectTypeApi projectTypeApi = new ProjectTypeApi();
-
             List<BimType> listProjectTypes = projectTypeApi
                 .GetProjectTypes(hubId, projectId);
 
-            if (listProjectTypes.Count > 0)
-            {
-                if (name != null)
-                {
-                    foreach (var type in listProjectTypes)
-                    {
-                        if (type.Name.ToLower() == name.ToLower())
-                        {
-                            return type.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project type was not found: " + name);
-                    }
-                    Console.Write("The specified project type was not found: " + name);
-                }
-                return listProjectTypes[0].Id;
-            }
-            throw new Exception("No type in that project.");
-        } 
-        
-        protected int __GetProjectZoneRandom(int hubId, int projectId, string name=null, bool needToFind = false)
+            return __findSpecificObject(
+                listProjectTypes,
+                "Name",
+                name,
+                needToFind
+            );
+        }
+
+        protected int __GetProjectZoneRandom(int hubId, int projectId, string name = null, bool needToFind = false)
         {
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
-
             List<Zone> listProjectZones = projectZoneApi
                 .GetProjectZones(hubId, projectId);
 
-            if (listProjectZones.Count > 0)
-            {
-                if (name != null)
-                {
-                    foreach (var zone in listProjectZones)
-                    {
-                        if (zone.Name.ToLower() == name.ToLower())
-                        {
-                            return zone.Id;
-                        }
-                    }
-                    if (needToFind)
-                    {
-                        Assert.True(false, "The specified project zone was not found: " + name);
-                    }
-                    Console.Write("The specified project zone was not found: " + name);
-                }
-                return listProjectZones[0].Id;
-            }
-            throw new Exception("No zone in that project.");
-        } 
+            return __findSpecificObject(
+                listProjectZones,
+                "Name",
+                name,
+                needToFind
+            );
+        }
     }
 }

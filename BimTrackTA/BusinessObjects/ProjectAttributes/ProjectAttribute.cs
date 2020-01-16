@@ -8,7 +8,7 @@ namespace SeleniumTest.BusinessObjects
         // This list can only be used if you have set the project attribute type to 'custom' or 'predefined'
         public List<AttributeValue> ProjectCustomAttributeValues { get; set; }
         public List<string> ProjectCustomAttributeTextValues { get; set; }
-        public int Id { get; set; }
+        public int? Id { get; set; }
         // Values can be 'predefined' or 'text'
         public string Type { get; set; }
         public string Name { get; set; }
@@ -20,12 +20,12 @@ namespace SeleniumTest.BusinessObjects
             newValueObj.Color = color;
             newValueObj.Name = name;
             
-            if (this.ProjectCustomAttributeValues == null)
+            if (ProjectCustomAttributeValues == null)
             {
-                this.ProjectCustomAttributeValues = new List<AttributeValue>();
+                ProjectCustomAttributeValues = new List<AttributeValue>();
             }
-            this.ProjectCustomAttributeValues.Add(newValueObj);
-            return this.ProjectCustomAttributeValues.Count;
+            ProjectCustomAttributeValues.Add(newValueObj);
+            return ProjectCustomAttributeValues.Count;
         }
     }
 }

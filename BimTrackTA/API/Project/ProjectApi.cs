@@ -16,6 +16,10 @@ namespace BimTrackTA.API
 
        public int CreateHubProject(int hubId, Project project)
        {
+           // N.B. : It is not possible to delete a project from the API. Thus, you either need to use the
+           //        GUI framework to delete it, or use the browser. I suggest you do that quite often so that
+           //        you don't end up with 20 thousands projects of the same name.
+           
            // Validate that the object is fine
            ValidateOperation(project);
            

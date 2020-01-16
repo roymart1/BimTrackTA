@@ -5,10 +5,10 @@ namespace SeleniumTest.BusinessObjects
 {
     public class Project
     {
-        public int Id { get; set; }
-        public int TotalIssues { get; set; }
+        public int? Id { get; set; }
+        public int? TotalIssues { get; set; }
         // Only used for creation: the id of the template from which you are creating the project
-        public int ProjectTemplateId { get; set; }
+        public int? ProjectTemplateId { get; set; }
         
         public List<String> IssuesGroups { get; set; }
         public List<Discipline> Disciplines { get; set; }
@@ -28,8 +28,8 @@ namespace SeleniumTest.BusinessObjects
 
         public class Settings
         {
-            public int DefaultDueDateDays { get; set; }
-            public int ClosedProjectIssueStatusId { get; set; }
+            public int? DefaultDueDateDays { get; set; }
+            public int? ClosedProjectIssueStatusId { get; set; }
             public int? DefaultProjectPhaseId { get; set; }
             public int? DefaultProjectZoneId { get; set; }
             public int? DefaultProjectIssueLabelId { get; set; }
@@ -37,18 +37,18 @@ namespace SeleniumTest.BusinessObjects
             public int? DefaultProjectIssueStatusId { get; set; }
             public int? DefaultProjectIssueTypeId { get; set; }
             public string DefaultColorAttributeProperty { get; set; }
-            public int DefaultColorCustomAttributeId { get; set; }
-            public bool IssueMandatoryAttributesZone { get; set; }
-            public bool IssueMandatoryAttributesPhase { get; set; }
-            public bool IssueMandatoryAttributesAssignedTo { get; set; }
-            public bool IssueMandatoryAttributesPriority { get; set; }
-            public bool IssueMandatoryAttributesLabel { get; set; }
-            public bool IssueMandatoryAttributesTeam { get; set; }
-            public bool IssueMandatoryAttributesIssueGroup { get; set; }
-            public bool IssueMandatoryAttributesDueDate { get; set; }
-            public bool IssueMandatoryAttributesNotify { get; set; }
-            public bool IssueMandatoryAttributesStatus { get; set; }
-            public bool IssueMandatoryAttributesType { get; set; }
+            public int? DefaultColorCustomAttributeId { get; set; }
+            public bool? IssueMandatoryAttributesZone { get; set; }
+            public bool? IssueMandatoryAttributesPhase { get; set; }
+            public bool? IssueMandatoryAttributesAssignedTo { get; set; }
+            public bool? IssueMandatoryAttributesPriority { get; set; }
+            public bool? IssueMandatoryAttributesLabel { get; set; }
+            public bool? IssueMandatoryAttributesTeam { get; set; }
+            public bool? IssueMandatoryAttributesIssueGroup { get; set; }
+            public bool? IssueMandatoryAttributesDueDate { get; set; }
+            public bool? IssueMandatoryAttributesNotify { get; set; }
+            public bool? IssueMandatoryAttributesStatus { get; set; }
+            public bool? IssueMandatoryAttributesType { get; set; }
             public List<int> IssueMandatoryCustomAttributeId { get; set; }
             public List<DefaultAttributeValue> DefaultProjectCustomAttributes { get; set; }
         }

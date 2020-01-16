@@ -75,7 +75,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectId = __GetProjectRandom(hubId, "AutoUpdatedNewPrj", true);
             int sheetId = __GetProjectSheetRandom(hubId, projectId, "AutoSheetForInstanceTest", true);
             int revisionId = __GetProjectSheetRevisionRandom(hubId, projectId, sheetId, "AutoSheetRevisionForInstanceTest.pdf", true);
-            int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId);
+            int instanceId = __GetProjectSheetRevisionInstanceRandom(hubId, projectId, sheetId, revisionId, "AutoRevisionInstance", true);
 
             Instance instance = new Instance {ViewName = "UpdatedRevisionInstance"};
 

@@ -99,6 +99,18 @@ namespace BimTrackTA.API
             {
                 throw new CustomObjectAttributeException("a title", "project issue");
             }
+            if (issue.PriorityId == null)
+            {
+                throw new CustomObjectAttributeException("a valid priority id", "project issue");
+            }
+            if (issue.StatusId == null)
+            {
+                throw new CustomObjectAttributeException("a valid status id", "project issue");
+            }
+            if (issue.TypeId == null)
+            {
+                throw new CustomObjectAttributeException("a valid type id", "project issue");
+            }
         }
     }
 }

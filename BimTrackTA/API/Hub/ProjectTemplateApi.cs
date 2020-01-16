@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using RestSharp;
 using SeleniumTest.BusinessObjects;
 using SeleniumTest.Common.Exceptions;
@@ -49,6 +50,10 @@ namespace BimTrackTA.API
             if (template.Name == null)
             {
                 throw new CustomObjectAttributeException("a name", "project template");
+            }
+            if (template.SourceProjectId == null)
+            {
+                throw new CustomObjectAttributeException("a valid source project id", "project template");
             }
         }
     }
