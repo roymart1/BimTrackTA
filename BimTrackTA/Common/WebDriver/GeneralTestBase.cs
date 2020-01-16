@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using BimTrackTA.API;
+using NUnit.Framework;
 using SeleniumTest.BusinessObjects;
 using SeleniumTest.Common;
+using SeleniumTest.Common.Exceptions;
 
 namespace BimTrackTA.Common.WebDriver
 {
@@ -13,7 +15,7 @@ namespace BimTrackTA.Common.WebDriver
             CTX.SetKeyChainId();
         }
         
-        protected int __GetHubRandom(string hubName = null)
+        protected int __GetHubRandom(string hubName = null, bool needToFind = false)
         {
             HubApi hubApiApi = new HubApi();
             List<Hub> listHub = hubApiApi.GetHubList();
@@ -29,6 +31,11 @@ namespace BimTrackTA.Common.WebDriver
                             return hub.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified hub was not found.");
+                    }
+                    Console.Write("The specified hub was not found.");
                 }
                 // if none found the first one will be
                 return listHub[0].Id;
@@ -36,7 +43,7 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("No hub found.");
         }
 
-        protected int __GetProjectRandom(int hubId, string projectName = null)
+        protected int __GetProjectRandom(int hubId, string projectName = null, bool needToFind = false)
         {
             // Go on with the retrieval of the project list 
             ProjectApi projectApi = new ProjectApi();
@@ -53,6 +60,11 @@ namespace BimTrackTA.Common.WebDriver
                             return project.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project was not found.");
+                    }
+                    Console.Write("The specified project was not found.");
                 }
                 // if none found the first one will be
                 return listProject[0].Id;
@@ -60,7 +72,7 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("No project for that hub.");
         }
 
-        protected int __GetTeamRandom(int hubId, int projectId, string teamName=null)
+        protected int __GetTeamRandom(int hubId, int projectId, string teamName=null, bool needToFind = false)
         {
             ProjectTeamApi projectApi = new ProjectTeamApi();
             List<Team> listTeam = projectApi.GetHubProjectTeams(hubId, projectId);
@@ -76,6 +88,11 @@ namespace BimTrackTA.Common.WebDriver
                             return team.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project team was not found.");
+                    }
+                    Console.Write("The specified project team was not found.");
                 }            
             
                 return listTeam[0].Id;
@@ -83,7 +100,7 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("No team for that project.");
         }
         
-        protected int __GetUserRandom(int hubId, int projectId, string userEmail=null)
+        protected int __GetUserRandom(int hubId, int projectId, string userEmail=null, bool needToFind = false)
         {
             ProjectUserApi projectApi = new ProjectUserApi();
             List<ProjectUser> listUsers = projectApi.GetHubProjectUsers(hubId, projectId);
@@ -99,6 +116,11 @@ namespace BimTrackTA.Common.WebDriver
                             return user.user.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified user was not found.");
+                    }
+                    Console.Write("The specified user was not found.");
                 }            
             
                 return listUsers[0].user.Id;
@@ -106,7 +128,7 @@ namespace BimTrackTA.Common.WebDriver
             throw new Exception("No user for that project.");
         }   
        
-        protected int __GetHubUserRandom(int hubId, string userEmail=null)
+        protected int __GetHubUserRandom(int hubId, string userEmail=null, bool needToFind = false)
         {
             HubUserApi hubUserApi = new HubUserApi();
             List<HubUser> listUsers = hubUserApi.GetHubUsers(hubId);
@@ -121,13 +143,18 @@ namespace BimTrackTA.Common.WebDriver
                             return user.User.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified hub user was not found.");
+                    }
+                    Console.Write("The specified hub user was not found.");
                 }
                 return listUsers[0].User.Id;
             }
             throw new Exception("No user for that hub.");
         }
 
-        protected int __GetHubProjectTemplateRandom(int hubId, string tmplName=null)
+        protected int __GetHubProjectTemplateRandom(int hubId, string tmplName=null, bool needToFind = false)
         {
             ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
             List<ProjectTemplate> listPrjTemplates = projectTemplateApi.GetHubProjectTemplates(hubId);
@@ -143,13 +170,18 @@ namespace BimTrackTA.Common.WebDriver
                             return tmpl.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project template was not found.");
+                    }
+                    Console.Write("The specified project template was not found.");
                 }
                 return listPrjTemplates[0].Id;
             }
             throw new Exception("No project template for that hub.");
         }   
 
-        protected int __GetHubProjectAttributeRandom(int hubId, int projectId, string attrName=null)
+        protected int __GetHubProjectAttributeRandom(int hubId, int projectId, string attrName=null, bool needToFind = false)
         {
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
 
@@ -166,13 +198,18 @@ namespace BimTrackTA.Common.WebDriver
                             return tmpl.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project attribute was not found.");
+                    }
+                    Console.Write("The specified project attribute was not found.");
                 }
                 return listPrjAttributes[0].Id;
             }
             throw new Exception("No attribute for that project.");
         }   
         
-        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId, string attrName=null)
+        protected int __GetHubProjectAttributeValueRandom(int hubId, int projectId, int attrId, string attrName=null, bool needToFind = false)
         {
             ProjectAttributeApi projectAttributeApi = new ProjectAttributeApi();
 
@@ -190,13 +227,18 @@ namespace BimTrackTA.Common.WebDriver
                             return attrVal.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project attribute value was not found.");
+                    }
+                    Console.Write("The specified project attribute value was not found.");
                 }
                 return prjAttribute.ProjectCustomAttributeValues[0].Id;
             }
             throw new Exception("Attribute value not found.");
         }
 
-        protected int __GetProjectModelRandom(int hubId, int projectId, string modelName=null)
+        protected int __GetProjectModelRandom(int hubId, int projectId, string modelName=null, bool needToFind = false)
         {
             // IMPORTANT: The model name is the name of the file that has been sent, not the name of the model object.
             ProjectModelApi projectModelApi = new ProjectModelApi();
@@ -212,13 +254,18 @@ namespace BimTrackTA.Common.WebDriver
                             return model.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project model was not found.");
+                    }
+                    Console.Write("The specified project model was not found.");
                 }
                 return listModels[0].Id;
             }
             throw new Exception("There is no model in that project.");
         }
         
-        protected int __GetProjectModelFolderRandom(int hubId, int projectId, string modelFolderName=null)
+        protected int __GetProjectModelFolderRandom(int hubId, int projectId, string modelFolderName=null, bool needToFind = false)
         {
             ProjectModelFolderApi projectModelFolderApi = new ProjectModelFolderApi();
             List<Folder> listFolders = projectModelFolderApi.GetProjectModelFolderList(hubId, projectId);
@@ -233,13 +280,18 @@ namespace BimTrackTA.Common.WebDriver
                             return folder.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified model folder was not found.");
+                    }
+                    Console.Write("The specified model folder was not found.");
                 }
                 return listFolders[0].Id;
             }
             throw new Exception("There is no model folder in that project.");
         }
         
-        protected int __GetProjectModelRevisionRandom(int hubId, int projectId, int modelId, string fileName=null)
+        protected int __GetProjectModelRevisionRandom(int hubId, int projectId, int modelId, string fileName=null, bool needToFind = false)
         {
             ProjectModelRevisionApi projectModelRevisionApi = new ProjectModelRevisionApi();
             List<Revision> listRevisions = projectModelRevisionApi
@@ -258,31 +310,44 @@ namespace BimTrackTA.Common.WebDriver
                             }
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified model revision was not found.");
+                    }
+                    Console.Write("The specified model revision was not found.");
                 }
                 return listRevisions[0].Id;
             }
             throw new Exception("There is no revision for that model.");
         }
         
-        protected int __GetProjectSheetRandom(int hubId, int projectId, string sheetName=null)
+        protected int __GetProjectSheetRandom(int hubId, int projectId, string sheetName=null, bool needToFind = false)
         {
             ProjectSheetApi projectSheetApi = new ProjectSheetApi();
             List<Sheet> listSheets = projectSheetApi.GetProjectSheetList(hubId, projectId);
             if (listSheets.Count > 0)
             {
-                foreach (var sheet in listSheets)
+                if (sheetName != null)
                 {
-                    if (sheet.Name.ToLower() == sheetName.ToLower())
+                    foreach (var sheet in listSheets)
                     {
-                        return sheet.Id;
+                        if (sheet.Name.ToLower() == sheetName.ToLower())
+                        {
+                            return sheet.Id;
+                        }
+                    } 
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project sheet was not found.");
                     }
+                    Console.Write("The specified project sheet was not found.");
                 }
                 return listSheets[0].Id;
             }
             throw new Exception("There is no sheet in that project.");
         }
         
-        protected int __GetProjectSheetFolderRandom(int hubId, int projectId, string sheetFolderName=null)
+        protected int __GetProjectSheetFolderRandom(int hubId, int projectId, string sheetFolderName=null, bool needToFind = false)
         {
             ProjectSheetFolderApi projectSheetFolderApi = new ProjectSheetFolderApi();
             List<Folder> listFolders = projectSheetFolderApi.GetProjectSheetFolderList(hubId, projectId);
@@ -298,13 +363,18 @@ namespace BimTrackTA.Common.WebDriver
                             return folder.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified sheet folder was not found.");
+                    }
+                    Console.Write("The specified sheet folder was not found.");
                 }
                 return listFolders[0].Id;
             }
             throw new Exception("There is no sheet folder in that project.");
         }
         
-        protected int __GetProjectSheetRevisionRandom(int hubId, int projectId, int sheetId, string fileName=null)
+        protected int __GetProjectSheetRevisionRandom(int hubId, int projectId, int sheetId, string fileName=null, bool needToFind = false)
         {
             ProjectSheetRevisionApi projectSheetRevisionApi = new ProjectSheetRevisionApi();
             List<Revision> listRevisions = projectSheetRevisionApi
@@ -323,13 +393,18 @@ namespace BimTrackTA.Common.WebDriver
                             }
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified sheet revision was not found.");
+                    }
+                    Console.Write("The specified sheet revision was not found.");
                 }
                 return listRevisions[0].Id;
             }
             throw new Exception("There is no revision for that sheet.");
         }
         
-        protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId, string viewName=null)
+        protected int __GetProjectSheetRevisionInstanceRandom(int hubId, int projectId, int sheetId, int revisionId, string viewName=null, bool needToFind = false)
         {
             ProjectSheetRevisionInstanceApi projectSheetRevisionInstanceApi = new ProjectSheetRevisionInstanceApi();
             List<Instance> listInstance = projectSheetRevisionInstanceApi
@@ -345,13 +420,18 @@ namespace BimTrackTA.Common.WebDriver
                             return instance.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified sheet revision instance was not found.");
+                    }
+                    Console.Write("The specified sheet revision instance was not found.");
                 }
                 return listInstance[0].Id;
             }
             throw new Exception("There is no instance for that revision.");
         }
         
-        protected int __GetIssueRandom(int hubId, int projectId, string issueTitle=null)
+        protected int __GetIssueRandom(int hubId, int projectId, string issueTitle=null, bool needToFind = false)
         {
             IssueApi issueApi = new IssueApi();
 
@@ -368,13 +448,18 @@ namespace BimTrackTA.Common.WebDriver
                             return issue.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified issue was not found.");
+                    }
+                    Console.Write("The specified issue was not found.");
                 }
                 return listIssues[0].Id;
             }
             throw new Exception("No issue for that project.");
         }   
         
-        protected int __GetArchivedIssueRandom(int hubId, int projectId, string issueTitle=null)
+        protected int __GetArchivedIssueRandom(int hubId, int projectId, string issueTitle=null, bool needToFind = false)
         {
             IssueArchivedApi issueArchivedApi = new IssueArchivedApi();
 
@@ -391,13 +476,18 @@ namespace BimTrackTA.Common.WebDriver
                             return archivedIssue.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified archived issue was not found.");
+                    }
+                    Console.Write("The specified archived issue was not found.");
                 }
                 return listArchivedIssues[0].Id;
             }
             throw new Exception("No archived issue for that project.");
         }
         
-        protected int __GetIssueAttachmentRandom(int hubId, int projectId, int issueId, string attachmentName=null)
+        protected int __GetIssueAttachmentRandom(int hubId, int projectId, int issueId, string attachmentName=null, bool needToFind = false)
         {
             IssueAttachmentApi issueAttachmentApi = new IssueAttachmentApi();
 
@@ -415,13 +505,18 @@ namespace BimTrackTA.Common.WebDriver
                             return attachment.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified issue attachment was not found.");
+                    }
+                    Console.Write("The specified issue attachment was not found.");
                 }
                 return listIssueAttachments[0].Id;
             }
             throw new Exception("No attachment for that issue.");
         }  
         
-        protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId, string commentValue=null)
+        protected int __GetIssueCommentRandom(int hubId, int projectId, int issueId, string commentValue=null, bool needToFind = false)
         {
             IssueCommentApi issueCommentApi = new IssueCommentApi();
             List<BimComment> listIssueComments = issueCommentApi
@@ -438,13 +533,18 @@ namespace BimTrackTA.Common.WebDriver
                             return comment.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified issue comment was not found.");
+                    }
+                    Console.Write("The specified issue comment was not found.");
                 }
                 return listIssueComments[0].Id;
             }
             throw new Exception("No comment for that issue.");
         } 
         
-        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId, string viewName=null)
+        protected int __GetIssueViewPointRandom(int hubId, int projectId, int issueId, string viewName=null, bool needToFind = false)
         {
             IssueViewPointApi issueViewPointApi = new IssueViewPointApi();
 
@@ -462,13 +562,18 @@ namespace BimTrackTA.Common.WebDriver
                             return viewPoint.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified issue viewpoint was not found.");
+                    }
+                    Console.Write("The specified issue viewpoint was not found.");
                 }
                 return listIssueViewPoints[0].Id;
             }
             throw new Exception("No view point for that issue.");
         } 
         
-        protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId, string commentValue=null)
+        protected int __GetIssueViewPointCommentRandom(int hubId, int projectId, int issueId, int viewPointId, string commentValue=null, bool needToFind = false)
         {
             IssueViewPointCommentApi issueViewPointCommentApi = new IssueViewPointCommentApi();
             List<BimComment> listIssueViewPointComments = issueViewPointCommentApi
@@ -485,13 +590,18 @@ namespace BimTrackTA.Common.WebDriver
                             return comment.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified viewpoint comment was not found.");
+                    }
+                    Console.Write("The specified viewpoint comment was not found.");
                 }
                 return listIssueViewPointComments[0].Id;
             }
             throw new Exception("No comment for that viewpoint.");
         } 
         
-        protected int __GetProjectDisciplineRandom(int hubId, int projectId, string name=null)
+        protected int __GetProjectDisciplineRandom(int hubId, int projectId, string name=null, bool needToFind = false)
         {
             ProjectDisciplineApi projectDisciplineApi = new ProjectDisciplineApi();
 
@@ -509,13 +619,18 @@ namespace BimTrackTA.Common.WebDriver
                             return discipline.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project discipline was not found.");
+                    }
+                    Console.Write("The specified project discipline was not found.");
                 }
                 return listProjectDisciplines[0].Id;
             }
             throw new Exception("No discipline for that project.");
         } 
         
-        protected int __GetProjectPhaseRandom(int hubId, int projectId, string name=null)
+        protected int __GetProjectPhaseRandom(int hubId, int projectId, string name=null, bool needToFind = false)
         {
             ProjectPhaseApi projectPhaseApi = new ProjectPhaseApi();
 
@@ -533,13 +648,18 @@ namespace BimTrackTA.Common.WebDriver
                             return phase.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project phase was not found.");
+                    }
+                    Console.Write("The specified project phase was not found.");
                 }
                 return listProjectPhases[0].Id;
             }
             throw new Exception("No phase for that project.");
         } 
         
-        protected int __GetProjectPriorityRandom(int hubId, int projectId, string name=null)
+        protected int __GetProjectPriorityRandom(int hubId, int projectId, string name=null, bool needToFind = false)
         {
             ProjectPriorityApi projectPriorityApi = new ProjectPriorityApi();
 
@@ -557,13 +677,18 @@ namespace BimTrackTA.Common.WebDriver
                             return priority.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project priority was not found.");
+                    }
+                    Console.Write("The specified project priority was not found.");
                 }
                 return listProjectPriorities[0].Id;
             }
             throw new Exception("No priority for that project.");
         } 
         
-        protected int __GetProjectStatusRandom(int hubId, int projectId, string name=null)
+        protected int __GetProjectStatusRandom(int hubId, int projectId, string name=null, bool needToFind = false)
         {
             ProjectStatusApi projectStatusApi = new ProjectStatusApi();
 
@@ -581,13 +706,18 @@ namespace BimTrackTA.Common.WebDriver
                             return status.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project status was not found.");
+                    }
+                    Console.Write("The specified project status was not found.");
                 }
                 return listProjectStatuses[0].Id;
             }
            throw new Exception("No status for that project.");
         } 
         
-        protected int __GetProjectTypeRandom(int hubId, int projectId, string name=null)
+        protected int __GetProjectTypeRandom(int hubId, int projectId, string name=null, bool needToFind = false)
         {
             ProjectTypeApi projectTypeApi = new ProjectTypeApi();
 
@@ -605,13 +735,18 @@ namespace BimTrackTA.Common.WebDriver
                             return type.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project type was not found.");
+                    }
+                    Console.Write("The specified project type was not found.");
                 }
                 return listProjectTypes[0].Id;
             }
             throw new Exception("No type in that project.");
         } 
         
-        protected int __GetProjectZoneRandom(int hubId, int projectId, string name=null)
+        protected int __GetProjectZoneRandom(int hubId, int projectId, string name=null, bool needToFind = false)
         {
             ProjectZoneApi projectZoneApi = new ProjectZoneApi();
 
@@ -629,6 +764,11 @@ namespace BimTrackTA.Common.WebDriver
                             return zone.Id;
                         }
                     }
+                    if (needToFind)
+                    {
+                        Assert.True(true, "The specified project zone was not found.");
+                    }
+                    Console.Write("The specified project zone was not found.");
                 }
                 return listProjectZones[0].Id;
             }
