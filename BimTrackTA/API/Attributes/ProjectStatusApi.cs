@@ -14,6 +14,12 @@ namespace BimTrackTA.API
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + STATUS_ROUTE;
             return Perform_Get<List<Status>>(connStr);
         }
+        
+        public Status GetProjectStatus(int hubId, int projectId, int statusId)
+        {
+            List<Status> priorities = GetProjectStatuses(hubId, projectId);
+            return Get_Object_From_List(priorities, statusId);
+        }
 
         public int CreateProjectStatus(int hubId, int projectId, Status status)
         {

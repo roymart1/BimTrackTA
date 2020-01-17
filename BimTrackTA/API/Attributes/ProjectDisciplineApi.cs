@@ -15,6 +15,12 @@ namespace BimTrackTA.API
             return Perform_Get<List<Discipline>>(connStr);
         }
 
+        public Discipline GetProjectDiscipline(int hubId, int projectId, int disciplineId)
+        {
+            List<Discipline> disciplines = GetProjectDisciplines(hubId, projectId);
+            return Get_Object_From_List(disciplines, disciplineId);
+        }
+
         public int CreateProjectDiscipline(int hubId, int projectId, Discipline discipline)
         {
             // Validate that the object is fine

@@ -23,10 +23,8 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int projectTemplateId = projectTemplateApi.CreateHubProjectTemplate(hubId, projectTemplate);
 
             // Make the assertion
-            List<ProjectTemplate> remoteProjectTemplates = projectTemplateApi.GetHubProjectTemplates(hubId);
-            // TODO: Make a function that finds a specific object from a list (for all endpoints)
-            ProjectTemplate remoteProjectTemplate =
-                remoteProjectTemplates.Find(template => template.Id == projectTemplateId);
+            ProjectTemplate remoteProjectTemplate = projectTemplateApi.GetHubProjectTemplate(hubId, projectTemplateId);
+
             Assert.True(remoteProjectTemplate.Name == projectTemplate.Name,
                 "Invalid project template name. Expected '" + projectTemplate.Name + "', got '" +
                 remoteProjectTemplate.Name + "'.");
@@ -38,7 +36,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
             int hubId = __GetHubRandom();
             ProjectTemplateApi prjtemplateApi = new ProjectTemplateApi();
             List<ProjectTemplate> projectTemplates = prjtemplateApi.GetHubProjectTemplates(hubId);
-            
+
             // Make the assertion
             Assert.True(projectTemplates.Count > 0, "No project template found!");
         }
@@ -51,7 +49,7 @@ namespace BimTrackTA.Tests.NUnitTests.API
 
             ProjectTemplateApi projectTemplateApi = new ProjectTemplateApi();
             projectTemplateApi.DeleteHubProjectTemplate(hubId, prjTmplId);
-            
+
             // Make the assertion
             List<ProjectTemplate> projectTemplates = projectTemplateApi.GetHubProjectTemplates(hubId);
             Assert.True(projectTemplates.Find(projectTemplate => projectTemplate.Id == prjTmplId) == null,

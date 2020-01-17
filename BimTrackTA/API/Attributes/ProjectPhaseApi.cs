@@ -14,6 +14,12 @@ namespace BimTrackTA.API
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + PHASE_ROUTE;
             return Perform_Get<List<Phase>>(connStr);
         }
+        
+        public Phase GetProjectPhase(int hubId, int projectId, int phaseId)
+        {
+            List<Phase> phases = GetProjectPhases(hubId, projectId);
+            return Get_Object_From_List(phases, phaseId);
+        }
 
         public int CreateProjectPhase(int hubId, int projectId, Phase phase)
         {

@@ -16,6 +16,13 @@ namespace BimTrackTA.API
             return Perform_Get<List<BimComment>>(connStr);
         }
 
+        public BimComment GetIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId,
+            int commentId)
+        {
+            List<BimComment> bimComments = GetIssueViewPointCommentList(hubId, projectId, issueId, viewPointId);
+            return Get_Object_From_List(bimComments, commentId);
+        }
+
         public int CreateIssueViewPointComment(int hubId, int projectId, int issueId, int viewPointId, BimComment comment)
         {
             // Validate that the object is fine

@@ -15,6 +15,12 @@ namespace BimTrackTA.API
                              attId + "/attributevalues";
             return Perform_Get<List<AttributeValue>>(connStr);
         }
+
+        public AttributeValue GetProjectAttributeValue(int hubId, int projectId, int attId, int attrValId)
+        {
+            List<AttributeValue> attributeValues = GetProjectAttributeValues(hubId, projectId, attId);
+            return Get_Object_From_List(attributeValues, attrValId);
+        }
         
         public int CreateProjectAttributeValue(int hubId, int projectId, int attrId, 
             AttributeValue prjAttrVal)

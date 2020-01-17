@@ -17,6 +17,12 @@ namespace BimTrackTA.API
             return Perform_Get<List<ProjectTemplate>>(connStr);
         }
 
+        public ProjectTemplate GetHubProjectTemplate(int hubId, int projectTemplateId)
+        {
+            List<ProjectTemplate> projectTemplates = GetHubProjectTemplates(hubId);
+            return Get_Object_From_List(projectTemplates, projectTemplateId);
+        }
+
 
         public int CreateHubProjectTemplate(int hubId, ProjectTemplate template)
         {

@@ -15,6 +15,12 @@ namespace BimTrackTA.API
             return Perform_Get<List<ProjectUser>>(connStr);
         }
 
+        public ProjectUser GetHubProjectUser(int hubId, int projectId, int userId)
+        {
+            List<ProjectUser> projectUsers = GetHubProjectUsers(hubId, projectId);
+            return projectUsers.Find(user => user.User.Id == userId);
+        }
+
         public int CreateHubProjectUser(int hubId, int projectId, ProjectUser user)
         {
             // Validate that the object is fine

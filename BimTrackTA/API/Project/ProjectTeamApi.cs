@@ -15,6 +15,12 @@ namespace BimTrackTA.API
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + TEAM_ROUTE;
             return Perform_Get<List<Team>>(connStr);
         }
+
+        public Team GetHubProjectTeam(int hubId, int projectId, int teamId)
+        {
+            List<Team> teams = GetHubProjectTeams(hubId, projectId);
+            return Get_Object_From_List(teams, teamId);
+        }
         
         
         public int CreateHubProjectTeam(int hubId, int projectId, Team team)

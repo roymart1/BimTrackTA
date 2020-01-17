@@ -14,6 +14,12 @@ namespace BimTrackTA.API
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + PRIO_ROUTE;
             return Perform_Get<List<Priority>>(connStr);
         }
+        
+        public Priority GetProjectPriority(int hubId, int projectId, int priorityId)
+        {
+            List<Priority> priorities = GetProjectPriorities(hubId, projectId);
+            return Get_Object_From_List(priorities, priorityId);
+        }
 
         public int CreateProjectPriority(int hubId, int projectId, Priority priority)
         {

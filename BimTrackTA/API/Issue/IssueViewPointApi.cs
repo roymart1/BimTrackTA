@@ -10,7 +10,7 @@ namespace BimTrackTA.API
     {
         public List<ViewPoint> GetIssueViewPointList(int hubId, int projectId, int issueId)
         {
-            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + 
+            string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId +
                              ISSUE_ROUTE + "/" + issueId + VIEWPOINT_ROUTE;
             return Perform_Get<List<ViewPoint>>(connStr);
         }

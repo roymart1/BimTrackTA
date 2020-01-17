@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -199,6 +200,23 @@ namespace BimTrackTA.API
             return Execute_Multipart_Request(connectionStr, fileName, pathToFile, metadata, Method.PUT);
         }
 
+        // This cannot be used for weird ids, such as HubUser/ProjectUser and sheet revisions
+        protected T Get_Object_From_List<T>(List<T> objectList, int idToFind)
+        {
+            if (objectList.Count > 0)
+            {
+                foreach (dynamic obj in objectList)
+                {
+                    if (obj.Id != null && obj.Id == idToFind)
+                    {
+                        return obj;
+                    }
+                }
+                throw new BTException("Requested id not found in the object's list: " + idToFind);
+            }
+            throw new Exception("Provided list is empty.");
+        }
+        
         private string Create_Json_Payload(object obj)
         {
             if (obj is string s)

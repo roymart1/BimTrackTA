@@ -14,6 +14,12 @@ namespace BimTrackTA.API
             string connStr = API_VERSION + HUB_ROUTE + "/" + hubId + PROJ_ROUTE + "/" + projectId + TYPE_ROUTE;
             return Perform_Get<List<BimType>>(connStr);
         }
+        
+        public BimType GetProjectType(int hubId, int projectId, int typeId)
+        {
+            List<BimType> types = GetProjectTypes(hubId, projectId);
+            return Get_Object_From_List(types, typeId);
+        }
 
         public int CreateProjectType(int hubId, int projectId, BimType bimType)
         {

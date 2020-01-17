@@ -15,6 +15,12 @@ namespace BimTrackTA.API
             return Perform_Get<List<Folder>>(connStr);
         }
 
+        public Folder GetProjectModelFolder(int hubId, int projectId, int folderId)
+        {
+            List<Folder> folders = GetProjectModelFolderList(hubId, projectId);
+            return Get_Object_From_List(folders, folderId);
+        }
+
         public int CreateProjectModelFolder(int hubId, int projectId, Folder folder)
         {
             // Validate that the object is fine

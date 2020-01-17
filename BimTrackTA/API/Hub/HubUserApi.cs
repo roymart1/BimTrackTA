@@ -21,6 +21,18 @@ namespace BimTrackTA.API
             return Perform_Get<List<HubUser>>(connStr);
         }
 
+        public HubUser GetHubUser(int hubId, string email)
+        {
+            List<HubUser> hubUsers = GetHubUsers(hubId);
+            return hubUsers.Find(user => user.User.Email.ToLower() == email.ToLower());
+        }
+        
+        public HubUser GetHubUser(int hubId, int userId)
+        {
+            List<HubUser> hubUsers = GetHubUsers(hubId);
+            return hubUsers.Find(user => user.User.Id == userId);
+        }
+
         public int CreateHubUser(int hubId, string email, UserType userType=UserType.Admin)
         {
             // Pretty straightforward: send an email and a user type. The framework manages the rest.
