@@ -31,7 +31,7 @@ namespace SeleniumTest.Common
                 new EventHandler<FindElementEventArgs>(firingDriver_FindElementCompleted);
 
             CTX.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            CTX.driver = CTX.ef_driver;
+            //CTX.driver = CTX.ef_driver;
         }
         
         private static void firingDriver_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)
